@@ -353,8 +353,8 @@
             <hr style="background-color: #444;">
 
             <div class="content has-text-centered">
-                <p>
-                    <strong>&copy; 2024 Gender and Development (GAD) Office - Philippines</strong> | 
+                <p style="color: white;">
+                   &copy; 2024 Gender and Development (GAD) Office - Philippines | 
                     All rights reserved. | 
                     <a href="#">Privacy Policy</a> | 
                     <a href="#">Terms of Service</a>
