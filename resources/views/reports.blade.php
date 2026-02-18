@@ -1,6 +1,6 @@
 @extends('layouts.bulma')
 
-@section('title', 'Research & Reports - GAD Philippines')
+@section('title', 'Research & Reports - CatSu GAD')
 
 @section('content')
 <style>
@@ -449,7 +449,7 @@
         <div style="background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08); overflow: hidden;">
             <div class="columns is-gapless">
                 <div class="column is-7" style="padding: 2.5rem;">
-                    <h4 class="title is-5" style="color: #667eea; margin-bottom: 1rem;">GAD Philippines Statistical Yearbook 2024</h4>
+                    <h4 class="title is-5" style="color: #667eea; margin-bottom: 1rem;">CatSu GAD Statistical Yearbook 2024</h4>
                     <p style="color: #666; line-height: 1.8; margin-bottom: 1.5rem;">
                         Comprehensive compilation of gender-related statistics covering population, health, 
                         education, employment, poverty, violence, and political participation. Includes trend 

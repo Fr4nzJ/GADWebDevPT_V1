@@ -380,7 +380,7 @@
             <div class="timeline-items">
                 <div class="timeline-item">
                     <div class="timeline-year">2019</div>
-                    <div class="timeline-text">GAD Philippines established with initial programs focusing on VAWG prevention and economic empowerment</div>
+                    <div class="timeline-text">CatSu GAD established with initial programs focusing on VAWG prevention and economic empowerment</div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-year">2020</div>
@@ -576,5 +576,4 @@
     });
 </script>
 
-@endsection
 @endsection

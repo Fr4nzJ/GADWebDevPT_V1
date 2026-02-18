@@ -1,6 +1,6 @@
 @extends('layouts.bulma')
 
-@section('title', 'About GAD Philippines - Our Mandate, Vision & Mission')
+@section('title', 'About CatSu GAD - Our Mandate, Vision & Mission')
 
 @section('content')
 <style>
@@ -120,8 +120,6 @@
             grid-template-columns: 1fr;
         }
     }
-</style>
-    
     .hero-gradient {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         position: relative;
@@ -186,14 +184,14 @@
                 <div class="card-icon"><i class="fas fa-eye"></i></div>
                 <h3 class="card-title">Our Vision</h3>
                 <p class="card-description">
-                    A Philippines where gender equality is fully realized and all citizens participate equally in all aspects of social, economic, and political life.
+                   A gender sensitive and responsive university in a safe and peaceful environment free from any form of violence
                 </p>
             </div>
             <div class="mission-card">
                 <div class="card-icon" style="background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"><i class="fas fa-bullseye"></i></div>
                 <h3 class="card-title" style="color: #2c3e50;">Our Mission</h3>
                 <p class="card-description" style="color: #666;">
-                    To advance gender equality through evidence-based policy advocacy, capacity building, institutional coordination, and strategic partnerships that eliminate discrimination.
+                    Faster gender and development advocacy, promote peaceful and safe environment and strengthen partnership network toward achieving equality for all
                 </p>
             </div>
         </div>
@@ -203,38 +201,20 @@
 <!-- ===== CORE VALUES - VISUAL GRID ===== -->
 <section class="section" style="padding: 4rem 1.5rem; background: #f8f9fa;">
     <div class="container">
-        <h2 class="section-title">Our Core Values & Principles</h2>
+        <h2 class="section-title">Our Objectives</h2>
 
         <div class="values-grid">
             <div class="value-box">
                 <div class="value-icon"><i class="fas fa-hands-helping"></i></div>
-                <h4 style="color: #2c3e50; font-weight: 600; margin: 0.5rem 0;">Inclusivity</h4>
-                <p style="color: #666; font-size: 0.9rem; margin: 0;">All voices heard, especially marginalized groups</p>
-            </div>
-            <div class="value-box">
-                <div class="value-icon"><i class="fas fa-balance-scale"></i></div>
-                <h4 style="color: #2c3e50; font-weight: 600; margin: 0.5rem 0;">Equality</h4>
-                <p style="color: #666; font-size: 0.9rem; margin: 0;">Equal opportunities, rights, and benefits for all</p>
-            </div>
-            <div class="value-box">
-                <div class="value-icon"><i class="fas fa-users"></i></div>
-                <h4 style="color: #2c3e50; font-weight: 600; margin: 0.5rem 0;">Empowerment</h4>
-                <p style="color: #666; font-size: 0.9rem; margin: 0;">Building capacity for lasting change</p>
+                <p style="color: #666; font-size: 0.9rem; margin: 0;">Integrate GAD concepts in the circular agenda</p>
             </div>
             <div class="value-box">
                 <div class="value-icon"><i class="fas fa-microscope"></i></div>
-                <h4 style="color: #2c3e50; font-weight: 600; margin: 0.5rem 0;">Evidence-Based</h4>
-                <p style="color: #666; font-size: 0.9rem; margin: 0;">Grounded in research and best practices</p>
+                <p style="color: #666; font-size: 0.9rem; margin: 0;">Conduct Gad-related research and gender-responsive extensionservices</p>
             </div>
             <div class="value-box">
-                <div class="value-icon"><i class="fas fa-handshake"></i></div>
-                <h4 style="color: #2c3e50; font-weight: 600; margin: 0.5rem 0;">Partnership</h4>
-                <p style="color: #666; font-size: 0.9rem; margin: 0;">Collaboration across all sectors</p>
-            </div>
-            <div class="value-box">
-                <div class="value-icon"><i class="fas fa-shield-alt"></i></div>
-                <h4 style="color: #2c3e50; font-weight: 600; margin: 0.5rem 0;">Accountability</h4>
-                <p style="color: #666; font-size: 0.9rem; margin: 0;">Transparency and regular reporting</p>
+                <div class="value-icon"><i class="fas fa-users"></i></div>
+                <p style="color: #666; font-size: 0.9rem; margin: 0;">Institutionalize GAD enabling mechanisms</p>
             </div>
         </div>
     </div>
@@ -246,27 +226,18 @@
         <h2 class="section-title">Our Mandate</h2>
 
         <div style="background: linear-gradient(135deg, #667eea15, #764ba215); border-left: 4px solid #667eea; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
-            <h4 style="color: #667eea; font-weight: 600; margin-bottom: 0.5rem;">Legal Foundation</h4>
-            <p style="color: #555; margin: 0;">GAD operates under constitutional and legislative mandates to advance gender equality nationwide.</p>
+            <p style="color: #555; margin: 0;">The Catanduanes State University, in adherence to statutes, undertakes advocacy on gender equality and equity by implementing enabling policies and mechanisms including non-sexist programs, projects and other GAD-related activities.</p>
         </div>
+    </div>
+</section>
 
-        <div class="mandate-visual">
-            <div class="mandate-card">
-                <h5 style="color: #667eea; font-weight: 700; margin-bottom: 0.5rem;">Constitution (1987)</h5>
-                <p style="font-size: 0.9rem; color: #666; line-height: 1.6;">Article II, Section 14: The State recognizes the role of women in nation-building and ensures fundamental equality.</p>
-            </div>
-            <div class="mandate-card">
-                <h5 style="color: #667eea; font-weight: 700; margin-bottom: 0.5rem;">PPGD Framework</h5>
-                <p style="font-size: 0.9rem; color: #666; line-height: 1.6;">National framework integrating gender principles in all government programs and policies.</p>
-            </div>
-            <div class="mandate-card">
-                <h5 style="color: #667eea; font-weight: 700; margin-bottom: 0.5rem;">Executive Order No. 80</h5>
-                <p style="font-size: 0.9rem; color: #666; line-height: 1.6;">Institutionalizes gender-responsive development in all national development initiatives.</p>
-            </div>
-            <div class="mandate-card">
-                <h5 style="color: #667eea; font-weight: 700; margin-bottom: 0.5rem;">CEDAW Convention</h5>
-                <p style="font-size: 0.9rem; color: #666; line-height: 1.6;">Philippine commitment to eliminate gender discrimination and promote women's rights internationally.</p>
-            </div>
+<!-- ===== GOALISUAL FORMAT ===== -->
+<section class="section" style="padding: 4rem 1.5rem; background: white;">
+    <div class="container">
+        <h2 class="section-title">Our Goal</h2>
+
+        <div style="background: linear-gradient(135deg, #667eea15, #764ba215); border-left: 4px solid #667eea; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
+            <p style="color: #555; margin: 0;">Mainstream gender and development in the four-fold functions of the institution.
         </div>
     </div>
 </section>

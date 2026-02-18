@@ -1,6 +1,6 @@
 @extends('layouts.bulma')
 
-@section('title', 'Latest News & Updates - GAD Philippines')
+@section('title', 'Latest News & Updates - CatSu GAD')
 
 @section('content')
 <!-- ===== HERO SECTION ===== -->
@@ -89,7 +89,7 @@
                             </p>
                             <div class="content">
                                 <p>
-                                    GAD Philippines hosted a nationwide celebration of International Women's Day with the theme 
+                                    CatSu GAD hosted a nationwide celebration of International Women's Day with the theme 
                                     "Invest in Women: Accelerate Progress." The event featured keynote speeches from prominent women 
                                     leaders, interactive workshops, and recognition of outstanding women achievers across different sectors. 
                                     Over 5,000 participants from government agencies, NGOs, and communities attended the main event 

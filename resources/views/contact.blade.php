@@ -1,6 +1,6 @@
 @extends('layouts.bulma')
 
-@section('title', 'Contact Us - GAD Philippines')
+@section('title', 'Contact Us - CatSu GAD')
 
 @section('content')
 <style>

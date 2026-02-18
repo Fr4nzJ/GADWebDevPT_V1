@@ -241,10 +241,8 @@
         <div class="navbar-brand">
             <a class="navbar-item" href="{{ route('welcome') }}">
                 <span class="icon-text">
-                    <span class="icon">
-                        <i class="fas fa-heart" style="color: #667eea;"></i>
-                    </span>
-                    <span style="color: #667eea; font-weight: bold;">GAD Philippines</span>
+                    <img src="{{ asset('images/logo.svg') }}" alt="CatSu GAD Logo" style="height: 40px; margin-right: 10px;">
+                    <span style="color: #667eea; font-weight: bold;">CatSu GAD</span>
                 </span>
             </a>
 
@@ -315,7 +313,7 @@
             <div class="columns">
                 <!-- About Footer -->
                 <div class="column is-4">
-                    <h4 class="footer-title">About GAD Philippines</h4>
+                    <h4 class="footer-title">About CatSu GAD</h4>
                     <p>
                         The Gender and Development (GAD) Office is committed to promoting gender equality 
                         and empowering women and LGBTQ+ communities through evidence-based policies, programs, 

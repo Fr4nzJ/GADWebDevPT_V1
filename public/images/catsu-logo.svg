@@ -1,0 +1,45 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer gold circle (border) -->
+  <circle cx="100" cy="100" r="95" fill="none" stroke="#DAA520" stroke-width="3"/>
+  
+  <!-- Inner white circle -->
+  <circle cx="100" cy="100" r="90" fill="white" stroke="#DAA520" stroke-width="2"/>
+  
+  <!-- Gold background for seal -->
+  <circle cx="100" cy="100" r="85" fill="#F4D03F"/>
+  
+  <!-- Shield shape background - left half (blue) -->
+  <path d="M 70 50 L 70 130 Q 70 150 100 160 Q 70 150 70 130 Z" fill="#00205B"/>
+  
+  <!-- Shield shape background - right half (red) -->
+  <path d="M 130 50 L 130 130 Q 130 150 100 160 Q 130 150 130 130 Z" fill="#DC143C"/>
+  
+  <!-- White banner/book in center -->
+  <rect x="80" y="110" width="40" height="25" fill="white" stroke="#333" stroke-width="1"/>
+  <line x1="100" y1="110" x2="100" y2="135" stroke="#333" stroke-width="1"/>
+  
+  <!-- Year 1961 on book -->
+  <text x="85" y="128" font-size="10" font-weight="bold" fill="#333">1961</text>
+  
+  <!-- Torch with flame in center -->
+  <rect x="95" y="45" width="10" height="35" fill="#8B4513"/>
+  <circle cx="100" cy="45" r="8" fill="#FFD700"/>
+  
+  <!-- Flame -->
+  <path d="M 100 30 Q 95 35 97 45 Q 100 40 103 45 Q 105 35 100 30" fill="#FF6347"/>
+  <path d="M 100 35 Q 97 38 98 43 Q 100 39 102 43 Q 103 38 100 35" fill="#FFD700"/>
+  
+  <!-- Sun symbol (yellow circle with rays) on red side -->
+  <circle cx="130" cy="75" r="8" fill="#FFD700"/>
+  <line x1="130" y1="60" x2="130" y2="50" stroke="#FFD700" stroke-width="2"/>
+  <line x1="130" y1="90" x2="130" y2="100" stroke="#FFD700" stroke-width="2"/>
+  
+  <!-- Atom symbol on blue side -->
+  <circle cx="70" cy="75" r="6" fill="white" stroke="#FFFFFF" stroke-width="1"/>
+  <ellipse cx="70" cy="75" rx="12" ry="6" fill="none" stroke="white" stroke-width="1"/>
+  <ellipse cx="70" cy="75" rx="6" ry="12" fill="none" stroke="white" stroke-width="1"/>
+  
+  <!-- Waves symbol (bottom center) -->
+  <path d="M 85 145 Q 90 140 100 145 Q 110 150 115 145" fill="none" stroke="#00205B" stroke-width="1.5"/>
+  <path d="M 85 152 Q 90 147 100 152 Q 110 157 115 152" fill="none" stroke="#00205B" stroke-width="1.5"/>
+</svg>

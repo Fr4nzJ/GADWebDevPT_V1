@@ -220,7 +220,7 @@
             <!-- Report 5 -->
             <tr>
                 <td style="padding: 1.25rem; border: none;">
-                    <strong style="color: #2c3e50;">GAD Philippines Statistical Yearbook 2024</strong>
+                    <strong style="color: #2c3e50;">CatSu GAD Statistical Yearbook 2024</strong>
                 </td>
                 <td style="padding: 1.25rem; border: none;">
                     <span style="background: #faf8ff; color: #764ba2; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">Policy Brief</span>
