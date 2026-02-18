@@ -25,15 +25,17 @@
     }
     
     .stat-number {
-        font-size: 2.5rem;
+       font-size: 2.5rem;
         font-weight: 800;
         margin-bottom: 0.5rem;
+        
     }
     
     .stat-label {
         font-size: 0.95rem;
         opacity: 0.95;
         margin-bottom: 0.5rem;
+        color: white;
     }
     
     .trend-indicator {
@@ -56,7 +58,7 @@
 <div class="columns is-multiline">
     <div class="column is-6-tablet is-3-desktop">
         <div class="stat-card blue">
-            <div class="stat-number">48</div>
+            <div class="stat-number" style="color: white;">48</div>
             <div class="stat-label">News Posts</div>
             <p class="trend-indicator" >
                 <i class="fas fa-arrow-up" style="color: #48c774; margin-right: 0.25rem;"></i>
@@ -67,7 +69,7 @@
 
     <div class="column is-6-tablet is-3-desktop">
         <div class="stat-card purple">
-            <div class="stat-number">35</div>
+            <div class="stat-number" style="color: white;">35</div>
             <div class="stat-label">Events Scheduled</div>
             <p class="trend-indicator">
                 <i class="fas fa-arrow-up" style="color: #48c774; margin-right: 0.25rem;"></i>
@@ -78,7 +80,7 @@
 
     <div class="column is-6-tablet is-3-desktop">
         <div class="stat-card green">
-            <div class="stat-number">26</div>
+            <div class="stat-number" style="color: white;">26</div>
             <div class="stat-label">Programs Active</div>
             <p class="trend-indicator">
                 <i class="fas fa-minus" style="margin-right: 0.25rem;"></i>
@@ -89,7 +91,7 @@
 
     <div class="column is-6-tablet is-3-desktop">
         <div class="stat-card orange">
-            <div class="stat-number">52</div>
+            <div class="stat-number" style="color: white;">52</div>
             <div class="stat-label">Reports Published</div>
             <p class="trend-indicator">
                 <i class="fas fa-arrow-up" style="color: #48c774; margin-right: 0.25rem;"></i>
@@ -100,7 +102,7 @@
 
     <div class="column is-6-tablet is-3-desktop">
         <div class="stat-card red">
-            <div class="stat-number">24</div>
+            <div class="stat-number" style="color: white;">24</div>
             <div class="stat-label">Admin Users</div>
             <p class="trend-indicator">
                 <i class="fas fa-arrow-up" style="color: #48c774; margin-right: 0.25rem;"></i>
