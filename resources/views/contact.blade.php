@@ -3,6 +3,50 @@
 @section('title', 'Contact Us - GAD Philippines')
 
 @section('content')
+<style>
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 3rem;
+        color: #2c3e50;
+        position: relative;
+        padding-bottom: 1rem;
+    }
+    
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        border-radius: 2px;
+    }
+    
+    .contact-channel-card {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border-left: 4px solid #667eea;
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+    
+    .contact-channel-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+    
+    .contact-channel-icon {
+        font-size: 2rem;
+        color: #667eea;
+        margin-bottom: 1rem;
+        display: inline-block;
+    }
+</style>
+
 <!-- ===== HERO SECTION ===== -->
 <section class="hero hero-gradient is-medium">
     <div class="hero-body">
@@ -11,7 +55,7 @@
                 Contact Us
             </h1>
             <p class="subtitle is-4" style="color: #f0f0f0;">
-                We'd Love to Hear From You
+                We're Here to Help & Listen to You
             </p>
         </div>
     </div>
@@ -26,6 +70,51 @@
                 <li class="is-active"><a href="{{ route('contact') }}" aria-current="page">Contact</a></li>
             </ul>
         </nav>
+    </div>
+</section>
+
+<!-- ===== CONTACT CHANNELS OVERVIEW ===== -->
+<section class="section" style="background: linear-gradient(135deg, #f5f7ff 0%, #f0edff 100%);">
+    <div class="container">
+        <h2 class="section-title">Quick Contact Methods</h2>
+        
+        <div class="columns is-multiline">
+            <div class="column is-6-tablet is-3-desktop">
+                <div class="contact-channel-card">
+                    <div class="contact-channel-icon"><i class="fas fa-envelope"></i></div>
+                    <h4 class="title is-5" style="color: #667eea; margin-bottom: 0.5rem;">Email</h4>
+                    <p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">Send us your inquiries</p>
+                    <p style="color: #667eea; font-weight: 600; font-size: 0.9rem;"><a href="mailto:gad@gov.ph">gad@gov.ph</a></p>
+                </div>
+            </div>
+            
+            <div class="column is-6-tablet is-3-desktop">
+                <div class="contact-channel-card" style="border-left-color: #764ba2;">
+                    <div class="contact-channel-icon" style="color: #764ba2;"><i class="fas fa-phone"></i></div>
+                    <h4 class="title is-5" style="color: #764ba2; margin-bottom: 0.5rem;">Phone</h4>
+                    <p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">Call our main office</p>
+                    <p style="color: #764ba2; font-weight: 600; font-size: 0.9rem;">( 632) 811-5678</p>
+                </div>
+            </div>
+            
+            <div class="column is-6-tablet is-3-desktop">
+                <div class="contact-channel-card" style="border-left-color: #48c774;">
+                    <div class="contact-channel-icon" style="color: #48c774;"><i class="fas fa-map-marker-alt"></i></div>
+                    <h4 class="title is-5" style="color: #48c774; margin-bottom: 0.5rem;">Visit Us</h4>
+                    <p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">Quezon City office</p>
+                    <p style="color: #48c774; font-weight: 600; font-size: 0.85rem;">15 Development Avenue</p>
+                </div>
+            </div>
+            
+            <div class="column is-6-tablet is-3-desktop">
+                <div class="contact-channel-card" style="border-left-color: #f0ad4e;">
+                    <div class="contact-channel-icon" style="color: #f0ad4e;"><i class="fas fa-watch"></i></div>
+                    <h4 class="title is-5" style="color: #f0ad4e; margin-bottom: 0.5rem;">Hotline</h4>
+                    <p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">24/7 VAWC Support</p>
+                    <p style="color: #f0ad4e; font-weight: 600; font-size: 0.9rem;">Ext. 2540</p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 

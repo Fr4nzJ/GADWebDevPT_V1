@@ -47,4 +47,31 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// ===== ADMIN ROUTES =====
+Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+    
+    Route::get('/news', function () {
+        return view('admin.news.index');
+    })->name('admin.news.index');
+    
+    Route::get('/events', function () {
+        return view('admin.events.index');
+    })->name('admin.events.index');
+    
+    Route::get('/programs', function () {
+        return view('admin.programs.index');
+    })->name('admin.programs.index');
+    
+    Route::get('/reports', function () {
+        return view('admin.reports.index');
+    })->name('admin.reports.index');
+    
+    Route::get('/users', function () {
+        return view('admin.users.index');
+    })->name('admin.users.index');
+});
+
 require __DIR__.'/auth.php';

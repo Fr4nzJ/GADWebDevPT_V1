@@ -3,6 +3,68 @@
 @section('title', 'GAD Programs & Projects - Empowering Communities')
 
 @section('content')
+<style>
+    .program-category-card {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .program-category-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+    }
+    
+    .program-category-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+    
+    .program-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 3rem;
+        color: #2c3e50;
+        position: relative;
+        padding-bottom: 1rem;
+    }
+    
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        border-radius: 2px;
+    }
+</style>
+
 <!-- ===== HERO SECTION ===== -->
 <section class="hero hero-gradient is-large">
     <div class="hero-body">
@@ -29,12 +91,124 @@
     </div>
 </section>
 
+<!-- ===== PROGRAM CATEGORIES OVERVIEW ===== -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Program Categories</h2>
+        
+        <div class="columns is-multiline">
+            <div class="column is-4-tablet is-6-desktop">
+                <div class="program-category-card">
+                    <div class="program-icon" style="background: linear-gradient(135deg, #667eea, #3273dc);">
+                        <i class="fas fa-female"></i>
+                    </div>
+                    <h3 class="title is-5" style="color: #667eea; margin-bottom: 0.5rem;">Women Empowerment</h3>
+                    <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Economic independence, entrepreneurship & financial literacy for women</p>
+                    <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;"><strong>3 Active Programs</strong></p>
+                </div>
+            </div>
+            
+            <div class="column is-4-tablet is-6-desktop">
+                <div class="program-category-card">
+                    <div class="program-icon" style="background: linear-gradient(135deg, #764ba2, #667eea);">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="title is-5" style="color: #764ba2; margin-bottom: 0.5rem;">Education & Skills</h3>
+                    <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Gender-sensitive education, training & professional development</p>
+                    <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;"><strong>2 Active Programs</strong></p>
+                </div>
+            </div>
+            
+            <div class="column is-4-tablet is-6-desktop">
+                <div class="program-category-card">
+                    <div class="program-icon" style="background: linear-gradient(135deg, #48c774, #2eb869);">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 class="title is-5" style="color: #48c774; margin-bottom: 0.5rem;">Safety & Protection</h3>
+                    <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Violence prevention, survivor support & advocacy programs</p>
+                    <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;"><strong>1 Active Program</strong></p>
+                </div>
+            </div>
+            
+            <div class="column is-4-tablet is-6-desktop">
+                <div class="program-category-card">
+                    <div class="program-icon" style="background: linear-gradient(135deg, #f0ad4e, #ffb81c);">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3 class="title is-5" style="color: #f0ad4e; margin-bottom: 0.5rem;">Leadership Dev.</h3>
+                    <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Women leaders pipeline & political participation programs</p>
+                    <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;"><strong>1 Active Program</strong></p>
+                </div>
+            </div>
+            
+            <div class="column is-4-tablet is-6-desktop">
+                <div class="program-category-card">
+                    <div class="program-icon" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                        <i class="fas fa-rainbow"></i>
+                    </div>
+                    <h3 class="title is-5" style="color: #e74c3c; margin-bottom: 0.5rem;">LGBTQ+ Rights</h3>
+                    <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Inclusion, rights protection & anti-discrimination initiatives</p>
+                    <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;"><strong>1 Active Program</strong></p>
+                </div>
+            </div>
+            
+            <div class="column is-4-tablet is-6-desktop">
+                <div class="program-category-card">
+                    <div class="program-icon" style="background: linear-gradient(135deg, #3273dc, #0162f0);">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="title is-5" style="color: #3273dc; margin-bottom: 0.5rem;">Mainstreaming</h3>
+                    <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">Gender mainstreaming in policy, budgets & institutional operations</p>
+                    <p style="color: #999; font-size: 0.85rem; margin-top: 1rem;"><strong>1 Active Program</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PROGRAM STATISTICS ===== -->
+<section class="section" style="background: linear-gradient(135deg, #f5f7ff 0%, #f0edff 100%);">
+    <div class="container">
+        <div class="columns is-multiline">
+            <div class="column is-6-tablet is-3-desktop">
+                <div class="box has-text-centered" style="background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+                    <h3 class="title is-2" style="color: #667eea; margin-bottom: 0.5rem;">8</h3>
+                    <p style="color: #2c3e50; font-weight: 600;">Active Programs</p>
+                    <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">Ongoing initiatives</p>
+                </div>
+            </div>
+            
+            <div class="column is-6-tablet is-3-desktop">
+                <div class="box has-text-centered" style="background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+                    <h3 class="title is-2" style="color: #764ba2; margin-bottom: 0.5rem;">250K+</h3>
+                    <p style="color: #2c3e50; font-weight: 600;">Beneficiaries</p>
+                    <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">This year</p>
+                </div>
+            </div>
+            
+            <div class="column is-6-tablet is-3-desktop">
+                <div class="box has-text-centered" style="background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+                    <h3 class="title is-2" style="color: #48c774; margin-bottom: 0.5rem;">₱600M+</h3>
+                    <p style="color: #2c3e50; font-weight: 600;">Total Budget</p>
+                    <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">Allocated funds</p>
+                </div>
+            </div>
+            
+            <div class="column is-6-tablet is-3-desktop">
+                <div class="box has-text-centered" style="background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+                    <h3 class="title is-2" style="color: #f0ad4e; margin-bottom: 0.5rem;">17</h3>
+                    <p style="color: #2c3e50; font-weight: 600;">Regions</p>
+                    <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">Nationwide coverage</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- ===== PROGRAM FILTER (Alpine.js) ===== -->
 <section class="section">
     <div class="container" x-data="{ activeFilter: 'all' }">
-        <div class="content mb-4">
-            <h2 class="section-title">Filter Programs</h2>
-        </div>
+        <h2 class="section-title">Active Programs</h2>
 
         <div class="buttons mb-5" style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
             <button class="button" 

@@ -3,6 +3,45 @@
 @section('title', 'Dashboard - GAD Admin Panel')
 
 @section('content')
+<style>
+    .stat-card {
+        border-radius: 12px;
+        padding: 1.5rem;
+        color: white;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .stat-card.blue { background: linear-gradient(135deg, #667eea, #3273dc); }
+    .stat-card.purple { background: linear-gradient(135deg, #764ba2, #667eea); }
+    .stat-card.green { background: linear-gradient(135deg, #48c774, #2eb869); }
+    .stat-card.orange { background: linear-gradient(135deg, #f0ad4e, #ffb81c); }
+    .stat-card.red { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+    
+    .stat-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+        font-size: 0.95rem;
+        opacity: 0.95;
+        margin-bottom: 0.5rem;
+    }
+    
+    .trend-indicator {
+        font-size: 0.85rem;
+        opacity: 0.9;
+    }
+</style>
+
 <!-- ===== PAGE HEADER ===== -->
 <div class="page-header">
     <h1 class="page-title">Dashboard</h1>
@@ -18,8 +57,8 @@
     <div class="column is-6-tablet is-3-desktop">
         <div class="stat-card blue">
             <div class="stat-number">48</div>
-            <div class="stat-label">Total News Posts</div>
-            <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">
+            <div class="stat-label">News Posts</div>
+            <p class="trend-indicator" >
                 <i class="fas fa-arrow-up" style="color: #48c774; margin-right: 0.25rem;"></i>
                 12 this month
             </p>
@@ -29,8 +68,8 @@
     <div class="column is-6-tablet is-3-desktop">
         <div class="stat-card purple">
             <div class="stat-number">35</div>
-            <div class="stat-label">Total Events</div>
-            <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">
+            <div class="stat-label">Events Scheduled</div>
+            <p class="trend-indicator">
                 <i class="fas fa-arrow-up" style="color: #48c774; margin-right: 0.25rem;"></i>
                 8 this month
             </p>
@@ -40,9 +79,9 @@
     <div class="column is-6-tablet is-3-desktop">
         <div class="stat-card green">
             <div class="stat-number">26</div>
-            <div class="stat-label">Total Programs</div>
-            <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">
-                <i class="fas fa-minus" style="color: #999; margin-right: 0.25rem;"></i>
+            <div class="stat-label">Programs Active</div>
+            <p class="trend-indicator">
+                <i class="fas fa-minus" style="margin-right: 0.25rem;"></i>
                 No changes
             </p>
         </div>
@@ -51,8 +90,8 @@
     <div class="column is-6-tablet is-3-desktop">
         <div class="stat-card orange">
             <div class="stat-number">52</div>
-            <div class="stat-label">Total Reports</div>
-            <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">
+            <div class="stat-label">Reports Published</div>
+            <p class="trend-indicator">
                 <i class="fas fa-arrow-up" style="color: #48c774; margin-right: 0.25rem;"></i>
                 5 this month
             </p>
@@ -62,8 +101,8 @@
     <div class="column is-6-tablet is-3-desktop">
         <div class="stat-card red">
             <div class="stat-number">24</div>
-            <div class="stat-label">Total Users</div>
-            <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">
+            <div class="stat-label">Admin Users</div>
+            <p class="trend-indicator">
                 <i class="fas fa-arrow-up" style="color: #48c774; margin-right: 0.25rem;"></i>
                 3 new users
             </p>
@@ -297,3 +336,4 @@
     });
 </script>
 @endsection
+
