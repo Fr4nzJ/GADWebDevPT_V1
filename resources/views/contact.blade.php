@@ -1,21 +1,8 @@
-@section('extra_css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-    <style>
-        #map {
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        .leaflet-popup-content {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            max-width: 300px;
-        }
-        .leaflet-popup-content h4 {
-            margin-top: 0;
-            color: #667eea;
-            font-weight: 600;
-        }
-    </style>
-@endsection
+@extends('layouts.bulma')
+
+@section('title', 'Contact Us - CatSu GAD')
+
+@section('content')
 <style>
     .section-title {
         font-size: 2.5rem;
@@ -366,12 +353,23 @@
     </div>
 </section>
 
-<!-- ===== OPENSTREETMAP WITH LEAFLET ===== -->
+<!-- ===== GOOGLE MAPS EMBED ===== -->
 <section class="section">
     <div class="container">
         <h2 class="section-title">Location Map</h2>
         <div class="box">
-            <div id="map" style="width: 100%; height: 450px; border-radius: 4px; overflow: hidden;"></div>
+            <div class="map-container" style="position: relative; width: 100%; height: 450px; border-radius: 4px; overflow: hidden;">
+                <iframe 
+                    width="100%" 
+                    height="450" 
+                    frameborder="0" 
+                    style="border:0" 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3859.7539906180303!2d121.05641631534183!3d14.636369286390758!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397b7d9f5c5c5c5%3A0x5c5c5c5c5c5c5c5c!2s15%20Development%20Avenue%2C%20Quezon%20City%2C%201101%20Metro%20Manila!5e0!3m2!1sen!2sph!4v1234567890" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
         </div>
     </div>
 </section>
