@@ -312,6 +312,50 @@
     </div>
 </section>
 
+<!-- ===== INSTITUTIONAL PARTNERSHIP ===== -->
+<section class="section" style="padding: 4rem 1.5rem; background: white;">
+    <div class="container">
+        <h2 class="section-title">Our Institutional Partnership</h2>
+
+        <div style="background: linear-gradient(135deg, #667eea15, #764ba215); border-radius: 12px; padding: 3rem 2rem; margin-bottom: 2rem;">
+            <div class="columns is-vcentered is-centered">
+                <!-- CatSu GAD Logo -->
+                <div class="column is-one-third has-text-centered">
+                    <div style="margin-bottom: 1.5rem;">
+                        <img src="{{ asset('images/logo.svg') }}" alt="CatSu GAD Logo" style="height: 120px; width: auto;">
+                    </div>
+                    <h4 style="color: #2c3e50; font-weight: 600; margin-bottom: 0.5rem;">CatSu GAD</h4>
+                    <p style="color: #666; font-size: 0.95rem;">Gender and Development Office</p>
+                </div>
+
+                <!-- Connection Icon -->
+                <div class="column is-one-quarter has-text-centered" style="padding: 0 1rem;">
+                    <div style="font-size: 2.5rem; color: #667eea;"><i class="fas fa-link"></i></div>
+                    <p style="color: #667eea; font-weight: 600; margin-top: 1rem; font-size: 0.9rem;">Connected<br>Through</p>
+                </div>
+
+                <!-- Catanduanes State University Logo -->
+                <div class="column is-one-third has-text-centered">
+                    <div style="margin-bottom: 1.5rem;">
+                        <img src="{{ asset('images/catsu-logo.svg') }}" alt="Catanduanes State University Logo" style="height: 120px; width: auto;">
+                    </div>
+                    <h4 style="color: #2c3e50; font-weight: 600; margin-bottom: 0.5rem;">Catanduanes State University</h4>
+                    <p style="color: #666; font-size: 0.95rem;">Since 1961</p>
+                </div>
+            </div>
+
+            <div style="border-top: 1px solid rgba(102, 126, 234, 0.2); margin-top: 2rem; padding-top: 2rem; text-align: center;">
+                <p style="color: #555; margin: 0; line-height: 1.8;">
+                    <strong>CatSu GAD</strong> operates as the Gender and Development Office of <strong>Catanduanes State University</strong>, 
+                    advancing gender equality and development advocacy within the university and across the province. Our partnership 
+                    combines institutional strength with community engagement to promote gender-sensitive policies, programs, and practices 
+                    that benefit all stakeholders.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- ===== CALL TO ACTION ===== -->
 <section class="section" style="padding: 5rem 1.5rem; background: linear-gradient(135deg, #667eea, #764ba2);">
     <div class="container has-text-centered">
