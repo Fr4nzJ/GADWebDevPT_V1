@@ -64,6 +64,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('admin.events.edit');
     Route::put('/events/{event}', [EventController::class, 'update'])->name('admin.events.update');
     Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('admin.events.destroy');
+    Route::get('/events/{event}', [EventController::class, 'show'])->name('admin.events.show');
     
     Route::get('/programs', function () {
         return view('admin.programs.index');
@@ -76,6 +77,8 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/users', function () {
         return view('admin.users.index');
     })->name('admin.users.index');
+
+    
 });
 
 require __DIR__.'/auth.php';

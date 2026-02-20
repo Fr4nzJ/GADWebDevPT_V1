@@ -7,13 +7,9 @@
 <div class="page-header" style="display: flex; align-items: center; gap: 1rem;">
     <h1 class="page-title">Manage Events</h1>
     <div style="display: flex; gap: 1rem;">
-        <a href="#" class="button" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; font-weight: 600;">
+        <a href="{{ route('admin.events.create') }}" class="button" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; font-weight: 600;">
             <span class="icon"><i class="fas fa-plus"></i></span>
             <span>Add New Event</span>
-        </a>
-        <a href="{{ route('admin.events.edit') }}" class="button" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; font-weight: 600;">
-            <span class="icon"><i class="fas fa-cog"></i></span>
-            <span>Manage Events</span>
         </a>
     </div>
 </div>
@@ -72,224 +68,186 @@
     <table class="table is-fullwidth">
         <thead>
             <tr>
-                <th style="padding: 1.25rem;">Event Name</th>
+                <th style="padding: 1.25rem;">Event</th>
                 <th style="padding: 1.25rem;">Date & Time</th>
                 <th style="padding: 1.25rem;">Location</th>
-                <th style="padding: 1.25rem;">Participants</th>
                 <th style="padding: 1.25rem;">Status</th>
                 <th style="padding: 1.25rem; text-align: center;">Actions</th>
             </tr>
         </thead>
         <tbody>
-            <!-- Event 1 -->
+            @forelse($events ?? [] as $event)
             <tr>
                 <td style="padding: 1.25rem; border: none;">
-                    <strong style="color: #2c3e50;">Gender Mainstreaming Training for Government Agencies</strong>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        {{-- NEW: Show thumbnail if event has images --}}
+                        @if($event->first_image)
+                        <div style="width: 60px; height: 60px; border-radius: 8px; overflow: hidden; flex-shrink: 0;">
+                            <img src="{{ asset('storage/' . $event->first_image) }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        @else
+                        <div style="width: 60px; height: 60px; border-radius: 8px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <i class="fas fa-calendar-alt" style="color: white; font-size: 1.5rem;"></i>
+                        </div>
+                        @endif
+                        <div>
+                            <strong style="color: #2c3e50; display: block; margin-bottom: 0.25rem;">{{ $event->title }}</strong>
+                            @if(!empty($event->images))
+                            <span style="font-size: 0.75rem; color: #667eea;">
+                                <i class="fas fa-images"></i> {{ count($event->images) }} image(s)
+                            </span>
+                            @endif
+                        </div>
+                    </div>
                 </td>
                 <td style="padding: 1.25rem; border: none;">
-                    <div style="color: #667eea; font-weight: 500; font-size: 0.95rem;">March 15-17, 2024</div>
-                    <div style="color: #999; font-size: 0.85rem;">9:00 AM - 5:00 PM</div>
+                    <div style="color: #667eea; font-weight: 500; font-size: 0.95rem;">
+                        {{ $event->event_date ? $event->event_date->format('F j, Y') : 'TBD' }}
+                    </div>
+                    <div style="color: #999; font-size: 0.85rem;">
+                        {{ $event->event_date ? $event->event_date->format('g:i A') : '' }}
+                    </div>
                 </td>
                 <td style="padding: 1.25rem; border: none;">
-                    <span style="color: #666;">NEDA Building, NCR</span>
+                    <span style="color: #666;">{{ $event->location ?? 'TBD' }}</span>
                 </td>
                 <td style="padding: 1.25rem; border: none;">
-                    <span style="background: #e8f1ff; color: #667eea; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">150</span>
+                    @php
+                        $statusClass = [
+                            'upcoming' => 'status-pending',
+                            'ongoing' => 'status-active',
+                            'completed' => 'status-published',
+                            'cancelled' => 'status-inactive'
+                        ][$event->status] ?? 'status-pending';
+                    @endphp
+                    <span class="status-badge {{ $statusClass }}">
+                        {{ ucfirst($event->status ?? 'Upcoming') }}
+                    </span>
+                </td>
+                <td style="padding: 1.25rem; border: none; text-align: center;">
+                    <div class="action-buttons">
+                        <a href="{{ route('admin.events.show', $event) }}" class="btn-action btn-view" title="View">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                        <a href="{{ route('admin.events.edit', $event) }}" class="btn-action btn-edit" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <button class="btn-action btn-delete" x-data @click="document.getElementById('deleteModalEvent{{ $event->id }}').classList.add('is-active')" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            @empty
+            {{-- Static fallback data --}}
+            @php
+                $staticEvents = [
+                    ['id' => 1, 'title' => 'Gender Mainstreaming Training', 'date' => '2024-03-15', 'time' => '9:00 AM - 5:00 PM', 'location' => 'NEDA Building, NCR', 'status' => 'upcoming', 'images' => []],
+                    ['id' => 2, 'title' => 'VAWG Prevention Program', 'date' => '2024-03-08', 'time' => '2:00 PM - 5:00 PM', 'location' => 'Various Barangay Halls', 'status' => 'ongoing', 'images' => []],
+                ];
+            @endphp
+            
+            @foreach($staticEvents as $event)
+            <tr>
+                <td style="padding: 1.25rem; border: none;">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div style="width: 60px; height: 60px; border-radius: 8px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <i class="fas fa-calendar-alt" style="color: white; font-size: 1.5rem;"></i>
+                        </div>
+                        <div>
+                            <strong style="color: #2c3e50;">{{ $event['title'] }}</strong>
+                        </div>
+                    </div>
                 </td>
                 <td style="padding: 1.25rem; border: none;">
-                    <span class="status-badge status-pending">Upcoming</span>
+                    <div style="color: #667eea; font-weight: 500; font-size: 0.95rem;">
+                        {{ \Carbon\Carbon::parse($event['date'])->format('F j, Y') }}
+                    </div>
+                    <div style="color: #999; font-size: 0.85rem;">{{ $event['time'] }}</div>
+                </td>
+                <td style="padding: 1.25rem; border: none;">
+                    <span style="color: #666;">{{ $event['location'] }}</span>
+                </td>
+                <td style="padding: 1.25rem; border: none;">
+                    @php
+                        $statusClass = [
+                            'upcoming' => 'status-pending',
+                            'ongoing' => 'status-active',
+                            'completed' => 'status-published',
+                            'cancelled' => 'status-inactive'
+                        ][$event['status']];
+                    @endphp
+                    <span class="status-badge {{ $statusClass }}">
+                        {{ ucfirst($event['status']) }}
+                    </span>
                 </td>
                 <td style="padding: 1.25rem; border: none; text-align: center;">
                     <div class="action-buttons">
                         <button class="btn-action btn-view" title="View">
                             <i class="fas fa-eye"></i>
                         </button>
-                        <button class="btn-action btn-edit" title="Edit">
+                        <a href="{{ route('admin.events.edit', $event['id']) }}" class="btn-action btn-edit" title="Edit">
                             <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn-action btn-delete" x-data @click="document.getElementById('deleteModalEvent1').classList.add('is-active')" title="Delete">
+                        </a>
+                        <button class="btn-action btn-delete" x-data @click="document.getElementById('deleteModalEvent{{ $event['id'] }}').classList.add('is-active')" title="Delete">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
                 </td>
             </tr>
-
-            <!-- Event 2 -->
-            <tr>
-                <td style="padding: 1.25rem; border: none;">
-                    <strong style="color: #2c3e50;">VAWG Prevention Program - Community Awareness</strong>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <div style="color: #667eea; font-weight: 500; font-size: 0.95rem;">March 8, 2024</div>
-                    <div style="color: #999; font-size: 0.85rem;">2:00 PM - 5:00 PM</div>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="color: #666;">Various Barangay Halls</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="background: #e8f5e9; color: #48c774; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">325</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span class="status-badge status-active">Ongoing</span>
-                </td>
-                <td style="padding: 1.25rem; border: none; text-align: center;">
-                    <div class="action-buttons">
-                        <button class="btn-action btn-view" title="View">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="btn-action btn-edit" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn-action btn-delete" x-data @click="document.getElementById('deleteModalEvent2').classList.add('is-active')" title="Delete">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-
-            <!-- Event 3 -->
-            <tr>
-                <td style="padding: 1.25rem; border: none;">
-                    <strong style="color: #2c3e50;">Women Entrepreneurs Mentorship and Networking Forum</strong>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <div style="color: #667eea; font-weight: 500; font-size: 0.95rem;">February 28, 2024</div>
-                    <div style="color: #999; font-size: 0.85rem;">10:00 AM - 6:00 PM</div>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="color: #666;">Philippine Trade Training Center</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="background: #fff8e1; color: #f0ad4e; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">218</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span class="status-badge status-published">Completed</span>
-                </td>
-                <td style="padding: 1.25rem; border: none; text-align: center;">
-                    <div class="action-buttons">
-                        <button class="btn-action btn-view" title="View">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="btn-action btn-edit" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn-action btn-delete" x-data @click="document.getElementById('deleteModalEvent3').classList.add('is-active')" title="Delete">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-
-            <!-- Event 4 -->
-            <tr>
-                <td style="padding: 1.25rem; border: none;">
-                    <strong style="color: #2c3e50;">LGBTQ+ Rights and Inclusive Governance Seminar</strong>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <div style="color: #667eea; font-weight: 500; font-size: 0.95rem;">March 22-23, 2024</div>
-                    <div style="color: #999; font-size: 0.85rem;">8:30 AM - 5:00 PM</div>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="color: #666;">Quezon City Convention Center</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="background: #ffe8e8; color: #e74c3c; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">175</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span class="status-badge status-pending">Upcoming</span>
-                </td>
-                <td style="padding: 1.25rem; border: none; text-align: center;">
-                    <div class="action-buttons">
-                        <button class="btn-action btn-view" title="View">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="btn-action btn-edit" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn-action btn-delete" x-data @click="document.getElementById('deleteModalEvent4').classList.add('is-active')" title="Delete">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-
-            <!-- Event 5 -->
-            <tr>
-                <td style="padding: 1.25rem; border: none;">
-                    <strong style="color: #2c3e50;">Youth Leaders Forum on Gender Equality</strong>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <div style="color: #667eea; font-weight: 500; font-size: 0.95rem;">February 10, 2024</div>
-                    <div style="color: #999; font-size: 0.85rem;">1:00 PM - 5:00 PM</div>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="color: #666;">University of the Philippines</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="background: #f5f5f5; color: #999; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">—</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span class="status-badge status-inactive">Cancelled</span>
-                </td>
-                <td style="padding: 1.25rem; border: none; text-align: center;">
-                    <div class="action-buttons">
-                        <button class="btn-action btn-view" title="View">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="btn-action btn-edit" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn-action btn-delete" x-data @click="document.getElementById('deleteModalEvent5').classList.add('is-active')" title="Delete">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
+            @endforeach
+            @endforelse
         </tbody>
     </table>
 </div>
 
 <!-- ===== PAGINATION ===== -->
-<nav class="pagination is-centered" role="navigation" aria-label="pagination" style="margin-top: 2rem;">
-    <a class="pagination-previous">Previous</a>
-    <a class="pagination-next">Next page</a>
-    <ul class="pagination-list">
-        <li><a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a></li>
-        <li><a class="pagination-link">2</a></li>
-    </ul>
-</nav>
+@if(isset($events) && $events->count() > 0)
+    {{ $events->links() }}
+@endif
 
 <!-- ===== DELETE MODALS ===== -->
-@for ($i = 1; $i <= 5; $i++)
-<div class="modal" id="deleteModalEvent{{ $i }}">
-    <div class="modal-background" x-data @click="document.getElementById('deleteModalEvent{{ $i }}').classList.remove('is-active')"></div>
-    <div class="modal-card">
-        <header class="modal-card-head" style="border-bottom: 2px solid #f0f0f0;">
-            <p class="modal-card-title" style="color: #2c3e50; font-weight: 700;">
-                <i class="fas fa-exclamation-circle" style="color: #e74c3c; margin-right: 0.5rem;"></i>
-                Confirm Deletion
-            </p>
-            <button class="delete" x-data @click="document.getElementById('deleteModalEvent{{ $i }}').classList.remove('is-active')"></button>
-        </header>
-        <section class="modal-card-body" style="padding: 2rem;">
-            <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
-                Are you sure you want to delete this event? All associated registrations and data will be removed.
-            </p>
-            <p style="background: #fff8e1; border-left: 4px solid #f0ad4e; padding: 1rem; border-radius: 6px; color: #666; font-size: 0.9rem;">
-                <strong>Warning:</strong> Participants will not be notified of this deletion.
-            </p>
-        </section>
-        <footer class="modal-card-foot" style="border-top: 2px solid #f0f0f0; padding: 1.5rem; display: flex; justify-content: flex-end; gap: 1rem;">
-            <button class="button" x-data @click="document.getElementById('deleteModalEvent{{ $i }}').classList.remove('is-active')">
-                Cancel
-            </button>
-            <button class="button is-danger" style="background: #e74c3c; color: white;">
-                <span class="icon"><i class="fas fa-trash"></i></span>
-                <span>Delete</span>
-            </button>
-        </footer>
+@if(isset($events) && $events->count() > 0)
+    @foreach($events as $event)
+    <div class="modal" id="deleteModalEvent{{ $event->id }}">
+        <div class="modal-background" x-data @click="document.getElementById('deleteModalEvent{{ $event->id }}').classList.remove('is-active')"></div>
+        <div class="modal-card">
+            <header class="modal-card-head" style="border-bottom: 2px solid #f0f0f0;">
+                <p class="modal-card-title" style="color: #2c3e50; font-weight: 700;">
+                    <i class="fas fa-exclamation-circle" style="color: #e74c3c; margin-right: 0.5rem;"></i>
+                    Confirm Deletion
+                </p>
+                <button class="delete" x-data @click="document.getElementById('deleteModalEvent{{ $event->id }}').classList.remove('is-active')"></button>
+            </header>
+            <section class="modal-card-body" style="padding: 2rem;">
+                @if(!empty($event->images))
+                <div style="background: #fff3cd; border-left: 4px solid #f0ad4e; padding: 1rem; border-radius: 6px; margin-bottom: 1rem;">
+                    <p style="color: #856404; font-size: 0.9rem;">
+                        <i class="fas fa-images" style="margin-right: 0.5rem;"></i>
+                        <strong>Note:</strong> This event has {{ count($event->images) }} image(s) that will also be deleted.
+                    </p>
+                </div>
+                @endif
+                <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
+                    Are you sure you want to delete <strong>{{ $event->title }}</strong>? All associated data will be removed.
+                </p>
+            </section>
+            <footer class="modal-card-foot" style="border-top: 2px solid #f0f0f0; padding: 1.5rem; display: flex; justify-content: flex-end; gap: 1rem;">
+                <button class="button" x-data @click="document.getElementById('deleteModalEvent{{ $event->id }}').classList.remove('is-active')">
+                    Cancel
+                </button>
+                <form action="{{ route('admin.events.destroy', $event) }}" method="POST" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="button is-danger" style="background: #e74c3c; color: white;">
+                        <span class="icon"><i class="fas fa-trash"></i></span>
+                        <span>Delete</span>
+                    </button>
+                </form>
+            </footer>
+        </div>
     </div>
-</div>
-@endfor
+    @endforeach
+@endif
 
 @endsection
