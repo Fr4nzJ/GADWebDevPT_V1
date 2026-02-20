@@ -2,79 +2,200 @@
 
 @section('title', 'Contact Us - CatSu GAD')
 
-@section('content')
-<style>
-    .section-title {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 3rem;
-        color: #2c3e50;
-        position: relative;
-        padding-bottom: 1rem;
-    }
-    
-    .section-title::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 60px;
-        height: 4px;
-        background: linear-gradient(90deg, #667eea, #764ba2);
-        border-radius: 2px;
-    }
-    
-    .contact-channel-card {
-        background: white;
-        border-radius: 12px;
-        padding: 2rem;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        border-left: 4px solid #667eea;
-        transition: all 0.3s ease;
-        height: 100%;
-    }
-    
-    .contact-channel-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-    }
-    
-    .contact-channel-icon {
-        font-size: 2rem;
-        color: #667eea;
-        margin-bottom: 1rem;
-        display: inline-block;
-    }
-</style>
+@section('extra_css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+    <style>
+        /* ===== HERO WITH BACKGROUND IMAGE ===== */
+        .hero-with-image {
+            position: relative;
+            width: 100%;
+            height: 65vh;
+            background-image: url("{{ asset('images/GAD Main page BG.gif') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
 
-<!-- ===== HERO SECTION ===== -->
-<section class="hero hero-gradient is-medium">
-    <div class="hero-body">
-        <div class="container has-text-centered">
-            <h1 class="title is-1" style="color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
-                Contact Us
-            </h1>
-            <p class="subtitle is-4" style="color: #f0f0f0;">
-                We're Here to Help & Listen to You
-            </p>
-        </div>
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(59, 10, 99, 0.65);
+            backdrop-filter: blur(2px);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            animation: fadeInDown 0.8s ease-out;
+            padding: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+            letter-spacing: -1px;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 2rem;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes floatingAnimation {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .hero-content {
+            animation: fadeInDown 0.8s ease-out, floatingAnimation 4s ease-in-out 1s infinite;
+        }
+
+        /* ===== PURPLE GRADIENT SECTIONS ===== */
+        .section-purple-gradient {
+            background: linear-gradient(135deg, #3b0a63 0%, #7b2cbf 50%, #5a189a 100%);
+            color: white;
+        }
+
+        .section-purple-gradient .section-title {
+            color: white;
+        }
+
+        .section-purple-gradient .section-title::after {
+            background: linear-gradient(90deg, #c77dff, #e0aaff);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        /* ===== CONTACT CHANNEL CARDS ===== */
+        .contact-channel-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .contact-channel-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .contact-channel-icon {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        #map {
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .leaflet-popup-content {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            max-width: 300px;
+        }
+        
+        .leaflet-popup-content h4 {
+            margin-top: 0;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media screen and (max-width: 768px) {
+            .hero-with-image {
+                height: 60vh;
+                background-attachment: scroll;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content .subtitle {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+@endsection
+
+@section('content')
+
+<!-- ===== HERO SECTION WITH BACKGROUND IMAGE ===== -->
+<section class="hero-with-image">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Contact Us</h1>
+        <p class="subtitle">We're Here to Help & Listen to You</p>
     </div>
 </section>
 
 <!-- ===== BREADCRUMB ===== -->
-<section class="section">
+<section class="section section-purple-gradient">
     <div class="container">
         <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
             <ul>
-                <li><a href="{{ route('welcome') }}">Home</a></li>
-                <li class="is-active"><a href="{{ route('contact') }}" aria-current="page">Contact</a></li>
+                <li><a href="{{ route('welcome') }}" style="color: #e0aaff;">Home</a></li>
+                <li class="is-active"><a href="{{ route('contact') }}" style="color: #ffffff;" aria-current="page">Contact</a></li>
             </ul>
         </nav>
     </div>
 </section>
 
 <!-- ===== CONTACT CHANNELS OVERVIEW ===== -->
-<section class="section" style="background: linear-gradient(135deg, #f5f7ff 0%, #f0edff 100%);">
+<section class="section section-purple-gradient">
     <div class="container">
         <h2 class="section-title">Quick Contact Methods</h2>
         
@@ -119,7 +240,7 @@
 </section>
 
 <!-- ===== MAIN CONTENT ===== -->
-<section class="section">
+<section class="section section-purple-gradient">
     <div class="container">
         <div class="columns">
             <!-- CONTACT FORM -->
@@ -353,29 +474,18 @@
     </div>
 </section>
 
-<!-- ===== GOOGLE MAPS EMBED ===== -->
-<section class="section">
+<!-- ===== OPENSTREETMAP WITH LEAFLET ===== -->
+<section class="section section-purple-gradient">
     <div class="container">
         <h2 class="section-title">Location Map</h2>
         <div class="box">
-            <div class="map-container" style="position: relative; width: 100%; height: 450px; border-radius: 4px; overflow: hidden;">
-                <iframe 
-                    width="100%" 
-                    height="450" 
-                    frameborder="0" 
-                    style="border:0" 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3859.7539906180303!2d121.05641631534183!3d14.636369286390758!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397b7d9f5c5c5c5%3A0x5c5c5c5c5c5c5c5c!2s15%20Development%20Avenue%2C%20Quezon%20City%2C%201101%20Metro%20Manila!5e0!3m2!1sen!2sph!4v1234567890" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-            </div>
+            <div id="map" style="width: 100%; height: 450px; border-radius: 4px; overflow: hidden;"></div>
         </div>
     </div>
 </section>
 
 <!-- ===== DEPARTMENTS & FOCAL PERSONS ===== -->
-<section class="section has-background-light">
+<section class="section section-purple-gradient">
     <div class="container">
         <h2 class="section-title">Department Contacts</h2>
 
@@ -447,76 +557,115 @@
 </section>
 
 <!-- ===== FAQ ===== -->
-<section class="section">
+<section class="section section-purple-gradient">
     <div class="container">
         <h2 class="section-title">Frequently Asked Questions</h2>
 
         <div class="content" x-data="{ openFaq: null }">
             <!-- FAQ 1 -->
-            <div class="box mb-3" style="background-color: #f5f5f5;">
+            <div class="box mb-3" style="background-color: rgba(255, 255, 255, 0.95); border-left: 4px solid #c77dff;">
                 <div style="cursor: pointer; padding: 1rem;" @click="openFaq = openFaq === 1 ? null : 1">
                     <h4 class="title is-6 mb-0">
-                        <span class="icon"><i class="fas" :class="openFaq === 1 ? 'fa-chevron-down' : 'fa-chevron-right'" style="color: #667eea;"></i></span>
-                        <span>How can I enroll in GAD programs?</span>
+                        <span class="icon"><i class="fas" :class="openFaq === 1 ? 'fa-chevron-down' : 'fa-chevron-right'" style="color: #7b2cbf;"></i></span>
+                        <span style="color: #2c3e50;">How can I enroll in GAD programs?</span>
                     </h4>
                 </div>
                 <div x-show="openFaq === 1" class="mt-2 pl-4 pb-2">
-                    <p>You can enroll in our programs by contacting our Programs & Projects Division at programs@gad.gov.ph or calling (632) 811-5678 Ext. 2503. Different programs have different requirements and enrollment periods.</p>
+                    <p style="color: #555;">You can enroll in our programs by contacting our Programs & Projects Division at programs@gad.gov.ph or calling (632) 811-5678 Ext. 2503. Different programs have different requirements and enrollment periods.</p>
                 </div>
             </div>
 
             <!-- FAQ 2 -->
-            <div class="box mb-3" style="background-color: #f5f5f5;">
+            <div class="box mb-3" style="background-color: rgba(255, 255, 255, 0.95); border-left: 4px solid #c77dff;">
                 <div style="cursor: pointer; padding: 1rem;" @click="openFaq = openFaq === 2 ? null : 2">
                     <h4 class="title is-6 mb-0">
-                        <span class="icon"><i class="fas" :class="openFaq === 2 ? 'fa-chevron-down' : 'fa-chevron-right'" style="color: #667eea;"></i></span>
-                        <span>Where can I access published reports and research?</span>
+                        <span class="icon"><i class="fas" :class="openFaq === 2 ? 'fa-chevron-down' : 'fa-chevron-right'" style="color: #7b2cbf;"></i></span>
+                        <span style="color: #2c3e50;">Where can I access published reports and research?</span>
                     </h4>
                 </div>
                 <div x-show="openFaq === 2" class="mt-2 pl-4 pb-2">
-                    <p>All our publications are available on the <a href="{{ route('reports') }}">Reports page</a>. You can download PDFs directly or contact research@gad.gov.ph for hard copies.</p>
+                    <p style="color: #555;">All our publications are available on the <a href="{{ route('reports') }}" style="color: #7b2cbf;">Reports page</a>. You can download PDFs directly or contact research@gad.gov.ph for hard copies.</p>
                 </div>
             </div>
 
             <!-- FAQ 3 -->
-            <div class="box mb-3" style="background-color: #f5f5f5;">
+            <div class="box mb-3" style="background-color: rgba(255, 255, 255, 0.95); border-left: 4px solid #c77dff;">
                 <div style="cursor: pointer; padding: 1rem;" @click="openFaq = openFaq === 3 ? null : 3">
                     <h4 class="title is-6 mb-0">
-                        <span class="icon"><i class="fas" :class="openFaq === 3 ? 'fa-chevron-down' : 'fa-chevron-right'" style="color: #667eea;"></i></span>
-                        <span>How do I report cases of violence against women?</span>
+                        <span class="icon"><i class="fas" :class="openFaq === 3 ? 'fa-chevron-down' : 'fa-chevron-right'" style="color: #7b2cbf;"></i></span>
+                        <span style="color: #2c3e50;">How do I report cases of violence against women?</span>
                     </h4>
                 </div>
                 <div x-show="openFaq === 3" class="mt-2 pl-4 pb-2">
-                    <p>Please call our 24/7 VAWC Hotline at (632) 811-5678 Ext. 2540 or email vawc@gad.gov.ph. Our trained counselors can provide immediate support and connect you with local authorities and shelters.</p>
+                    <p style="color: #555;">Please call our 24/7 VAWC Hotline at (632) 811-5678 Ext. 2540 or email vawc@gad.gov.ph. Our trained counselors can provide immediate support and connect you with local authorities and shelters.</p>
                 </div>
             </div>
 
             <!-- FAQ 4 -->
-            <div class="box mb-3" style="background-color: #f5f5f5;">
+            <div class="box mb-3" style="background-color: rgba(255, 255, 255, 0.95); border-left: 4px solid #c77dff;">
                 <div style="cursor: pointer; padding: 1rem;" @click="openFaq = openFaq === 4 ? null : 4">
                     <h4 class="title is-6 mb-0">
-                        <span class="icon"><i class="fas" :class="openFaq === 4 ? 'fa-chevron-down' : 'fa-chevron-right'" style="color: #667eea;"></i></span>
-                        <span>Can I request a speaker or workshop for my organization?</span>
+                        <span class="icon"><i class="fas" :class="openFaq === 4 ? 'fa-chevron-down' : 'fa-chevron-right'" style="color: #7b2cbf;"></i></span>
+                        <span style="color: #2c3e50;">Can I request a speaker or workshop for my organization?</span>
                     </h4>
                 </div>
                 <div x-show="openFaq === 4" class="mt-2 pl-4 pb-2">
-                    <p>Yes! We offer workshops and training sessions on gender mainstreaming. Please submit your request at least 3 months in advance through our contact form or email clara.gonzales@gad.gov.ph.</p>
+                    <p style="color: #555;">Yes! We offer workshops and training sessions on gender mainstreaming. Please submit your request at least 3 months in advance through our contact form or email clara.gonzales@gad.gov.ph.</p>
                 </div>
             </div>
 
             <!-- FAQ 5 -->
-            <div class="box" style="background-color: #f5f5f5;">
+            <div class="box" style="background-color: rgba(255, 255, 255, 0.95); border-left: 4px solid #c77dff;">
                 <div style="cursor: pointer; padding: 1rem;" @click="openFaq = openFaq === 5 ? null : 5">
                     <h4 class="title is-6 mb-0">
-                        <span class="icon"><i class="fas" :class="openFaq === 5 ? 'fa-chevron-down' : 'fa-chevron-right'" style="color: #667eea;"></i></span>
-                        <span>How can I become a Gender Focal Person?</span>
+                        <span class="icon"><i class="fas" :class="openFaq === 5 ? 'fa-chevron-down' : 'fa-chevron-right'" style="color: #7b2cbf;"></i></span>
+                        <span style="color: #2c3e50;">How can I become a Gender Focal Person?</span>
                     </h4>
                 </div>
                 <div x-show="openFaq === 5" class="mt-2 pl-4 pb-2">
-                    <p>Government agencies and LGUs can nominate Gender Focal Persons through their respective secretaries. Contact clara.gonzales@gad.gov.ph for the nomination process and requirements.</p>
+                    <p style="color: #555;">Government agencies and LGUs can nominate Gender Focal Persons through their respective secretaries. Contact clara.gonzales@gad.gov.ph for the nomination process and requirements.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<!-- ===== LEAFLET MAP SCRIPT ===== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize map centered on Catanduanes
+        const map = L.map('map').setView([13.7942, 124.4387], 10);
+        
+        // Add OpenStreetMap tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19
+        }).addTo(map);
+        
+        // Add marker for CatSu GAD Office at Faculty Center
+        // Catanduanes State University - Faculty Center, Virac, Catanduanes
+        const gadMarker = L.marker([13.58439, 124.21057], {
+            title: 'CatSu GAD Office - Faculty Center'
+        }).addTo(map);
+        
+        // Add popup content
+        gadMarker.bindPopup(`
+            <div>
+                <h4>CatSu Gender and Development Office</h4>
+                <p><strong>Location:</strong> Catanduanes State University<br>
+                Faculty Center, Virac, Catanduanes 4800, Philippines</p>
+                <p><strong>Phone:</strong> (021) 123-4567<br>
+                <strong>Email:</strong> gad@catsu.edu.ph</p>
+                <p style="color: #667eea; font-size: 0.9rem; margin-top: 0.5rem;">
+                    <i class="fas fa-heart"></i> Advancing Gender Equality & Development
+                </p>
+            </div>
+        `).openPopup();
+        
+        // Optional: Add more markers for other offices if needed
+        // Example: Regional offices or partner organizations
+    });
+</script>
+
 @endsection

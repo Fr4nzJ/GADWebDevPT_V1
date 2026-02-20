@@ -4,12 +4,18 @@
 
 @section('content')
 <!-- ===== PAGE HEADER ===== -->
-<div class="page-header">
+<div class="page-header" style="display: flex; align-items: center; gap: 1rem;">
     <h1 class="page-title">Manage Events</h1>
-    <a href="#" class="button" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; font-weight: 600;">
-        <span class="icon"><i class="fas fa-plus"></i></span>
-        <span>Add New Event</span>
-    </a>
+    <div style="display: flex; gap: 1rem;">
+        <a href="#" class="button" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; font-weight: 600;">
+            <span class="icon"><i class="fas fa-plus"></i></span>
+            <span>Add New Event</span>
+        </a>
+        <a href="{{ route('admin.events.edit') }}" class="button" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; font-weight: 600;">
+            <span class="icon"><i class="fas fa-cog"></i></span>
+            <span>Manage Events</span>
+        </a>
+    </div>
 </div>
 
 <!-- ===== FILTER BAR ===== -->

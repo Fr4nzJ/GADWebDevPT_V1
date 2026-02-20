@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 
 // ===== PUBLIC PAGES =====
@@ -57,9 +58,12 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
         return view('admin.news.index');
     })->name('admin.news.index');
     
-    Route::get('/events', function () {
-        return view('admin.events.index');
-    })->name('admin.events.index');
+    Route::get('/events', [EventController::class, 'index'])->name('admin.events.index');
+    Route::get('/events/create', [EventController::class, 'create'])->name('admin.events.create');
+    Route::post('/events', [EventController::class, 'store'])->name('admin.events.store');
+    Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('admin.events.edit');
+    Route::put('/events/{event}', [EventController::class, 'update'])->name('admin.events.update');
+    Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('admin.events.destroy');
     
     Route::get('/programs', function () {
         return view('admin.programs.index');

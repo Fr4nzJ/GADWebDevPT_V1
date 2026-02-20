@@ -65,34 +65,29 @@
     }
 </style>
 
-<!-- ===== HERO SECTION ===== -->
-<section class="hero hero-gradient is-large">
-    <div class="hero-body">
-        <div class="container has-text-centered">
-            <h1 class="title is-1" style="color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
-                Our Programs & Projects
-            </h1>
-            <p class="subtitle is-4" style="color: #f0f0f0;">
-                Transforming Lives Through Strategic Gender Development Initiatives
-            </p>
-        </div>
+<!-- ===== HERO SECTION WITH BACKGROUND IMAGE ===== -->
+<section class="hero-with-image">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Our Programs & Projects</h1>
+        <p class="subtitle">Transforming Lives Through Strategic Gender Development Initiatives</p>
     </div>
 </section>
 
 <!-- ===== BREADCRUMB ===== -->
-<section class="section">
+<section class="section section-purple-gradient">
     <div class="container">
         <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
             <ul>
-                <li><a href="{{ route('welcome') }}">Home</a></li>
-                <li class="is-active"><a href="{{ route('programs') }}" aria-current="page">Programs</a></li>
+                <li><a href="{{ route('welcome') }}" style="color: #e0aaff;">Home</a></li>
+                <li class="is-active"><a href="{{ route('programs') }}" style="color: #ffffff;" aria-current="page">Programs</a></li>
             </ul>
         </nav>
     </div>
 </section>
 
 <!-- ===== PROGRAM CATEGORIES OVERVIEW ===== -->
-<section class="section">
+<section class="section section-purple-gradient">
     <div class="container">
         <h2 class="section-title">Program Categories</h2>
         

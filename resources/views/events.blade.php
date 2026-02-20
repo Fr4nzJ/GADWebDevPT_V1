@@ -67,27 +67,22 @@
     }
 </style>
 
-<!-- ===== HERO SECTION ===== -->
-<section class="hero hero-gradient is-large">
-    <div class="hero-body">
-        <div class="container has-text-centered">
-            <h1 class="title is-1" style="color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
-                Events & Workshops
-            </h1>
-            <p class="subtitle is-4" style="color: #f0f0f0;">
-                Join Us for Learning, Networking, and Advocacy
-            </p>
-        </div>
+<!-- ===== HERO SECTION WITH BACKGROUND IMAGE ===== -->
+<section class="hero-with-image">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Events & Workshops</h1>
+        <p class="subtitle">Join Us for Learning, Networking, and Advocacy</p>
     </div>
 </section>
 
 <!-- ===== BREADCRUMB ===== -->
-<section class="section">
+<section class="section section-purple-gradient">
     <div class="container">
         <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
             <ul>
-                <li><a href="{{ route('welcome') }}">Home</a></li>
-                <li class="is-active"><a href="{{ route('events') }}" aria-current="page">Events</a></li>
+                <li><a href="{{ route('welcome') }}" style="color: #e0aaff;">Home</a></li>
+                <li class="is-active"><a href="{{ route('events') }}" style="color: #ffffff;" aria-current="page">Events</a></li>
             </ul>
         </nav>
     </div>

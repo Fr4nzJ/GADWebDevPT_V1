@@ -296,26 +296,21 @@
     }
 </style>
 
-<!-- ===== HERO SECTION ===== -->
-<section class="hero hero-gradient is-large">
-    <div class="hero-body">
-        <div class="container has-text-centered">
-            <h1 class="title is-1" style="color: white; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);">
-                Empowering Communities Through Gender Equality
-            </h1>
-            <p class="subtitle is-4" style="color: #f0f0f0;">
-                Building Inclusive Communities for Sustainable Development
-            </p>
-            <div class="buttons is-centered mt-6">
-                <a class="button is-white is-large" href="{{ route('programs') }}">
-                    <span class="icon"><i class="fas fa-chart-bar"></i></span>
-                    <span><strong>Our Programs</strong></span>
-                </a>
-                <a class="button is-light is-large" href="{{ route('contact') }}">
-                    <span class="icon"><i class="fas fa-paper-plane"></i></span>
-                    <span><strong>Get Involved</strong></span>
-                </a>
-            </div>
+<!-- ===== HERO SECTION WITH BACKGROUND IMAGE ===== -->
+<section class="hero-with-image">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Empowering Communities Through Gender Equality</h1>
+        <p class="subtitle">Building Inclusive Communities for Sustainable Development</p>
+        <div class="buttons is-centered mt-6">
+            <a class="button is-white is-large" href="{{ route('programs') }}">
+                <span class="icon"><i class="fas fa-chart-bar"></i></span>
+                <span><strong>Our Programs</strong></span>
+            </a>
+            <a class="button is-light is-large" href="{{ route('contact') }}">
+                <span class="icon"><i class="fas fa-paper-plane"></i></span>
+                <span><strong>Get Involved</strong></span>
+            </a>
         </div>
     </div>
 </section>

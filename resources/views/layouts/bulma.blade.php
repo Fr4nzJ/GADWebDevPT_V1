@@ -221,6 +221,91 @@
             color: #667eea;
         }
 
+        /* ===== HERO WITH BACKGROUND IMAGE ===== */
+        .hero-with-image {
+            position: relative;
+            width: 100%;
+            height: 65vh;
+            background-image: url('{{ asset("images/GAD Main page BG.gif") }}');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(59, 10, 99, 0.65);
+            backdrop-filter: blur(2px);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            animation: fadeInDown 0.8s ease-out, floatingAnimation 4s ease-in-out 1s infinite;
+            padding: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+            letter-spacing: -1px;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 2rem;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes floatingAnimation {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* ===== PURPLE GRADIENT SECTIONS ===== */
+        .section-purple-gradient {
+            background: linear-gradient(135deg, #3b0a63 0%, #7b2cbf 50%, #5a189a 100%);
+            color: white;
+        }
+
+        .section-purple-gradient .section-title {
+            color: white;
+        }
+
+        .section-purple-gradient .section-title::after {
+            background: linear-gradient(90deg, #c77dff, #e0aaff);
+        }
+
         /* ===== RESPONSIVE ===== */
         @media screen and (max-width: 768px) {
             .section-title {
@@ -229,6 +314,19 @@
 
             .icon-large {
                 font-size: 2rem;
+            }
+
+            .hero-with-image {
+                height: 60vh;
+                background-attachment: scroll;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content .subtitle {
+                font-size: 1.1rem;
             }
         }
     </style>

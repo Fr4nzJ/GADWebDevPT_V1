@@ -166,33 +166,28 @@
     }
 </style>
 
-<!-- ===== HERO SECTION ===== -->
-<section class="hero hero-gradient is-fullheight-with-navbar" style="height: 500px;">
-    <div class="hero-body">
-        <div class="container has-text-centered">
-            <h1 class="title is-1" style="color: white; text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); margin-bottom: 1.5rem; letter-spacing: -0.5px;">
-                Research & Reports
-            </h1>
-            <p class="subtitle is-3" style="color: #f0f0f0; margin-bottom: 1.5rem; font-weight: 300;">
-                Evidence-Based Knowledge for Gender Equality & Inclusion
-            </p>
-            <div style="margin-top: 2rem;">
-                <a href="#reports-section" class="button is-white is-outlined is-medium" style="border-width: 2px;">
-                    <span>Explore Research</span>
-                    <span class="icon"><i class="fas fa-arrow-down"></i></span>
-                </a>
-            </div>
+<!-- ===== HERO SECTION WITH BACKGROUND IMAGE ===== -->
+<section class="hero-with-image">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Research & Reports</h1>
+        <p class="subtitle">Evidence-Based Knowledge for Gender Equality & Inclusion</p>
+        <div style="margin-top: 2rem;">
+            <a href="#reports-section" class="button is-white is-outlined is-medium" style="border-width: 2px;">
+                <span>Explore Research</span>
+                <span class="icon"><i class="fas fa-arrow-down"></i></span>
+            </a>
         </div>
     </div>
 </section>
 
 <!-- ===== BREADCRUMB ===== -->
-<section class="section" style="padding: 1.5rem 1.5rem;">
+<section class="section section-purple-gradient" style="padding: 1.5rem 1.5rem;">
     <div class="container">
         <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
             <ul>
-                <li><a href="{{ route('welcome') }}">Home</a></li>
-                <li class="is-active"><a href="{{ route('reports') }}" aria-current="page">Reports</a></li>
+                <li><a href="{{ route('welcome') }}" style="color: #e0aaff;">Home</a></li>
+                <li class="is-active"><a href="{{ route('reports') }}" style="color: #ffffff;" aria-current="page">Reports</a></li>
             </ul>
         </nav>
     </div>

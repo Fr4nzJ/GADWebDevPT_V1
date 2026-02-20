@@ -3,6 +3,28 @@
 @section('title', 'About CatSu GAD - Our Mandate, Vision & Mission')
 
 @section('content')
+
+<!-- ===== HERO SECTION WITH BACKGROUND IMAGE ===== -->
+<section class="hero-with-image">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>About CatSu GAD</h1>
+        <p class="subtitle">Our Mandate, Vision & Mission</p>
+    </div>
+</section>
+
+<!-- ===== BREADCRUMB ===== -->
+<section class="section section-purple-gradient">
+    <div class="container">
+        <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="{{ route('welcome') }}" style="color: #e0aaff;">Home</a></li>
+                <li class="is-active"><a href="{{ route('about') }}" style="color: #ffffff;" aria-current="page">About</a></li>
+            </ul>
+        </nav>
+    </div>
+</section>
+
 <style>
     /* ===== INFOGRAPHIC HOUSE STYLES ===== */
     .mission-vision-hero {
@@ -175,7 +197,7 @@
 </style>
 
 <!-- ===== VISION & MISSION - INFOGRAPHIC DESIGN ===== -->
-<section class="section" style="padding: 4rem 1.5rem; background: white;">
+<section class="section section-purple-gradient">
     <div class="container">
         <h2 class="section-title">Our Vision & Mission</h2>
 
@@ -199,7 +221,7 @@
 </section>
 
 <!-- ===== CORE VALUES - VISUAL GRID ===== -->
-<section class="section" style="padding: 4rem 1.5rem; background: #f8f9fa;">
+<section class="section section-purple-gradient">
     <div class="container">
         <h2 class="section-title">Our Objectives</h2>
 
@@ -221,29 +243,29 @@
 </section>
 
 <!-- ===== MANDATE - VISUAL FORMAT ===== -->
-<section class="section" style="padding: 4rem 1.5rem; background: white;">
+<section class="section section-purple-gradient">
     <div class="container">
         <h2 class="section-title">Our Mandate</h2>
 
-        <div style="background: linear-gradient(135deg, #667eea15, #764ba215); border-left: 4px solid #667eea; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
-            <p style="color: #555; margin: 0;">The Catanduanes State University, in adherence to statutes, undertakes advocacy on gender equality and equity by implementing enabling policies and mechanisms including non-sexist programs, projects and other GAD-related activities.</p>
+        <div style="background: linear-gradient(135deg,  #ff00b398, #06cff3a4); border-left: 4px solid #667eea; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
+            <p style="color: #ffffff; margin: 0;">The Catanduanes State University, in adherence to statutes, undertakes advocacy on gender equality and equity by implementing enabling policies and mechanisms including non-sexist programs, projects and other GAD-related activities.</p>
         </div>
     </div>
 </section>
 
 <!-- ===== GOALISUAL FORMAT ===== -->
-<section class="section" style="padding: 4rem 1.5rem; background: white;">
+<section class="section section-purple-gradient">
     <div class="container">
         <h2 class="section-title">Our Goal</h2>
 
-        <div style="background: linear-gradient(135deg, #667eea15, #764ba215); border-left: 4px solid #667eea; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
-            <p style="color: #555; margin: 0;">Mainstream gender and development in the four-fold functions of the institution.
+        <div style="background: linear-gradient(135deg, #ff00b398, #06cff3a4); border-left: 4px solid #667eea; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
+            <p style="color: #ffffff; margin: 0;">Mainstream gender and development in the four-fold functions of the institution.
         </div>
     </div>
 </section>
 
 <!-- ===== KEY ACHIEVEMENTS - METRICS INFOGRAPHIC ===== -->
-<section class="section" style="padding: 4rem 1.5rem; background: #f8f9fa;">
+<section class="section section-purple-gradient">
     <div class="container">
         <h2 class="section-title">Key Achievements (2020-2024)</h2>
 
@@ -277,7 +299,7 @@
 </section>
 
 <!-- ===== ORGANIZATION STRUCTURE - VISUAL ===== -->
-<section class="section" style="padding: 4rem 1.5rem; background: white;">
+<section class="section section-purple-gradient">
     <div class="container">
         <h2 class="section-title">Organizational Structure</h2>
 
@@ -313,25 +335,25 @@
 </section>
 
 <!-- ===== INSTITUTIONAL PARTNERSHIP ===== -->
-<section class="section" style="padding: 4rem 1.5rem; background: white;">
+<section class="section section-purple-gradient">
     <div class="container">
         <h2 class="section-title">Our Institutional Partnership</h2>
 
-        <div style="background: linear-gradient(135deg, #667eea15, #764ba215); border-radius: 12px; padding: 3rem 2rem; margin-bottom: 2rem;">
+        <div style="background: linear-gradient(135deg, #ff02b3c9, #2ce6ffb9); border-radius: 12px; padding: 3rem 2rem; margin-bottom: 2rem;">
             <div class="columns is-vcentered is-centered">
                 <!-- CatSu GAD Logo -->
                 <div class="column is-one-third has-text-centered">
                     <div style="margin-bottom: 1.5rem;">
                         <img src="{{ asset('images/GAD Logo.png') }}" alt="CatSu GAD Logo" style="height: 120px; width: auto;">
                     </div>
-                    <h4 style="color: #2c3e50; font-weight: 600; margin-bottom: 0.5rem;">CatSu GAD</h4>
-                    <p style="color: #666; font-size: 0.95rem;">Gender and Development Services</p>
+                    <h4 style="color: #a5b4c4; font-weight: 600; margin-bottom: 0.5rem;">CatSu GAD</h4>
+                    <p style="color: #fffefe; font-size: 0.95rem;">Gender and Development Services</p>
                 </div>
 
                 <!-- Connection Icon -->
                 <div class="column is-one-quarter has-text-centered" style="padding: 0 1rem;">
-                    <div style="font-size: 2.5rem; color: #667eea;"><i class="fas fa-link"></i></div>
-                    <p style="color: #667eea; font-weight: 600; margin-top: 1rem; font-size: 0.9rem;">Connected<br>Through</p>
+                    <div style="font-size: 2.5rem; color: #00ffbf;"><i class="fas fa-link"></i></div>
+                    <p style="color: #00ffea; font-weight: 600; margin-top: 1rem; font-size: 0.9rem;">Connected<br>Through</p>
                 </div>
 
                 <!-- Catanduanes State University Logo -->
@@ -339,13 +361,13 @@
                     <div style="margin-bottom: 1.5rem;">
                         <img src="{{ asset('images/catsu hr.png') }}" alt="Catanduanes State University Logo" style="height: 120px; width: auto;">
                     </div>
-                    <h4 style="color: #2c3e50; font-weight: 600; margin-bottom: 0.5rem;">Catanduanes State University</h4>
-                    <p style="color: #666; font-size: 0.95rem;">Since 1961</p>
+                    <h4 style="color: #acc3da; font-weight: 600; margin-bottom: 0.5rem;">Catanduanes State University</h4>
+                    <p style="color: #ffffff; font-size: 0.95rem;">Since 1961</p>
                 </div>
             </div>
 
-            <div style="border-top: 1px solid rgba(102, 126, 234, 0.2); margin-top: 2rem; padding-top: 2rem; text-align: center;">
-                <p style="color: #555; margin: 0; line-height: 1.8;">
+            <div style="border-top: 1px solid rgba(255, 255, 255, 0.2); margin-top: 2rem; padding-top: 2rem; text-align: center;">
+                <p style="color: #eee9e9; margin: 0; line-height: 1.8;">
                     <strong>CatSu GAD</strong> operates as the Gender and Development Services of <strong>Catanduanes State University</strong>, 
                     advancing gender equality and development advocacy within the university and across the province. Our partnership 
                     combines institutional strength with community engagement to promote gender-sensitive policies, programs, and practices 
@@ -357,7 +379,7 @@
 </section>
 
 <!-- ===== CALL TO ACTION ===== -->
-<section class="section" style="padding: 5rem 1.5rem; background: linear-gradient(135deg, #667eea, #764ba2);">
+<section class="section section-purple-gradient" style="padding: 5rem 1.5rem;">
     <div class="container has-text-centered">
         <h2 style="color: white; font-size: 2rem; margin-bottom: 1rem;">Join Our Mission for Gender Equality</h2>
         <p style="color: rgba(255, 255, 255, 0.9); margin-bottom: 2rem; font-size: 1.05rem;">
