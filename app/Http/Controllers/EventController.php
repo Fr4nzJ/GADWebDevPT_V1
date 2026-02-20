@@ -51,6 +51,11 @@ class EventController extends Controller
         return view('admin.events.show', compact('event'));
     }
 
+    public function publicShow(Event $event)
+    {
+        return view('public.events.show', compact('event'));
+    }
+
     public function edit(Event $event)
     {
         return view('admin.events.edit', compact('event'));
@@ -65,7 +70,7 @@ class EventController extends Controller
             'location' => 'required|string|max:255',
             'status' => 'required|in:upcoming,ongoing,completed,cancelled',
             'images' => 'nullable|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:51200',
             'remove_images' => 'nullable|array',
         ]);
 

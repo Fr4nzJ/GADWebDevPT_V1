@@ -6,7 +6,7 @@
 <!-- ===== PAGE HEADER ===== -->
 <div class="page-header">
     <h1 class="page-title">Manage News</h1>
-    <a href="#" class="button" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; font-weight: 600;">
+    <a href="{{ route('admin.news.create') }}" class="button" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; font-weight: 600;">
         <span class="icon"><i class="fas fa-plus"></i></span>
         <span>Add New News</span>
     </a>
@@ -74,226 +74,99 @@
             </tr>
         </thead>
         <tbody>
-            <!-- News 1 -->
+            @forelse($news as $article)
             <tr>
                 <td style="padding: 1.25rem; border: none;">
-                    <strong style="color: #2c3e50;">Women's Month Celebration Kicks Off with Empowerment Workshops</strong>
+                    <strong style="color: #2c3e50;">{{ Str::limit($article->title, 60) }}</strong>
                 </td>
                 <td style="padding: 1.25rem; border: none;">
-                    <span style="color: #667eea;">Maria Santos</span>
+                    <span style="color: #667eea;">{{ $article->author }}</span>
                 </td>
                 <td style="padding: 1.25rem; border: none;">
-                    <span style="font-size: 0.9rem; color: #999;">March 1, 2024</span>
+                    <span style="font-size: 0.9rem; color: #999;">{{ $article->created_at->format('M d, Y') }}</span>
                 </td>
                 <td style="padding: 1.25rem; border: none;">
-                    <span style="background: #e8f1ff; color: #667eea; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 500;">Events</span>
+                    <span style="background: #e8f1ff; color: #667eea; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 500;">{{ $article->category }}</span>
                 </td>
                 <td style="padding: 1.25rem; border: none;">
-                    <span style="color: #999;">2,845</span>
+                    <span style="color: #999;"><i class="fas fa-eye"></i> {{ $article->views }}</span>
                 </td>
                 <td style="padding: 1.25rem; border: none;">
-                    <span class="status-badge status-published">Published</span>
+                    @php
+                        $statusClass = [
+                            'published' => 'status-published',
+                            'draft' => 'status-draft',
+                            'pending' => 'status-pending',
+                            'archived' => 'status-archived'
+                        ][$article->status] ?? 'status-draft';
+                    @endphp
+                    <span class="status-badge {{ $statusClass }}">{{ ucfirst($article->status) }}</span>
                 </td>
                 <td style="padding: 1.25rem; border: none; text-align: center;">
                     <div class="action-buttons">
-                        <button class="btn-action btn-view" title="View">
+                        <a href="{{ route('admin.news.show', $article) }}" class="btn-action btn-view" title="View">
                             <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="btn-action btn-edit" title="Edit">
+                        </a>
+                        <a href="{{ route('admin.news.edit', $article) }}" class="btn-action btn-edit" title="Edit">
                             <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn-action btn-delete" x-data @click="document.getElementById('deleteModal1').classList.add('is-active')" title="Delete">
+                        </a>
+                        <button class="btn-action btn-delete" x-data @click="document.getElementById('deleteModal{{ $article->id }}').classList.add('is-active')" title="Delete">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
                 </td>
             </tr>
-
-            <!-- News 2 -->
+            @empty
             <tr>
-                <td style="padding: 1.25rem; border: none;">
-                    <strong style="color: #2c3e50;">Philippine Plan for Gender-Responsive Development 2025-2030 Released</strong>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="color: #667eea;">Jennifer Reyes</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="font-size: 0.9rem; color: #999;">February 28, 2024</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="background: #faf8ff; color: #764ba2; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 500;">Policy</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="color: #999;">3,124</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span class="status-badge status-published">Published</span>
-                </td>
-                <td style="padding: 1.25rem; border: none; text-align: center;">
-                    <div class="action-buttons">
-                        <button class="btn-action btn-view" title="View">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="btn-action btn-edit" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn-action btn-delete" x-data @click="document.getElementById('deleteModal2').classList.add('is-active')" title="Delete">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
+                <td colspan="7" style="padding: 2rem; text-align: center; border: none;">
+                    <p style="color: #999; font-size: 1.1rem;">No news articles found. <a href="{{ route('admin.news.create') }}" style="color: #667eea; font-weight: 600;">Create one now</a></p>
                 </td>
             </tr>
-
-            <!-- News 3 -->
-            <tr>
-                <td style="padding: 1.25rem; border: none;">
-                    <strong style="color: #2c3e50;">Survey Reveals Persistent Gender Gaps in Leadership Positions</strong>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="color: #667eea;">Clara Gonzales</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="font-size: 0.9rem; color: #999;">February 25, 2024</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="background: #fff8e1; color: #f0ad4e; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 500;">Research</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="color: #999;">1,567</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span class="status-badge status-pending">Pending Review</span>
-                </td>
-                <td style="padding: 1.25rem; border: none; text-align: center;">
-                    <div class="action-buttons">
-                        <button class="btn-action btn-view" title="View">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="btn-action btn-edit" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn-action btn-delete" x-data @click="document.getElementById('deleteModal3').classList.add('is-active')" title="Delete">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-
-            <!-- News 4 -->
-            <tr>
-                <td style="padding: 1.25rem; border: none;">
-                    <strong style="color: #2c3e50;">Youth Forum Advocates for Gender Equality in Education</strong>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="color: #667eea;">Rebecca Torres</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="font-size: 0.9rem; color: #999;">February 20, 2024</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="background: #e8f5e9; color: #48c774; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 500;">Youth</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="color: #999;">892</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span class="status-badge status-published">Published</span>
-                </td>
-                <td style="padding: 1.25rem; border: none; text-align: center;">
-                    <div class="action-buttons">
-                        <button class="btn-action btn-view" title="View">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="btn-action btn-edit" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn-action btn-delete" x-data @click="document.getElementById('deleteModal4').classList.add('is-active')" title="Delete">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-
-            <!-- News 5 -->
-            <tr>
-                <td style="padding: 1.25rem; border: none;">
-                    <strong style="color: #2c3e50;">LGBTQ+ Rights Training Program Launched in 12 Provinces</strong>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="color: #667eea;">Ramon Cruz</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="font-size: 0.9rem; color: #999;">February 15, 2024</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="background: #ffe8e8; color: #e74c3c; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 500;">Training</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span style="color: #999;">1,234</span>
-                </td>
-                <td style="padding: 1.25rem; border: none;">
-                    <span class="status-badge status-published">Published</span>
-                </td>
-                <td style="padding: 1.25rem; border: none; text-align: center;">
-                    <div class="action-buttons">
-                        <button class="btn-action btn-view" title="View">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="btn-action btn-edit" title="Edit">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn-action btn-delete" x-data @click="document.getElementById('deleteModal5').classList.add('is-active')" title="Delete">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
+            @endforelse
         </tbody>
     </table>
 </div>
 
 <!-- ===== PAGINATION ===== -->
-<nav class="pagination is-centered" role="navigation" aria-label="pagination" style="margin-top: 2rem;">
-    <a class="pagination-previous">Previous</a>
-    <a class="pagination-next">Next page</a>
-    <ul class="pagination-list">
-        <li><a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a></li>
-        <li><a class="pagination-link">2</a></li>
-        <li><a class="pagination-link">3</a></li>
-    </ul>
-</nav>
+@if($news->count() > 0)
+    {{ $news->links() }}
+@endif
 
 <!-- ===== DELETE MODALS ===== -->
-@for ($i = 1; $i <= 5; $i++)
-<div class="modal" id="deleteModal{{ $i }}">
-    <div class="modal-background" x-data @click="document.getElementById('deleteModal{{ $i }}').classList.remove('is-active')"></div>
+@foreach($news as $article)
+<div class="modal" id="deleteModal{{ $article->id }}">
+    <div class="modal-background" x-data @click="document.getElementById('deleteModal{{ $article->id }}').classList.remove('is-active')"></div>
     <div class="modal-card">
         <header class="modal-card-head" style="border-bottom: 2px solid #f0f0f0;">
             <p class="modal-card-title" style="color: #2c3e50; font-weight: 700;">
                 <i class="fas fa-exclamation-circle" style="color: #e74c3c; margin-right: 0.5rem;"></i>
                 Confirm Deletion
             </p>
-            <button class="delete" x-data @click="document.getElementById('deleteModal{{ $i }}').classList.remove('is-active')"></button>
+            <button class="delete" x-data @click="document.getElementById('deleteModal{{ $article->id }}').classList.remove('is-active')"></button>
         </header>
         <section class="modal-card-body" style="padding: 2rem;">
             <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
-                Are you sure you want to delete this news article? This action cannot be undone.
+                Are you sure you want to delete <strong>{{ $article->title }}</strong>? This action cannot be undone.
             </p>
             <p style="background: #fff8e1; border-left: 4px solid #f0ad4e; padding: 1rem; border-radius: 6px; color: #666; font-size: 0.9rem;">
                 <strong>Note:</strong> All associated data and comments will be permanently removed from the system.
             </p>
         </section>
         <footer class="modal-card-foot" style="border-top: 2px solid #f0f0f0; padding: 1.5rem; display: flex; justify-content: flex-end; gap: 1rem;">
-            <button class="button" x-data @click="document.getElementById('deleteModal{{ $i }}').classList.remove('is-active')">
+            <button class="button" x-data @click="document.getElementById('deleteModal{{ $article->id }}').classList.remove('is-active')">
                 Cancel
             </button>
-            <button class="button is-danger" style="background: #e74c3c; color: white;">
-                <span class="icon"><i class="fas fa-trash"></i></span>
-                <span>Delete</span>
-            </button>
+            <form action="{{ route('admin.news.destroy', $article) }}" method="POST" style="display: inline;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="button is-danger" style="background: #e74c3c; color: white;">
+                    <span class="icon"><i class="fas fa-trash"></i></span>
+                    <span>Delete</span>
+                </button>
+            </form>
         </footer>
     </div>
 </div>
-@endfor
+@endforeach
 
 @endsection

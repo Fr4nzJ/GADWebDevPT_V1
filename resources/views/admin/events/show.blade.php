@@ -83,7 +83,21 @@
         </div>
 
         <div class="field" style="margin-top: 1.5rem;">
-            <label class="label" style="color: #666; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Description</label>
+            <label class="label" style="color: #666; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Event Images</label>
+            @if($event->images && count($event->images) > 0)
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem;">
+                @foreach($event->images as $image)
+                <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);">
+                    <img src="{{ asset('storage/' . $image) }}" style="width: 100%; height: 250px; object-fit: cover;" alt="{{ $event->title }}">
+                </div>
+                @endforeach
+            </div>
+            @else
+            <p style="color: #999; font-style: italic;">No images uploaded for this event.</p>
+            @endif
+        </div>
+
+        <div class="field" style="margin-top: 1.5rem;">
             <div style="background: #f8f9fa; border-radius: 8px; padding: 1.5rem; line-height: 1.8; color: #444;">
                 {{ $event->description }}
             </div>

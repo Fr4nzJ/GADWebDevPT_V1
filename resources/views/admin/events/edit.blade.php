@@ -112,7 +112,7 @@
                                     <i class="fas fa-cloud-upload-alt fa-2x" style="color: #667eea;"></i>
                                 </span>
                                 <span class="file-label" style="color: #666;">Click to upload additional images</span>
-                                <span style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">PNG, JPG, GIF up to 2MB each</span>
+                                <span style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">PNG, JPG, GIF up to 50 MB each</span>
                             </span>
                         </label>
                     </div>

@@ -77,6 +77,21 @@
             @error('status')<p class="help is-danger">{{ $message }}</p>@enderror
         </div>
 
+        <div class="field">
+            <label class="label">Event Images</label>
+            <div class="control">
+                <div style="border: 2px dashed #667eea; border-radius: 8px; padding: 2rem; text-align: center; cursor: pointer;" onclick="document.getElementById('imageInput').click()">
+                    <input type="file" id="imageInput" name="images[]" multiple accept="image/*" style="display: none;">
+                    <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: #667eea; margin-bottom: 1rem;"></i>
+                    <p style="color: #667eea; font-weight: 600; margin-bottom: 0.5rem;">Click to upload images or drag and drop</p>
+                    <p style="color: #999; font-size: 0.9rem;">PNG, JPG, GIF up to 50 MB each</p>
+                </div>
+                <div id="imagePreview" style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;"></div>
+            </div>
+            @error('images')<p class="help is-danger">{{ $message }}</p>@enderror
+            @error('images.*')<p class="help is-danger">{{ $message }}</p>@enderror
+        </div>
+
         {{-- NEW: Image Upload Section --}}
         <div class="field" style="margin-top: 1.5rem;">
             <label class="label">Event Images</label>
@@ -89,7 +104,7 @@
                                 <i class="fas fa-cloud-upload-alt fa-2x" style="color: #667eea;"></i>
                             </span>
                             <span class="file-label" style="color: #666;">Click to upload or drag and drop</span>
-                            <span style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">PNG, JPG, GIF up to 2MB each</span>
+                            <span style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">PNG, JPG, GIF up to 50 MB each</span>
                         </span>
                     </label>
                 </div>
@@ -115,6 +130,58 @@
     </form>
 </div>
 @endsection
+
+<script>
+    document.getElementById('imageInput').addEventListener('change', function(e) {
+        const preview = document.getElementById('imagePreview');
+        preview.innerHTML = '';
+        
+        Array.from(this.files).forEach(file => {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = document.createElement('img');
+                img.src = event.target.result;
+                img.style.width = '100px';
+                img.style.height = '100px';
+                img.style.objectFit = 'cover';
+                img.style.borderRadius = '8px';
+                preview.appendChild(img);
+            };
+            reader.readAsDataURL(file);
+        });
+    });
+
+    // Drag and drop support
+    const dropZone = document.querySelector('[onclick*="imageInput"]');
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.style.backgroundColor = '#f0edff';
+        }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.style.backgroundColor = 'transparent';
+        }, false);
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        document.getElementById('imageInput').files = files;
+        const event = new Event('change', { bubbles: true });
+        document.getElementById('imageInput').dispatchEvent(event);
+    }, false);
+</script>
 
 @push('scripts')
 <script>

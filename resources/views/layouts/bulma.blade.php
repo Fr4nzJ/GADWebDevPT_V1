@@ -372,7 +372,7 @@
                         <span>Programs</span>
                     </span>
                 </a>
-                <a class="navbar-item {{ request()->routeIs('news') ? 'is-active' : '' }}" href="{{ route('news') }}">
+                <a class="navbar-item {{ request()->routeIs('news-page') ? 'is-active' : '' }}" href="{{ route('news-page') }}">
                     <span class="icon-text">
                         <span class="icon"><i class="fas fa-newspaper"></i></span>
                         <span>News</span>
@@ -425,7 +425,7 @@
                     <ul>
                         <li><a href="{{ route('about') }}">Our Mandate</a></li>
                         <li><a href="{{ route('programs') }}">Programs & Projects</a></li>
-                        <li><a href="{{ route('news') }}">Latest News</a></li>
+                        <li><a href="{{ route('news-page') }}">Latest News</a></li>
                         <li><a href="{{ route('reports') }}">Research & Reports</a></li>
                         <li><a href="{{ route('contact') }}">Contact Us</a></li>
                     </ul>

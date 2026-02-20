@@ -18,234 +18,95 @@
         <nav class="breadcrumb has-succeeds-separator" aria-label="breadcrumbs">
             <ul>
                 <li><a href="{{ route('welcome') }}" style="color: #e0aaff;">Home</a></li>
-                <li class="is-active"><a href="{{ route('news') }}" style="color: #ffffff;" aria-current="page">News</a></li>
+                <li class="is-active"><a href="{{ route('news-page') }}" style="color: #ffffff;" aria-current="page">News</a></li>
             </ul>
         </nav>
     </div>
 </section>
 
 <!-- ===== NEWS FILTER ===== -->
-<section class="section section-purple-gradient">
-    <div class="container" x-data="{ activeCategory: 'all' }">
-        <div class="content mb-4">
-            <h2 class="section-title">News Categories</h2>
-        </div>
+<section class="section">
+    <div class="container">
+        <h2 class="section-title" style="font-size: 2.5rem; font-weight: 700; margin-bottom: 2rem; color: #2c3e50; position: relative; padding-bottom: 1rem;">
+            Latest News & Updates
+            <span style="position: absolute; bottom: 0; left: 0; width: 60px; height: 4px; background: linear-gradient(90deg, #667eea, #764ba2); border-radius: 2px;"></span>
+        </h2>
 
-        <div class="buttons mb-5" style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-            <button class="button" 
-                    @click="activeCategory = 'all'" 
-                    :class="activeCategory === 'all' ? 'is-primary' : 'is-light'">
+        <!-- Category Filter -->
+        <div style="display: flex; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap;">
+            <button onclick="filterNews('all')" class="category-btn" style="padding: 0.75rem 1.5rem; border-radius: 20px; border: 2px solid #667eea; background: #667eea; color: white; font-weight: 600; cursor: pointer;">
                 All News
             </button>
-            <button class="button" 
-                    @click="activeCategory = 'announcements'" 
-                    :class="activeCategory === 'announcements' ? 'is-primary' : 'is-light'">
-                <span class="icon"><i class="fas fa-bell"></i></span>
-                <span>Announcements</span>
+            @php
+                $categories = \App\Models\News::where('status', 'published')->distinct()->pluck('category');
+            @endphp
+            @foreach($categories as $cat)
+            <button onclick="filterNews('{{ $cat }}')" class="category-btn" data-category="{{ $cat }}" style="padding: 0.75rem 1.5rem; border-radius: 20px; border: 2px solid #ddd; background: white; color: #666; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                {{ $cat }}
             </button>
-            <button class="button" 
-                    @click="activeCategory = 'activities'" 
-                    :class="activeCategory === 'activities' ? 'is-primary' : 'is-light'">
-                <span class="icon"><i class="fas fa-calendar-alt"></i></span>
-                <span>Activities</span>
-            </button>
-            <button class="button" 
-                    @click="activeCategory = 'policy'" 
-                    :class="activeCategory === 'policy' ? 'is-primary' : 'is-light'">
-                <span class="icon"><i class="fas fa-gavel"></i></span>
-                <span>Policy Updates</span>
-            </button>
-            <button class="button" 
-                    @click="activeCategory = 'research'" 
-                    :class="activeCategory === 'research' ? 'is-primary' : 'is-light'">
-                <span class="icon"><i class="fas fa-microscope"></i></span>
-                <span>Research</span>
-            </button>
+            @endforeach
         </div>
 
-        <!-- NEWS ITEM 1 -->
-        <div class="news-article" x-show="activeCategory === 'all' || activeCategory === 'announcements'">
-            <div class="news-item">
-                <div class="box">
-                    <div class="columns">
-                        <div class="column is-4">
-                            <figure class="image">
-                                <img src="https://via.placeholder.com/400x300?text=Women+March" alt="International Women's Day">
-                            </figure>
-                        </div>
-                        <div class="column is-8">
-                            <span class="news-category">Announcements</span>
-                            <h3 class="title is-4 mt-2">
-                                <a href="#" style="color: #2c3e50;">International Women's Day Celebration 2024</a>
-                            </h3>
-                            <p class="news-date">
-                                <i class="fas fa-calendar"></i> March 8, 2024 | 
-                                <i class="fas fa-user"></i> By Maria Santos, Communications Unit
-                            </p>
-                            <div class="content">
-                                <p>
-                                    CatSu GAD hosted a nationwide celebration of International Women's Day with the theme 
-                                    "Invest in Women: Accelerate Progress." The event featured keynote speeches from prominent women 
-                                    leaders, interactive workshops, and recognition of outstanding women achievers across different sectors. 
-                                    Over 5,000 participants from government agencies, NGOs, and communities attended the main event 
-                                    in Manila, with simultaneous celebrations in 17 regions nationwide.
-                                </p>
-                                <a href="#" class="button is-dark is-small">
-                                    <span>Read Full Article</span>
-                                </a>
-                            </div>
-                        </div>
+        <!-- News Articles -->
+        <div id="newsContainer">
+            @forelse(\App\Models\News::where('status', 'published')->latest()->paginate(6) as $article)
+            <article class="news-card" data-category="{{ $article->category }}" style="background: white; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1); overflow: hidden; transition: all 0.3s ease; display: flex;" onmouseenter="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 6px 20px rgba(0, 0, 0, 0.15)';" onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 12px rgba(0, 0, 0, 0.1)';">
+                <!-- Featured Image -->
+                @if($article->images && count($article->images) > 0)
+                <div style="width: 350px; min-width: 350px; height: 280px; overflow: hidden;">
+                    <img src="{{ asset('storage/' . $article->images[0]) }}" style="width: 100%; height: 100%; object-fit: cover;" alt="{{ $article->title }}">
+                </div>
+                @endif
+
+                <!-- Article Content -->
+                <div style="padding: 2rem; flex: 1; display: flex; flex-direction: column;">
+                    <!-- Header with Category and Date -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <span style="background: #e8f1ff; color: #667eea; padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">
+                            {{ $article->category }}
+                        </span>
+                        <span style="color: #999; font-size: 0.9rem;">
+                            <i class="fas fa-calendar"></i> {{ $article->created_at->format('M d, Y') }}
+                        </span>
+                    </div>
+
+                    <!-- Title -->
+                    <h3 style="color: #2c3e50; font-weight: 700; font-size: 1.5rem; margin: 0 0 1rem 0; line-height: 1.3;">
+                        {{ $article->title }}
+                    </h3>
+
+                    <!-- Excerpt -->
+                    <p style="color: #666; line-height: 1.6; margin: 0 0 1rem 0; flex: 1;">
+                        {{ $article->excerpt ? Str::limit($article->excerpt, 200) : Str::limit($article->content, 200) }}
+                    </p>
+
+                    <!-- Footer with Author and CTA -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid #f0f0f0;">
+                        <span style="color: #999; font-size: 0.9rem;">
+                            <i class="fas fa-user"></i> {{ $article->author }} | 
+                            <i class="fas fa-eye"></i> {{ $article->views }}
+                        </span>
+                        <a href="{{ route('news.show', $article) }}" class="button is-small" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; font-weight: 600;">
+                            Read More
+                            <span class="icon" style="margin-left: 0.5rem;"><i class="fas fa-arrow-right"></i></span>
+                        </a>
                     </div>
                 </div>
+            </article>
+            @empty
+            <div style="background: white; border-radius: 12px; padding: 3rem; text-align: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+                <i class="fas fa-newspaper" style="font-size: 3rem; color: #ddd; margin-bottom: 1rem;"></i>
+                <h4 style="color: #999; font-size: 1.2rem; margin-bottom: 0.5rem;">No News Available</h4>
+                <p style="color: #bbb;">Check back soon for the latest updates!</p>
             </div>
+            @endforelse
         </div>
 
-        <!-- NEWS ITEM 2 -->
-        <div class="news-article" x-show="activeCategory === 'all' || activeCategory === 'policy'">
-            <div class="news-item">
-                <div class="box">
-                    <div class="columns">
-                        <div class="column is-4">
-                            <figure class="image">
-                                <img src="https://via.placeholder.com/400x300?text=Law+House" alt="Policy News">
-                            </figure>
-                        </div>
-                        <div class="column is-8">
-                            <span class="news-category" style="background-color: #3273dc;">Policy Updates</span>
-                            <h3 class="title is-4 mt-2">
-                                <a href="#" style="color: #2c3e50;">New Executive Order on Gender-Responsive Budgeting Signed</a>
-                            </h3>
-                            <p class="news-date">
-                                <i class="fas fa-calendar"></i> February 15, 2024 | 
-                                <i class="fas fa-user"></i> By Atty. Jennifer Reyes, Policy Division
-                            </p>
-                            <div class="content">
-                                <p>
-                                    President's office signed EO 2024-45 mandating all government agencies to integrate gender 
-                                    analysis in budget planning and allocation. The order ensures that at least 5% of agency budgets 
-                                    directly support gender equality initiatives. This landmark policy is expected to channel approximately 
-                                    PHP 50 billion annually toward GAD programs, significantly accelerating progress toward gender equality 
-                                    targets set in the National Development Plan.
-                                </p>
-                                <a href="#" class="button is-dark is-small">
-                                    <span>Read Full Article</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- NEWS ITEM 3 -->
-        <div class="news-article" x-show="activeCategory === 'all' || activeCategory === 'research'">
-            <div class="news-item">
-                <div class="box">
-                    <div class="columns">
-                        <div class="column is-4">
-                            <figure class="image">
-                                <img src="https://via.placeholder.com/400x300?text=Data+Analysis" alt="Research Study">
-                            </figure>
-                        </div>
-                        <div class="column is-8">
-                            <span class="news-category" style="background-color: #48c774;">Research</span>
-                            <h3 class="title is-4 mt-2">
-                                <a href="#" style="color: #2c3e50;">National Gender & Agrarian Reform Baseline Study Released</a>
-                            </h3>
-                            <p class="news-date">
-                                <i class="fas fa-calendar"></i> January 30, 2024 | 
-                                <i class="fas fa-user"></i> By Dr. Clara Gonzales, Research Unit
-                            </p>
-                            <div class="content">
-                                <p>
-                                    The highly-anticipated baseline study examining women's participation in agricultural reform 
-                                    was released today. The study reveals that 35% of beneficiaries of agrarian reform programs are women, 
-                                    up from 28% in 2019, showing significant progress. However, women continue to face barriers in accessing 
-                                    extension services and market opportunities. The report provides 15 key recommendations for improving 
-                                    women's agricultural productivity and income. <a href="#" style="color: #667eea;">Download full report</a>.
-                                </p>
-                                <a href="#" class="button is-dark is-small">
-                                    <span>Read Full Article</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- NEWS ITEM 4 -->
-        <div class="news-article" x-show="activeCategory === 'all' || activeCategory === 'activities'">
-            <div class="news-item">
-                <div class="box">
-                    <div class="columns">
-                        <div class="column is-4">
-                            <figure class="image">
-                                <img src="https://via.placeholder.com/400x300?text=Workshop" alt="Training Workshop">
-                            </figure>
-                        </div>
-                        <div class="column is-8">
-                            <span class="news-category" style="background-color: #ffdd57; color: #363636;">Activities</span>
-                            <h3 class="title is-4 mt-2">
-                                <a href="#" style="color: #2c3e50;">Gender-Sensitive School Program Teacher Training Conducted in Mindanao</a>
-                            </h3>
-                            <p class="news-date">
-                                <i class="fas fa-calendar"></i> January 20, 2024 | 
-                                <i class="fas fa-user"></i> By Engr. Rebecca Torres, Programs Unit
-                            </p>
-                            <div class="content">
-                                <p>
-                                    The Gender-Sensitive School Program successfully conducted a 5-day intensive training for 250 teachers 
-                                    from public schools across Mindanao. Topics covered included identifying gender stereotypes in textbooks, 
-                                    creating inclusive classroom environments, and establishing school-based mechanisms addressing sexual 
-                                    harassment and bullying. Participants received certificates and gender-responsive teaching materials 
-                                    to use in their classrooms.
-                                </p>
-                                <a href="#" class="button is-dark is-small">
-                                    <span>Read Full Article</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- NEWS ITEM 5 -->
-        <div class="news-article" x-show="activeCategory === 'all' || activeCategory === 'announcements'">
-            <div class="news-item">
-                <div class="box">
-                    <div class="columns">
-                        <div class="column is-4">
-                            <figure class="image">
-                                <img src="https://via.placeholder.com/400x300?text=Success+Stories" alt="Success Story">
-                            </figure>
-                        </div>
-                        <div class="column is-8">
-                            <span class="news-category">Announcements</span>
-                            <h3 class="title is-4 mt-2">
-                                <a href="#" style="color: #2c3e50;">Women Entrepreneurs Showcase Success Stories at Regional Summit</a>
-                            </h3>
-                            <p class="news-date">
-                                <i class="fas fa-calendar"></i> December 15, 2023 | 
-                                <i class="fas fa-user"></i> By Maria Santos, Communications Unit
-                            </p>
-                            <div class="content">
-                                <p>
-                                    Fifteen successful women entrepreneurs supported by the Women Empowerment & Economic Independence Program 
-                                    shared their inspiring journey at the Southeast Asian Women Entrepreneurs Summit in December. Their businesses—ranging 
-                                    from agricultural cooperatives to digital services—generated PHP 150 million in annual revenue collectively and 
-                                    employ over 800 individuals. The showcased success stories demonstrate the transformative impact of targeted 
-                                    economic support and business training for women.
-                                </p>
-                                <a href="#" class="button is-dark is-small">
-                                    <span>Read Full Article</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Pagination -->
+        <div style="margin-top: 3rem;">
+            @if(method_exists($articles ?? collect(), 'links'))
+                {{ $articles->links() }}
+            @endif
         </div>
     </div>
 </section>
