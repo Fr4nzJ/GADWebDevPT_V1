@@ -198,6 +198,91 @@
     <div class="container">
         <h2 class="section-title">GAD Research Publications & Reports</h2>
 
+        <!-- ===== FILTER BAR ===== -->
+        @if($hasPublishedReports)
+        <form method="GET" action="{{ route('reports') }}" id="filterForm">
+            <div style="background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+                <div class="columns">
+                    <div class="column is-6-tablet is-3-desktop">
+                        <div class="field">
+                            <label class="label" style="font-size: 0.9rem; color: #666; font-weight: 600;">Search Reports</label>
+                            <div class="control has-icons-left">
+                                <input class="input" type="text" name="search" placeholder="Title or keyword..." value="{{ request('search', '') }}">
+                                <span class="icon is-left">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-6-tablet is-3-desktop">
+                        <div class="field">
+                            <label class="label" style="font-size: 0.9rem; color: #666; font-weight: 600;">Year</label>
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    <select name="year" onchange="document.getElementById('filterForm').submit();">
+                                        <option value="all" {{ request('year', 'all') === 'all' ? 'selected' : '' }}>All Years</option>
+                                        @for($year = date('Y'); $year >= 2020; $year--)
+                                            <option value="{{ $year }}" {{ request('year') === (string)$year ? 'selected' : '' }}>{{ $year }}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-6-tablet is-3-desktop">
+                        <div class="field">
+                            <label class="label" style="font-size: 0.9rem; color: #666; font-weight: 600;">Type</label>
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    <select name="type" onchange="document.getElementById('filterForm').submit();">
+                                        <option value="all" {{ request('type', 'all') === 'all' ? 'selected' : '' }}>All Types</option>
+                                        <option value="Survey" {{ request('type') === 'Survey' ? 'selected' : '' }}>Survey</option>
+                                        <option value="Analysis" {{ request('type') === 'Analysis' ? 'selected' : '' }}>Analysis</option>
+                                        <option value="Research Study" {{ request('type') === 'Research Study' ? 'selected' : '' }}>Research Study</option>
+                                        <option value="Assessment" {{ request('type') === 'Assessment' ? 'selected' : '' }}>Assessment</option>
+                                        <option value="Baseline Study" {{ request('type') === 'Baseline Study' ? 'selected' : '' }}>Baseline Study</option>
+                                        <option value="Audit" {{ request('type') === 'Audit' ? 'selected' : '' }}>Audit</option>
+                                        <option value="Budget Analysis" {{ request('type') === 'Budget Analysis' ? 'selected' : '' }}>Budget Analysis</option>
+                                        <option value="Health Study" {{ request('type') === 'Health Study' ? 'selected' : '' }}>Health Study</option>
+                                        <option value="Impact Study" {{ request('type') === 'Impact Study' ? 'selected' : '' }}>Impact Study</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-6-tablet is-3-desktop">
+                        <div class="field">
+                            <label class="label" style="font-size: 0.9rem; color: #666; font-weight: 600;">Status</label>
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    <select name="status" onchange="document.getElementById('filterForm').submit();">
+                                        <option value="all" {{ request('status', 'all') === 'all' ? 'selected' : '' }}>All Status</option>
+                                        <option value="published" {{ request('status') === 'published' ? 'selected' : '' }}>Published</option>
+                                        <option value="draft" {{ request('status') === 'draft' ? 'selected' : '' }}>Draft</option>
+                                        <option value="archived" {{ request('status') === 'archived' ? 'selected' : '' }}>Archived</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns" style="margin-top: 1rem;">
+                    <div class="column">
+                        <button type="submit" class="button" style="background: #667eea; color: white; border: none; font-weight: 600;">
+                            <span class="icon"><i class="fas fa-search"></i></span>
+                            <span>Search</span>
+                        </button>
+                        @if(request('search') || request('year', 'all') !== 'all' || request('type', 'all') !== 'all' || request('status', 'all') !== 'all')
+                            <a href="{{ route('reports') }}" class="button" style="background: #f0f0f0; color: #666; border: none; font-weight: 600;">
+                                <span class="icon"><i class="fas fa-times"></i></span>
+                                <span>Clear Filters</span>
+                            </a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </form>
+
         <div class="table-container" style="overflow-x: auto; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
             <table class="table is-striped is-hoverable is-fullwidth" style="margin-bottom: 0;">
                 <thead>
@@ -210,148 +295,185 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Report 1 -->
+                    @forelse($reports as $report)
                     <tr>
-                        <td style="padding: 1.25rem; font-weight: 600; color: #667eea;">National Gender & Social Inclusion Survey (NGSInS) 2024</td>
+                        <td style="padding: 1.25rem; font-weight: 600; color: #667eea;">{{ $report->title }}</td>
+                        <td style="padding: 1.25rem;">{{ $report->year }}</td>
+                        <td style="padding: 1.25rem;">
+                            @php
+                                $typeColors = [
+                                    'Survey' => ['bg' => '#e8f1ff', 'text' => '#667eea'],
+                                    'Analysis' => ['bg' => '#fff8e1', 'text' => '#f0ad4e'],
+                                    'Research Study' => ['bg' => '#ffe8e8', 'text' => '#e74c3c'],
+                                    'Assessment' => ['bg' => '#e8f8f0', 'text' => '#48c774'],
+                                    'Baseline Study' => ['bg' => '#e8f1ff', 'text' => '#667eea'],
+                                    'Audit' => ['bg' => '#fff8e1', 'text' => '#f0ad4e'],
+                                    'Budget Analysis' => ['bg' => '#e8f1ff', 'text' => '#667eea'],
+                                    'Health Study' => ['bg' => '#ffe8e8', 'text' => '#e74c3c'],
+                                    'Impact Study' => ['bg' => '#e8f8f0', 'text' => '#48c774'],
+                                ];
+                                $typeColor = $typeColors[$report->type] ?? ['bg' => '#f5f5f5', 'text' => '#999'];
+                            @endphp
+                            <span style="background: {{ $typeColor['bg'] }}; color: {{ $typeColor['text'] }}; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">{{ $report->type }}</span>
+                        </td>
+                        <td style="padding: 1.25rem; font-size: 0.95rem;">{{ Str::limit($report->description, 150) }}</td>
+                        <td style="padding: 1.25rem; text-align: center;">
+                            @if($report->file_path)
+                                <a href="{{ asset('storage/' . $report->file_path) }}" target="_blank" class="button is-small" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none;">
+                                    <span class="icon"><i class="fas fa-download"></i></span>
+                                    <span>PDF</span>
+                                </a>
+                            @else
+                                <span style="color: #999; font-size: 0.9rem;">N/A</span>
+                            @endif
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="5" style="padding: 2rem; text-align: center; border: none;">
+                            <p style="color: #999; font-size: 1.1rem;">No reports found. <a href="{{ route('reports') }}" style="color: #667eea; font-weight: 600;">View all reports</a></p>
+                        </td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ===== PAGINATION ===== -->
+        <div style="margin-top: 2rem; display: flex; justify-content: center;">
+            <style>
+                .pagination {
+                    display: flex;
+                    list-style: none;
+                    gap: 0.5rem;
+                    padding: 0;
+                    margin: 0;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .pagination li {
+                    display: inline-block;
+                }
+                .pagination li a, .pagination li span {
+                    display: inline-block;
+                    padding: 0.75rem 1rem;
+                    border-radius: 6px;
+                    background: white;
+                    border: 1px solid #e0e0e0;
+                    color: #667eea;
+                    text-decoration: none;
+                    font-weight: 500;
+                    transition: all 0.3s ease;
+                    min-width: 3rem;
+                    text-align: center;
+                }
+                .pagination li:first-child a,
+                .pagination li:last-child a {
+                    color: transparent;
+                    pointer-events: none;
+                }
+                .pagination li:first-child,
+                .pagination li:last-child {
+                    display: none;
+                }
+                .pagination li a:hover {
+                    background: #f0f0f0;
+                    border-color: #667eea;
+                }
+                .pagination li.active span {
+                    background: linear-gradient(135deg, #667eea, #764ba2);
+                    color: white;
+                    border-color: #667eea;
+                }
+                .pagination li.disabled span {
+                    color: #ccc;
+                    cursor: not-allowed;
+                    background: #f5f5f5;
+                    border-color: #eee;
+                }
+                /* Hide "Showing X to Y of Z results" text */
+                .hidden.sm\:flex-1.sm\:flex {
+                    display: none !important;
+                }
+            </style>
+            {{ $reports->links() }}
+        </div>
+        @else
+        <!-- ===== STATIC REPORTS (SHOWN WHEN DATABASE IS EMPTY) ===== -->
+        <div style="background: #f5f7ff; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; text-align: center;">
+            <p style="color: #667eea; font-size: 1.1rem; font-weight: 600; margin-bottom: 1.5rem;">
+                📊 Sample Reports Coming Soon
+            </p>
+            <p style="color: #666; margin-bottom: 2rem;">Our research department is currently compiling reports. Check back soon for published research, analyses, and studies on gender and development.</p>
+        </div>
+
+        <div class="table-container" style="overflow-x: auto; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+            <table class="table is-striped is-hoverable is-fullwidth" style="margin-bottom: 0;">
+                <thead>
+                    <tr>
+                        <th style="padding: 1.25rem;">Report Title</th>
+                        <th style="padding: 1.25rem;">Year</th>
+                        <th style="padding: 1.25rem;">Type</th>
+                        <th style="padding: 1.25rem;">Description</th>
+                        <th style="padding: 1.25rem; text-align: center;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Sample Report 1 -->
+                    <tr style="opacity: 0.65; background-color: #f9faff;">
+                        <td style="padding: 1.25rem; font-weight: 600; color: #667eea;">Women's Economic Participation & Labor Rights Study</td>
                         <td style="padding: 1.25rem;">2024</td>
-                        <td style="padding: 1.25rem;"><span class="tag is-info">Survey</span></td>
-                        <td style="padding: 1.25rem; font-size: 0.95rem;">Comprehensive nationwide survey examining attitudes towards gender equality, discrimination experiences, and social inclusion across 15,000 households</td>
+                        <td style="padding: 1.25rem;">
+                            <span style="background: #e8f1ff; color: #667eea; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">Research Study</span>
+                        </td>
+                        <td style="padding: 1.25rem; font-size: 0.95rem;">Comprehensive analysis of women's participation in the labor force, wage gaps, and policy recommendations for economic inclusion...</td>
                         <td style="padding: 1.25rem; text-align: center;">
-                            <a href="#" class="button is-small" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none;">
-                                <span class="icon"><i class="fas fa-download"></i></span>
-                                <span>PDF</span>
-                            </a>
+                            <span style="color: #999; font-size: 0.9rem;">Coming Soon</span>
                         </td>
                     </tr>
 
-                    <!-- Report 2 -->
-                    <tr>
-                        <td style="padding: 1.25rem; font-weight: 600; color: #667eea;">Women's Economic Participation & Labor Trends Report</td>
+                    <!-- Sample Report 2 -->
+                    <tr style="opacity: 0.65; background-color: #f9faff;">
+                        <td style="padding: 1.25rem; font-weight: 600; color: #667eea;">Gender Equality & Access to Education Report</td>
                         <td style="padding: 1.25rem;">2023</td>
-                        <td style="padding: 1.25rem;"><span class="tag is-warning">Analysis</span></td>
-                        <td style="padding: 1.25rem; font-size: 0.95rem;">Analysis of women's labor force participation, wage gaps, business ownership, and sectoral distribution using data from 2019-2023 Labor Force Survey</td>
+                        <td style="padding: 1.25rem;">
+                            <span style="background: #ffe8e8; color: #e74c3c; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">Survey</span>
+                        </td>
+                        <td style="padding: 1.25rem; font-size: 0.95rem;">Regional data on school enrollment, dropout rates, barriers to education for girls, and interventions to improve access...</td>
                         <td style="padding: 1.25rem; text-align: center;">
-                            <a href="#" class="button is-small" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none;">
-                                <span class="icon"><i class="fas fa-download"></i></span>
-                                <span>PDF</span>
-                            </a>
+                            <span style="color: #999; font-size: 0.9rem;">Coming Soon</span>
                         </td>
                     </tr>
 
-                    <!-- Report 3 -->
-                    <tr>
-                        <td style="padding: 1.25rem; font-weight: 600; color: #667eea;">Violence Against Women and Girls Prevalence Study</td>
+                    <!-- Sample Report 3 -->
+                    <tr style="opacity: 0.65; background-color: #f9faff;">
+                        <td style="padding: 1.25rem; font-weight: 600; color: #667eea;">Violence Against Women & Girls Baseline Study</td>
                         <td style="padding: 1.25rem;">2023</td>
-                        <td style="padding: 1.25rem;"><span class="tag is-danger">Research Study</span></td>
-                        <td style="padding: 1.25rem; font-size: 0.95rem;">Multi-year study on prevalence, types, and impacts of VAWG in selected regions. Includes recommendations for prevention and response programs.</td>
+                        <td style="padding: 1.25rem;">
+                            <span style="background: #e8f8f0; color: #48c774; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">Baseline Study</span>
+                        </td>
+                        <td style="padding: 1.25rem; font-size: 0.95rem;">Prevalence rates, risk factors, service availability, and recommendations for prevention and response to violence...</td>
                         <td style="padding: 1.25rem; text-align: center;">
-                            <a href="#" class="button is-small" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none;">
-                                <span class="icon"><i class="fas fa-download"></i></span>
-                                <span>PDF</span>
-                            </a>
+                            <span style="color: #999; font-size: 0.9rem;">Coming Soon</span>
                         </td>
                     </tr>
 
-                    <!-- Report 4 -->
-                    <tr>
-                        <td style="padding: 1.25rem; font-weight: 600; color: #667eea;">Gender Mainstreaming Assessment: Government Agencies 2023</td>
-                        <td style="padding: 1.25rem;">2023</td>
-                        <td style="padding: 1.25rem;"><span class="tag is-success">Assessment</span></td>
-                        <td style="padding: 1.25rem; font-size: 0.95rem;">Evaluation of 85 government agencies' capacity and commitment to gender mainstreaming based on mandates, budgets, programs, and GAD focal person effectiveness.</td>
-                        <td style="padding: 1.25rem; text-align: center;">
-                            <a href="#" class="button is-small" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none;">
-                                <span class="icon"><i class="fas fa-download"></i></span>
-                                <span>PDF</span>
-                            </a>
+                    <!-- Sample Report 4 -->
+                    <tr style="opacity: 0.65; background-color: #f9faff;">
+                        <td style="padding: 1.25rem; font-weight: 600; color: #667eea;">Gender-Responsive Budget Analysis</td>
+                        <td style="padding: 1.25rem;">2024</td>
+                        <td style="padding: 1.25rem;">
+                            <span style="background: #fff8e1; color: #f0ad4e; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">Budget Analysis</span>
                         </td>
-                    </tr>
-
-                    <!-- Report 5 -->
-                    <tr>
-                        <td style="padding: 1.25rem; font-weight: 600; color: #667eea;">Women's Access to Land & Agricultural Resources in Agrarian Reform Areas</td>
-                        <td style="padding: 1.25rem;">2023</td>
-                        <td style="padding: 1.25rem;"><span class="tag is-info">Baseline Study</span></td>
-                        <td style="padding: 1.25rem; font-size: 0.95rem;">Baseline assessment of women's participation in and access to benefits from agricultural reform programs across 8 regions.</td>
+                        <td style="padding: 1.25rem; font-size: 0.95rem;">Analysis of budget allocations for gender equality programs, tracking of 5% GAD budget mandate, and fiscal impact assessment...</td>
                         <td style="padding: 1.25rem; text-align: center;">
-                            <a href="#" class="button is-small" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none;">
-                                <span class="icon"><i class="fas fa-download"></i></span>
-                                <span>PDF</span>
-                            </a>
-                        </td>
-                    </tr>
-
-                    <!-- Report 6 -->
-                    <tr>
-                        <td style="padding: 1.25rem; font-weight: 600; color: #667eea;">Gender Audit of Education: Learning Materials & Curriculum Analysis</td>
-                        <td style="padding: 1.25rem;">2022</td>
-                        <td style="padding: 1.25rem;"><span class="tag is-warning">Audit</span></td>
-                        <td style="padding: 1.25rem; font-size: 0.95rem;">Analysis of 500+ textbooks and learning materials to identify gender stereotypes and recommend curriculum revisions for schools.</td>
-                        <td style="padding: 1.25rem; text-align: center;">
-                            <a href="#" class="button is-small" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none;">
-                                <span class="icon"><i class="fas fa-download"></i></span>
-                                <span>PDF</span>
-                            </a>
-                        </td>
-                    </tr>
-
-                    <!-- Report 7 -->
-                    <tr>
-                        <td style="padding: 1.25rem; font-weight: 600; color: #667eea;">Gender-Responsive Budgeting: Tracking Public Spending on Gender Programs</td>
-                        <td style="padding: 1.25rem;">2022</td>
-                        <td style="padding: 1.25rem;"><span class="tag is-info">Budget Analysis</span></td>
-                        <td style="padding: 1.25rem; font-size: 0.95rem;">Comprehensive tracking of national and local government expenditures on gender equality and women empowerment programs (2018-2022 trend analysis).</td>
-                        <td style="padding: 1.25rem; text-align: center;">
-                            <a href="#" class="button is-small" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none;">
-                                <span class="icon"><i class="fas fa-download"></i></span>
-                                <span>PDF</span>
-                            </a>
-                        </td>
-                    </tr>
-
-                    <!-- Report 8 -->
-                    <tr>
-                        <td style="padding: 1.25rem; font-weight: 600; color: #667eea;">LGBTQ+ Health Needs Assessment & Recommendations</td>
-                        <td style="padding: 1.25rem;">2022</td>
-                        <td style="padding: 1.25rem;"><span class="tag is-danger">Health Study</span></td>
-                        <td style="padding: 1.25rem; font-size: 0.95rem;">Study on health concerns, access barriers, and service needs of LGBTQ+ individuals in the Philippines with policy recommendations.</td>
-                        <td style="padding: 1.25rem; text-align: center;">
-                            <a href="#" class="button is-small" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none;">
-                                <span class="icon"><i class="fas fa-download"></i></span>
-                                <span>PDF</span>
-                            </a>
-                        </td>
-                    </tr>
-
-                    <!-- Report 9 -->
-                    <tr>
-                        <td style="padding: 1.25rem; font-weight: 600; color: #667eea;">Women Entrepreneurs: Impact Evaluation of Loan Programs 2019-2022</td>
-                        <td style="padding: 1.25rem;">2022</td>
-                        <td style="padding: 1.25rem;"><span class="tag is-success">Impact Study</span></td>
-                        <td style="padding: 1.25rem; font-size: 0.95rem;">Rigorous evaluation of women entrepreneurs who received microloans, measuring business growth, income changes, and household impacts over 3 years.</td>
-                        <td style="padding: 1.25rem; text-align: center;">
-                            <a href="#" class="button is-small" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none;">
-                                <span class="icon"><i class="fas fa-download"></i></span>
-                                <span>PDF</span>
-                            </a>
-                        </td>
-                    </tr>
-
-                    <!-- Report 10 -->
-                    <tr>
-                        <td style="padding: 1.25rem; font-weight: 600; color: #667eea;">Gender & Climate Change Vulnerability Assessment</td>
-                        <td style="padding: 1.25rem;">2021</td>
-                        <td style="padding: 1.25rem;"><span class="tag is-info">Assessment</span></td>
-                        <td style="padding: 1.25rem; font-size: 0.95rem;">Analysis of differential impacts of climate change on women and men, with recommendations for climate adaptation with gender lens.</td>
-                        <td style="padding: 1.25rem; text-align: center;">
-                            <a href="#" class="button is-small" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none;">
-                                <span class="icon"><i class="fas fa-download"></i></span>
-                                <span>PDF</span>
-                            </a>
+                            <span style="color: #999; font-size: 0.9rem;">Coming Soon</span>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        @endif
     </div>
 </section>
 

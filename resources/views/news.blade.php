@@ -105,7 +105,64 @@
         <!-- Pagination -->
         <div style="margin-top: 3rem;">
             @if(method_exists($articles ?? collect(), 'links'))
-                {{ $articles->links() }}
+                <div style="display: flex; justify-content: center; margin-top: 2rem;">
+                    <style>
+                        .pagination {
+                            display: flex;
+                            list-style: none;
+                            gap: 0.5rem;
+                            padding: 0;
+                            margin: 0;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                        .pagination li {
+                            display: inline-block;
+                        }
+                        .pagination li a, .pagination li span {
+                            display: inline-block;
+                            padding: 0.75rem 1rem;
+                            border-radius: 6px;
+                            background: white;
+                            border: 1px solid #e0e0e0;
+                            color: #667eea;
+                            text-decoration: none;
+                            font-weight: 500;
+                            transition: all 0.3s ease;
+                            min-width: 3rem;
+                            text-align: center;
+                        }
+                        .pagination li:first-child a,
+                        .pagination li:last-child a {
+                            color: transparent;
+                            pointer-events: none;
+                        }
+                        .pagination li:first-child,
+                        .pagination li:last-child {
+                            display: none;
+                        }
+                        .pagination li a:hover {
+                            background: #f0f0f0;
+                            border-color: #667eea;
+                        }
+                        .pagination li.active span {
+                            background: linear-gradient(135deg, #667eea, #764ba2);
+                            color: white;
+                            border-color: #667eea;
+                        }
+                        .pagination li.disabled span {
+                            color: #ccc;
+                            cursor: not-allowed;
+                            background: #f5f5f5;
+                            border-color: #eee;
+                        }
+                        /* Hide "Showing X to Y of Z results" text */
+                        .hidden.sm\:flex-1.sm\:flex {
+                            display: none !important;
+                        }
+                    </style>
+                    {{ $articles->links() }}
+                </div>
             @endif
         </div>
     </div>

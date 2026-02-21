@@ -13,52 +13,68 @@
 </div>
 
 <!-- ===== FILTER BAR ===== -->
-<div style="background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
-    <div class="columns">
-        <div class="column is-6-tablet is-4-desktop">
-            <div class="field">
-                <label class="label" style="font-size: 0.9rem; color: #666; font-weight: 600;">Search Users</label>
-                <div class="control has-icons-left">
-                    <input class="input" type="text" placeholder="Name or email...">
-                    <span class="icon is-left">
-                        <i class="fas fa-search"></i>
-                    </span>
+<form method="GET" action="{{ route('admin.users.index') }}" id="filterForm">
+    <div style="background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+        <div class="columns">
+            <div class="column is-6-tablet is-4-desktop">
+                <div class="field">
+                    <label class="label" style="font-size: 0.9rem; color: #666; font-weight: 600;">Search Users</label>
+                    <div class="control has-icons-left">
+                        <input class="input" type="text" name="search" placeholder="Name or email..." value="{{ request('search', '') }}">
+                        <span class="icon is-left">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="column is-6-tablet is-4-desktop">
-            <div class="field">
-                <label class="label" style="font-size: 0.9rem; color: #666; font-weight: 600;">User Role</label>
-                <div class="control">
-                    <div class="select is-fullwidth">
-                        <select>
-                            <option>All Roles</option>
-                            <option>Administrator</option>
-                            <option>Editor</option>
-                            <option>Contributor</option>
-                            <option>Viewer</option>
-                        </select>
+            <div class="column is-6-tablet is-4-desktop">
+                <div class="field">
+                    <label class="label" style="font-size: 0.9rem; color: #666; font-weight: 600;">User Role</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select name="role" onchange="document.getElementById('filterForm').submit();">
+                                <option value="all" {{ request('role', 'all') === 'all' ? 'selected' : '' }}>All Roles</option>
+                                <option value="administrator" {{ request('role') === 'administrator' ? 'selected' : '' }}>Administrator</option>
+                                <option value="editor" {{ request('role') === 'editor' ? 'selected' : '' }}>Editor</option>
+                                <option value="contributor" {{ request('role') === 'contributor' ? 'selected' : '' }}>Contributor</option>
+                                <option value="viewer" {{ request('role') === 'viewer' ? 'selected' : '' }}>Viewer</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-6-tablet is-4-desktop">
+                <div class="field">
+                    <label class="label" style="font-size: 0.9rem; color: #666; font-weight: 600;">Status</label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select name="status" onchange="document.getElementById('filterForm').submit();">
+                                <option value="all" {{ request('status', 'all') === 'all' ? 'selected' : '' }}>All Status</option>
+                                <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Active</option>
+                                <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                <option value="suspended" {{ request('status') === 'suspended' ? 'selected' : '' }}>Suspended</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="column is-6-tablet is-4-desktop">
-            <div class="field">
-                <label class="label" style="font-size: 0.9rem; color: #666; font-weight: 600;">Status</label>
-                <div class="control">
-                    <div class="select is-fullwidth">
-                        <select>
-                            <option>All Status</option>
-                            <option>Active</option>
-                            <option>Inactive</option>
-                            <option>Suspended</option>
-                        </select>
-                    </div>
-                </div>
+        <div class="columns" style="margin-top: 1rem;">
+            <div class="column">
+                <button type="submit" class="button" style="background: #667eea; color: white; border: none; font-weight: 600;">
+                    <span class="icon"><i class="fas fa-search"></i></span>
+                    <span>Search</span>
+                </button>
+                @if(request('search') || request('role') !== 'all' || request('status') !== 'all')
+                    <a href="{{ route('admin.users.index') }}" class="button" style="background: #f0f0f0; color: #666; border: none; font-weight: 600;">
+                        <span class="icon"><i class="fas fa-times"></i></span>
+                        <span>Clear Filters</span>
+                    </a>
+                @endif
             </div>
         </div>
     </div>
-</div>
+</form>
 
 <!-- ===== USERS TABLE ===== -->
 <div class="admin-table">
@@ -95,13 +111,32 @@
                     <span style="color: #666;">{{ $user->email }}</span>
                 </td>
                 <td style="padding: 1.25rem; border: none;">
-                    <span style="background: #e8f1ff; color: #667eea; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">User</span>
+                    @php
+                        $roleColors = [
+                            'administrator' => ['bg' => '#e8f1ff', 'text' => '#667eea'],
+                            'editor' => ['bg' => '#f0f8ff', 'text' => '#3273dc'],
+                            'contributor' => ['bg' => '#fffbf0', 'text' => '#f0ad4e'],
+                            'viewer' => ['bg' => '#f5f5f5', 'text' => '#999'],
+                        ];
+                        $roleColor = $roleColors[$user->role] ?? ['bg' => '#f5f5f5', 'text' => '#999'];
+                        $roleDisplay = ucfirst($user->role);
+                    @endphp
+                    <span style="background: {{ $roleColor['bg'] }}; color: {{ $roleColor['text'] }}; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">{{ $roleDisplay }}</span>
                 </td>
                 <td style="padding: 1.25rem; border: none;">
                     <span style="color: #999;">General</span>
                 </td>
                 <td style="padding: 1.25rem; border: none;">
-                    <span style="background: #e8f5e9; color: #48c774; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">Active</span>
+                    @php
+                        $statusColors = [
+                            'active' => ['bg' => '#e8f5e9', 'text' => '#48c774'],
+                            'inactive' => ['bg' => '#fce4ec', 'text' => '#f03e5d'],
+                            'suspended' => ['bg' => '#fff8e1', 'text' => '#f0ad4e'],
+                        ];
+                        $statusColor = $statusColors[$user->status] ?? ['bg' => '#f5f5f5', 'text' => '#999'];
+                        $statusDisplay = ucfirst($user->status);
+                    @endphp
+                    <span style="background: {{ $statusColor['bg'] }}; color: {{ $statusColor['text'] }}; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">{{ $statusDisplay }}</span>
                 </td>
                 <td style="padding: 1.25rem; border: none;">
                     <span style="color: #999;">{{ $user->created_at->format('M d, Y') }}</span>
@@ -132,15 +167,64 @@
 </div>
 
 <!-- ===== PAGINATION ===== -->
-<nav class="pagination is-centered" role="navigation" aria-label="pagination" style="margin-top: 2rem;">
-    <a class="pagination-previous">Previous</a>
-    <a class="pagination-next">Next page</a>
-    <ul class="pagination-list">
-        <li><a class="pagination-link is-current" aria-label="Page 1" aria-current="page">1</a></li>
-        <li><a class="pagination-link">2</a></li>
-        <li><a class="pagination-link">3</a></li>
-    </ul>
-</nav>
+<div style="margin-top: 2rem; display: flex; justify-content: center;">
+    <style>
+        .pagination {
+            display: flex;
+            list-style: none;
+            gap: 0.5rem;
+            padding: 0;
+            margin: 0;
+            justify-content: center;
+            align-items: center;
+        }
+        .pagination li {
+            display: inline-block;
+        }
+        .pagination li a, .pagination li span {
+            display: inline-block;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            min-width: 3rem;
+            text-align: center;
+        }
+        .pagination li:first-child a,
+        .pagination li:last-child a {
+            color: transparent;
+            pointer-events: none;
+        }
+        .pagination li:first-child,
+        .pagination li:last-child {
+            display: none;
+        }
+        .pagination li a:hover {
+            background: #f0f0f0;
+            border-color: #667eea;
+        }
+        .pagination li.active span {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: #667eea;
+        }
+        .pagination li.disabled span {
+            color: #ccc;
+            cursor: not-allowed;
+            background: #f5f5f5;
+            border-color: #eee;
+        }
+        /* Hide "Showing X to Y of Z results" text */
+        .hidden.sm\:flex-1.sm\:flex {
+            display: none !important;
+        }
+    </style>
+    {{ $users->links() }}
+</div>
 
 <!-- ===== DELETE MODALS ===== -->
 @foreach($users as $user)

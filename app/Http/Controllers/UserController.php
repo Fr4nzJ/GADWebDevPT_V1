@@ -8,9 +8,31 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::latest()->paginate(10);
+        $query = User::query();
+
+        // Search filter (name or email)
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        // Role filter
+        if ($request->filled('role') && $request->input('role') !== 'all') {
+            $query->where('role', $request->input('role'));
+        }
+
+        // Status filter
+        if ($request->filled('status') && $request->input('status') !== 'all') {
+            $query->where('status', $request->input('status'));
+        }
+
+        $users = $query->latest()->paginate(10)->appends($request->query());
+        
         return view('admin.users.index', compact('users'));
     }
 
@@ -25,6 +47,8 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
+            'role' => 'sometimes|string|in:administrator,editor,contributor,viewer',
+            'status' => 'sometimes|string|in:active,inactive,suspended',
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
@@ -49,6 +73,8 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|string|min:8|confirmed',
+            'role' => 'sometimes|string|in:administrator,editor,contributor,viewer',
+            'status' => 'sometimes|string|in:active,inactive,suspended',
         ]);
 
         if ($request->filled('password')) {

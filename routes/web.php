@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 // ===== PUBLIC PAGES =====
@@ -30,9 +31,7 @@ Route::get('/events', function () {
 
 Route::get('/events/{event}', [EventController::class, 'publicShow'])->name('events.show');
 
-Route::get('/reports', function () {
-    return view('reports');
-})->name('reports');
+Route::get('/reports', [ReportController::class, 'publicIndex'])->name('reports');
 
 Route::get('/contact', function () {
     return view('contact');
@@ -79,9 +78,13 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
         return view('admin.programs.index');
     })->name('admin.programs.index');
     
-    Route::get('/reports', function () {
-        return view('admin.reports.index');
-    })->name('admin.reports.index');
+    Route::get('/reports', [ReportController::class, 'index'])->name('admin.reports.index');
+    Route::get('/reports/create', [ReportController::class, 'create'])->name('admin.reports.create');
+    Route::post('/reports', [ReportController::class, 'store'])->name('admin.reports.store');
+    Route::get('/reports/{report}', [ReportController::class, 'show'])->name('admin.reports.show');
+    Route::get('/reports/{report}/edit', [ReportController::class, 'edit'])->name('admin.reports.edit');
+    Route::put('/reports/{report}', [ReportController::class, 'update'])->name('admin.reports.update');
+    Route::delete('/reports/{report}', [ReportController::class, 'destroy'])->name('admin.reports.destroy');
     
     Route::get('/users', [UserController::class, 'index'])->name('admin.users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('admin.users.create');
