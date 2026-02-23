@@ -3,6 +3,61 @@
 @section('title', 'Latest News & Updates - CatSu GAD')
 
 @section('content')
+<style>
+    .news-card {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .news-card-image {
+        width: 350px;
+        min-width: 350px;
+        height: 280px;
+        overflow: hidden;
+    }
+
+    .news-card-content {
+        padding: 2rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    @media (max-width: 768px) {
+        .news-card {
+            flex-direction: column;
+        }
+
+        .news-card-image {
+            width: 100%;
+            min-width: 100%;
+            height: 220px;
+        }
+
+        .news-card-content {
+            padding: 1.5rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+        }
+
+        .category-filter {
+            justify-content: flex-start !important;
+        }
+
+        .news-card-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .news-card-footer {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+    }
+</style>
 <!-- ===== HERO SECTION WITH BACKGROUND IMAGE ===== -->
 <section class="hero-with-image">
     <div class="hero-overlay"></div>
@@ -27,13 +82,13 @@
 <!-- ===== NEWS FILTER ===== -->
 <section class="section">
     <div class="container">
-        <h2 class="section-title" style="font-size: 2.5rem; font-weight: 700; margin-bottom: 2rem; color: #2c3e50; position: relative; padding-bottom: 1rem;">
+        <h2 class="section-title" style="font-size: clamp(1.5rem, 5vw, 2.5rem); font-weight: 700; margin-bottom: 2rem; color: #2c3e50; position: relative; padding-bottom: 1rem;">
             Latest News & Updates
             <span style="position: absolute; bottom: 0; left: 0; width: 60px; height: 4px; background: linear-gradient(90deg, #667eea, #764ba2); border-radius: 2px;"></span>
         </h2>
 
         <!-- Category Filter -->
-        <div style="display: flex; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap;">
+        <div class="category-filter" style="display: flex; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; justify-content: center;">
             <button onclick="filterNews('all')" class="category-btn" style="padding: 0.75rem 1.5rem; border-radius: 20px; border: 2px solid #667eea; background: #667eea; color: white; font-weight: 600; cursor: pointer;">
                 All News
             </button>
@@ -50,18 +105,18 @@
         <!-- News Articles -->
         <div id="newsContainer">
             @forelse(\App\Models\News::where('status', 'published')->latest()->paginate(6) as $article)
-            <article class="news-card" data-category="{{ $article->category }}" style="background: white; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1); overflow: hidden; transition: all 0.3s ease; display: flex;" onmouseenter="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 6px 20px rgba(0, 0, 0, 0.15)';" onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 12px rgba(0, 0, 0, 0.1)';">
+            <article class="news-card" data-category="{{ $article->category }}" style="background: white; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1); overflow: hidden; transition: all 0.3s ease;" onmouseenter="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 6px 20px rgba(0, 0, 0, 0.15)';" onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 12px rgba(0, 0, 0, 0.1)';">
                 <!-- Featured Image -->
                 @if($article->images && count($article->images) > 0)
-                <div style="width: 350px; min-width: 350px; height: 280px; overflow: hidden;">
+                <div class="news-card-image">
                     <img src="{{ asset('storage/' . $article->images[0]) }}" style="width: 100%; height: 100%; object-fit: cover;" alt="{{ $article->title }}">
                 </div>
                 @endif
 
                 <!-- Article Content -->
-                <div style="padding: 2rem; flex: 1; display: flex; flex-direction: column;">
+                <div class="news-card-content">
                     <!-- Header with Category and Date -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <div class="news-card-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
                         <span style="background: #e8f1ff; color: #667eea; padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">
                             {{ $article->category }}
                         </span>
@@ -81,12 +136,12 @@
                     </p>
 
                     <!-- Footer with Author and CTA -->
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid #f0f0f0;">
+                    <div class="news-card-footer" style="display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; border-top: 1px solid #f0f0f0;">
                         <span style="color: #999; font-size: 0.9rem;">
                             <i class="fas fa-user"></i> {{ $article->author }} | 
                             <i class="fas fa-eye"></i> {{ $article->views }}
                         </span>
-                        <a href="{{ route('news.show', $article) }}" class="button is-small" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; font-weight: 600;">
+                        <a href="{{ route('news.show', $article) }}" class="button is-small" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; font-weight: 600; white-space: nowrap;">
                             Read More
                             <span class="icon" style="margin-left: 0.5rem;"><i class="fas fa-arrow-right"></i></span>
                         </a>
@@ -173,17 +228,17 @@
     <div class="container">
         <div class="box">
             <div class="content has-text-centered">
-                <h2 class="title is-3">Stay Updated</h2>
+                <h2 class="title is-3" style="font-size: clamp(1.5rem, 5vw, 2rem);">Stay Updated</h2>
                 <p>Subscribe to our newsletter for monthly updates on gender equality initiatives and opportunities.</p>
                 
                 <form action="{{ route('contact.store') }}" method="POST" class="mt-4">
                     @csrf
-                    <div class="field is-grouped is-grouped-centered">
-                        <div class="control is-expanded" style="max-width: 400px;">
-                            <input class="input" type="email" name="email" placeholder="Enter your email address" required>
+                    <div class="field is-grouped is-grouped-centered is-flex-direction-column-mobile">
+                        <div class="control is-expanded" style="max-width: 100%; min-width: 0;">
+                            <input class="input" type="email" name="email" placeholder="Enter your email address" required style="width: 100%;">
                         </div>
-                        <div class="control">
-                            <button class="button is-primary" type="submit">
+                        <div class="control" style="margin-top: 0.75rem;">
+                            <button class="button is-primary" type="submit" style="width: 100%;">
                                 <span class="icon"><i class="fas fa-check"></i></span>
                                 <span>Subscribe</span>
                             </button>
