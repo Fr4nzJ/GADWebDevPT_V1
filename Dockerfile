@@ -16,7 +16,7 @@ RUN apk add --no-cache \
     npm
 
 # Install PHP extensions
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-zlib
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install -j$(nproc) \
     gd \
     pdo \
