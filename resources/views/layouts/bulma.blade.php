@@ -339,7 +339,7 @@
         <div class="navbar-brand">
             <a class="navbar-item" href="{{ route('welcome') }}">
                 <span class="icon-text">
-                    <img src="{{ asset('images/GAD logo.png')}}" alt="CatSu GAD Logo" style="height: 40px; margin-right: 10px;">
+                    <img src="{{ asset('images/GAD Logo.png')}}" alt="CatSu GAD Logo" style="height: 40px; margin-right: 10px;">
                     <span style="color: #667eea; font-weight: bold;">CatSu GAD</span>
                 </span>
             </a>
