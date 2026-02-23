@@ -81,7 +81,7 @@
                 @error('status')<p class="help is-danger">{{ $message }}</p>@enderror
             </div>
 
-            {{-- NEW: Existing Images Section --}}
+            {{-- Existing Images Section --}}
             @if(!empty($event->images) && is_array($event->images))
             <div class="field" style="margin-top: 1.5rem;">
                 <label class="label">Current Images</label>
@@ -100,7 +100,7 @@
             </div>
             @endif
 
-            {{-- NEW: Add New Images Section --}}
+            {{-- Add New Images Section --}}
             <div class="field" style="margin-top: 1.5rem;">
                 <label class="label">Add New Images</label>
                 <div class="control">
