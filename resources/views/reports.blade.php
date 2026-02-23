@@ -399,79 +399,11 @@
             {{ $reports->links() }}
         </div>
         @else
-        <!-- ===== STATIC REPORTS (SHOWN WHEN DATABASE IS EMPTY) ===== -->
-        <div style="background: #f5f7ff; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; text-align: center;">
+        <div style="background: #f5f7ff; padding: 3rem; border-radius: 12px; margin-bottom: 2rem; text-align: center;">
             <p style="color: #667eea; font-size: 1.1rem; font-weight: 600; margin-bottom: 1.5rem;">
-                📊 Sample Reports Coming Soon
+                📊 No Reports Available
             </p>
-            <p style="color: #666; margin-bottom: 2rem;">Our research department is currently compiling reports. Check back soon for published research, analyses, and studies on gender and development.</p>
-        </div>
-
-        <div class="table-container" style="overflow-x: auto; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
-            <table class="table is-striped is-hoverable is-fullwidth" style="margin-bottom: 0;">
-                <thead>
-                    <tr>
-                        <th style="padding: 1.25rem;">Report Title</th>
-                        <th style="padding: 1.25rem;">Year</th>
-                        <th style="padding: 1.25rem;">Type</th>
-                        <th style="padding: 1.25rem;">Description</th>
-                        <th style="padding: 1.25rem; text-align: center;">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Sample Report 1 -->
-                    <tr style="opacity: 0.65; background-color: #f9faff;">
-                        <td style="padding: 1.25rem; font-weight: 600; color: #667eea;">Women's Economic Participation & Labor Rights Study</td>
-                        <td style="padding: 1.25rem;">2024</td>
-                        <td style="padding: 1.25rem;">
-                            <span style="background: #e8f1ff; color: #667eea; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">Research Study</span>
-                        </td>
-                        <td style="padding: 1.25rem; font-size: 0.95rem;">Comprehensive analysis of women's participation in the labor force, wage gaps, and policy recommendations for economic inclusion...</td>
-                        <td style="padding: 1.25rem; text-align: center;">
-                            <span style="color: #999; font-size: 0.9rem;">Coming Soon</span>
-                        </td>
-                    </tr>
-
-                    <!-- Sample Report 2 -->
-                    <tr style="opacity: 0.65; background-color: #f9faff;">
-                        <td style="padding: 1.25rem; font-weight: 600; color: #667eea;">Gender Equality & Access to Education Report</td>
-                        <td style="padding: 1.25rem;">2023</td>
-                        <td style="padding: 1.25rem;">
-                            <span style="background: #ffe8e8; color: #e74c3c; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">Survey</span>
-                        </td>
-                        <td style="padding: 1.25rem; font-size: 0.95rem;">Regional data on school enrollment, dropout rates, barriers to education for girls, and interventions to improve access...</td>
-                        <td style="padding: 1.25rem; text-align: center;">
-                            <span style="color: #999; font-size: 0.9rem;">Coming Soon</span>
-                        </td>
-                    </tr>
-
-                    <!-- Sample Report 3 -->
-                    <tr style="opacity: 0.65; background-color: #f9faff;">
-                        <td style="padding: 1.25rem; font-weight: 600; color: #667eea;">Violence Against Women & Girls Baseline Study</td>
-                        <td style="padding: 1.25rem;">2023</td>
-                        <td style="padding: 1.25rem;">
-                            <span style="background: #e8f8f0; color: #48c774; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">Baseline Study</span>
-                        </td>
-                        <td style="padding: 1.25rem; font-size: 0.95rem;">Prevalence rates, risk factors, service availability, and recommendations for prevention and response to violence...</td>
-                        <td style="padding: 1.25rem; text-align: center;">
-                            <span style="color: #999; font-size: 0.9rem;">Coming Soon</span>
-                        </td>
-                    </tr>
-
-                    <!-- Sample Report 4 -->
-                    <tr style="opacity: 0.65; background-color: #f9faff;">
-                        <td style="padding: 1.25rem; font-weight: 600; color: #667eea;">Gender-Responsive Budget Analysis</td>
-                        <td style="padding: 1.25rem;">2024</td>
-                        <td style="padding: 1.25rem;">
-                            <span style="background: #fff8e1; color: #f0ad4e; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">Budget Analysis</span>
-                        </td>
-                        <td style="padding: 1.25rem; font-size: 0.95rem;">Analysis of budget allocations for gender equality programs, tracking of 5% GAD budget mandate, and fiscal impact assessment...</td>
-                        <td style="padding: 1.25rem; text-align: center;">
-                            <span style="color: #999; font-size: 0.9rem;">Coming Soon</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <p style="color: #666; margin-bottom: 2rem;">No reports have been published yet. Check back soon for research and studies on gender and development.</p>
         </div>
         @endif
     </div>

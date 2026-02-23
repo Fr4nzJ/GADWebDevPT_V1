@@ -6,6 +6,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ProgramController;
 use Illuminate\Support\Facades\Route;
 
 // ===== PUBLIC PAGES =====
@@ -17,9 +18,7 @@ Route::get('/about', function () {
     return view('about');
 })->name('about');
 
-Route::get('/programs', function () {
-    return view('programs');
-})->name('programs');
+Route::get('/programs', [ProgramController::class, 'publicIndex'])->name('programs');
 
 Route::get('/news', [NewsController::class, 'newsPage'])->name('news-page');
 
@@ -74,9 +73,13 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('admin.events.destroy');
     Route::get('/events/{event}', [EventController::class, 'show'])->name('admin.events.show');
     
-    Route::get('/programs', function () {
-        return view('admin.programs.index');
-    })->name('admin.programs.index');
+    Route::get('/programs', [ProgramController::class, 'index'])->name('admin.programs.index');
+    Route::get('/programs/create', [ProgramController::class, 'create'])->name('admin.programs.create');
+    Route::post('/programs', [ProgramController::class, 'store'])->name('admin.programs.store');
+    Route::get('/programs/{program}/show', [ProgramController::class, 'show'])->name('admin.programs.show');
+    Route::get('/programs/{program}/edit', [ProgramController::class, 'edit'])->name('admin.programs.edit');
+    Route::put('/programs/{program}', [ProgramController::class, 'update'])->name('admin.programs.update');
+    Route::delete('/programs/{program}', [ProgramController::class, 'destroy'])->name('admin.programs.destroy');
     
     Route::get('/reports', [ReportController::class, 'index'])->name('admin.reports.index');
     Route::get('/reports/create', [ReportController::class, 'create'])->name('admin.reports.create');

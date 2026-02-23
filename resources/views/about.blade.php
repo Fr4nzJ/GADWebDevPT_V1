@@ -9,7 +9,7 @@
     <div class="hero-overlay"></div>
     <div class="hero-content">
         <h1>About CatSu GAD</h1>
-        <p class="subtitle">Our Mandate, Vision & Mission</p>
+        <p class="subtitle">Our Vision, Mission, Objectives, Mandate, and Goal</p>
     </div>
 </section>
 

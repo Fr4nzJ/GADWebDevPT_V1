@@ -1,0 +1,44 @@
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Local development
+.env
+.env.local
+docker-compose.yml
+Homestead.json
+Homestead.yaml
+
+# Testing
+tests/
+phpunit.xml
+.phpunit.result.cache
+
+# Temporary files
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+bootstrap/cache/*
+.php_cs.cache
+
+# Dependencies
+node_modules/
+vendor/
+
+# Documentation
+docs/
+README.md
+CHANGELOG.md
+
+# Misc
+*.tmp
+.turbo

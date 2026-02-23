@@ -3,8 +3,9 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "dev": "vite",
         "build": "vite build",
-        "dev": "vite"
+        "postbuild": "npm run build:assets"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",
