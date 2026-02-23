@@ -284,6 +284,7 @@
         .timeline-item::before {
             left: 20px;
             top: 1rem;
+            transform: translateX(-50%);
         }
         
         .timeline-year {
@@ -304,6 +305,14 @@
             bottom: -1.5rem;
             left: 50%;
             transform: translateX(-50%);
+        }
+        
+        .section-header h2 {
+            font-size: 1.5rem;
+        }
+        
+        .kpi-grid {
+            grid-template-columns: repeat(2, 1fr);
         }
     }
 </style>
