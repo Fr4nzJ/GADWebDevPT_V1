@@ -13,6 +13,9 @@ if [ ! -z "$DB_HOST" ] && [ "$DB_HOST" != "your-database-host" ]; then
     echo "=== Running database migrations ==="
     php artisan migrate --force || (echo "Migration completed or skipped" && true)
     
+    echo "=== Seeding database with required data ==="
+    php artisan db:seed --force || (echo "Seeding completed or skipped" && true)
+    
     echo "=== Clearing previous caches ==="
     php artisan optimize:clear || true
 else
