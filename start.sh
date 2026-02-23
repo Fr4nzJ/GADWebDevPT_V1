@@ -7,8 +7,14 @@
 set -e
 
 echo "=== Starting Application ==="
-echo "=== Clearing previous caches ==="
-php artisan optimize:clear || true
+
+# Check if database is configured before attempting to clear cache
+if [ ! -z "$DB_HOST" ] && [ "$DB_HOST" != "your-database-host" ]; then
+    echo "=== Clearing previous caches ==="
+    php artisan optimize:clear || true
+else
+    echo "=== Skipping cache clear (database not configured) ==="
+fi
 
 echo "=== Caching Configuration ==="
 php artisan config:cache
@@ -26,7 +32,8 @@ echo "=== Creating Storage Symlink ==="
 php artisan storage:link || true
 
 echo "=== All optimizations complete ==="
-echo "=== Starting Apache with PHP ==="
+echo "=== Starting PHP Development Server ==="
 
-# Execute the main web server process
-exec vendor/bin/heroku-php-apache2 public/
+# Use PHP's built-in server (works with Railway)
+# Listen on the PORT environment variable (Railway sets this)
+exec php -S 0.0.0.0:${PORT:-8000} -t public/
