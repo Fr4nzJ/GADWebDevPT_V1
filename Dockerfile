@@ -17,17 +17,8 @@ RUN apk add --no-cache \
 
 # Install PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
-RUN docker-php-ext-install -j$(nproc) \
-    gd \
-    pdo \
-    pdo_pgsql \
-    bcmath \
-    ctype \
-    fileinfo \
-    json \
-    mbstring \
-    openssl \
-    tokenizer
+RUN docker-php-ext-install -j$(nproc) gd pdo_pgsql bcmath
+RUN docker-php-ext-enable ctype fileinfo mbstring
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
