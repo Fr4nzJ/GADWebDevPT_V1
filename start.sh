@@ -8,12 +8,15 @@ set -e
 
 echo "=== Starting Application ==="
 
-# Check if database is configured before attempting to clear cache
+# Check if database is configured before attempting operations
 if [ ! -z "$DB_HOST" ] && [ "$DB_HOST" != "your-database-host" ]; then
+    echo "=== Running database migrations ==="
+    php artisan migrate --force || (echo "Migration completed or skipped" && true)
+    
     echo "=== Clearing previous caches ==="
     php artisan optimize:clear || true
 else
-    echo "=== Skipping cache clear (database not configured) ==="
+    echo "=== Skipping database operations (database not configured) ==="
 fi
 
 echo "=== Caching Configuration ==="
