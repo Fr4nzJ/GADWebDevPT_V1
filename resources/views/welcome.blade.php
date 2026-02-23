@@ -267,19 +267,31 @@
     @media (max-width: 768px) {
         .timeline::before {
             left: 20px;
+            height: calc(100% - 2rem);
         }
         
         .timeline-items {
             grid-template-columns: 1fr;
+            gap: 3rem;
         }
         
         .timeline-item {
             text-align: left !important;
             margin-left: 60px;
+            padding: 1rem;
         }
         
         .timeline-item::before {
             left: 20px;
+            top: 1rem;
+        }
+        
+        .timeline-year {
+            font-size: 1.2rem;
+        }
+        
+        .timeline-text {
+            font-size: 0.85rem;
         }
         
         .process-flow {
