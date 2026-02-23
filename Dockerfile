@@ -79,9 +79,8 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 # Expose port
 EXPOSE 9000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:9000/ || exit 1
+# Remove invalid health check - PHP-FPM doesn't serve HTTP directly
+# Health checks should be on the Nginx container instead
 
 # Set entrypoint
 ENTRYPOINT ["docker-entrypoint.sh"]

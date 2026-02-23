@@ -1,6 +1,13 @@
 #!/bin/sh
 set -e
 
+# Use .env.docker in Docker environment if .env doesn't exist
+# This ensures Docker environment variables take precedence
+if [ ! -f /app/.env ] && [ -f /app/.env.docker ]; then
+    echo "Creating .env from .env.docker for Docker environment..."
+    cp /app/.env.docker /app/.env
+fi
+
 # Wait for database to be ready (if DATABASE_HOST is set)
 if [ ! -z "$DB_HOST" ] && [ ! -z "$DB_PORT" ]; then
     echo "Waiting for database at $DB_HOST:$DB_PORT..."
