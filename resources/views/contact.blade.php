@@ -242,9 +242,9 @@
 <!-- ===== MAIN CONTENT ===== -->
 <section class="section section-purple-gradient">
     <div class="container">
-        <div class="columns">
+        <div class="columns is-multiline">
             <!-- CONTACT FORM -->
-            <div class="column is-7">
+            <div class="column is-full-mobile is-full-tablet is-7-desktop">
                 <div class="box">
                     <h2 class="title is-4 mb-4">Send us a Message</h2>
 
@@ -370,7 +370,7 @@
             </div>
 
             <!-- CONTACT INFORMATION -->
-            <div class="column is-5">
+            <div class="column is-full-mobile is-full-tablet is-5-desktop">
                 <!-- Office Address -->
                 <div class="box mb-4">
                     <h3 class="title is-5">

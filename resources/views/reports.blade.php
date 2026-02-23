@@ -514,7 +514,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="column is-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; padding: 2.5rem;">
+                <div class="column is-full-mobile is-full-tablet is-5-desktop" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; padding: 2.5rem;">
                     <div style="text-align: center; color: white;">
                         <p style="font-size: 4rem; font-weight: 800; line-height: 1;">180</p>
                         <p style="font-size: 1.2rem; margin-bottom: 2rem;">Pages of Data</p>

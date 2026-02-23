@@ -340,9 +340,9 @@
         <h2 class="section-title">Our Institutional Partnership</h2>
 
         <div style="background: linear-gradient(135deg, #ff02b3c9, #2ce6ffb9); border-radius: 12px; padding: 3rem 2rem; margin-bottom: 2rem;">
-            <div class="columns is-vcentered is-centered">
+            <div class="columns is-vcentered is-centered is-multiline">
                 <!-- CatSu GAD Logo -->
-                <div class="column is-one-third has-text-centered">
+                <div class="column is-full-mobile is-6-tablet is-4-desktop has-text-centered">
                     <div style="margin-bottom: 1.5rem;">
                         <img src="{{ asset('images/GAD Logo.png') }}" alt="CatSu GAD Logo" style="height: 120px; width: auto;">
                     </div>
@@ -351,13 +351,13 @@
                 </div>
 
                 <!-- Connection Icon -->
-                <div class="column is-one-quarter has-text-centered" style="padding: 0 1rem;">
+                <div class="column is-full-mobile is-6-tablet is-4-desktop has-text-centered" style="padding: 0 1rem;">
                     <div style="font-size: 2.5rem; color: #00ffbf;"><i class="fas fa-link"></i></div>
                     <p style="color: #00ffea; font-weight: 600; margin-top: 1rem; font-size: 0.9rem;">Connected<br>Through</p>
                 </div>
 
                 <!-- Catanduanes State University Logo -->
-                <div class="column is-one-third has-text-centered">
+                <div class="column is-full-mobile is-6-tablet is-4-desktop has-text-centered">
                     <div style="margin-bottom: 1.5rem;">
                         <img src="{{ asset('images/catsu hr.png') }}" alt="Catanduanes State University Logo" style="height: 120px; width: auto;">
                     </div>
