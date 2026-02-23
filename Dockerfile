@@ -1,13 +1,14 @@
 # Build stage
 FROM php:8.2-fpm-alpine as builder
 
-# Install system dependencies
+# Install system dependencies (including zlib-dev for GD)
 RUN apk add --no-cache \
     build-base \
     postgresql-dev \
     libpng-dev \
     libjpeg-turbo-dev \
     freetype-dev \
+    zlib-dev \
     zip \
     unzip \
     git \
@@ -15,7 +16,7 @@ RUN apk add --no-cache \
     npm
 
 # Install PHP extensions
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-zlib
 RUN docker-php-ext-install -j$(nproc) \
     gd \
     pdo \
@@ -46,33 +47,29 @@ COPY . .
 # Generate composer autoloader
 RUN composer dump-autoload --optimize
 
+# Set up PHP configuration for production
+RUN echo "date.timezone=UTC" > /usr/local/etc/php/conf.d/timezone.ini && \
+    echo "log_errors = On" >> /usr/local/etc/php/conf.d/timezone.ini && \
+    echo "error_log = /dev/stderr" >> /usr/local/etc/php/conf.d/timezone.ini
+
 # Install Node dependencies and build frontend assets
 RUN npm ci && npm run build
 
 # Runtime stage
 FROM php:8.2-fpm-alpine
 
-# Install runtime dependencies only
+# Install minimal runtime dependencies
 RUN apk add --no-cache \
     postgresql-libs \
     libpng \
     libjpeg-turbo \
     freetype \
+    zlib \
     curl
 
-# Install PHP extensions (runtime)
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
-RUN docker-php-ext-install -j$(nproc) \
-    gd \
-    pdo \
-    pdo_pgsql \
-    bcmath \
-    ctype \
-    fileinfo \
-    json \
-    mbstring \
-    openssl \
-    tokenizer
+# Copy already-compiled PHP extensions from builder
+COPY --from=builder /usr/local/lib/php/extensions /usr/local/lib/php/extensions
+COPY --from=builder /usr/local/etc/php/conf.d /usr/local/etc/php/conf.d
 
 # Set working directory
 WORKDIR /app
@@ -84,11 +81,6 @@ COPY --from=builder /app .
 RUN mkdir -p storage/logs bootstrap/cache
 RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
 RUN chmod -R 755 /app/storage /app/bootstrap/cache
-
-# Set up PHP configuration for production
-RUN echo "date.timezone=UTC" > /usr/local/etc/php/conf.d/timezone.ini
-RUN echo "log_errors = On" >> /usr/local/etc/php/conf.d/timezone.ini
-RUN echo "error_log = /dev/stderr" >> /usr/local/etc/php/conf.d/timezone.ini
 
 # Copy entrypoint script
 COPY docker-entrypoint.sh /usr/local/bin/
