@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Program;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProgramController extends Controller
 {
@@ -81,8 +82,8 @@ class ProgramController extends Controller
         // Handle image upload
         if ($request->hasFile('image')) {
             // Delete old image if exists
-            if ($program->image && \Storage::disk('public')->exists($program->image)) {
-                \Storage::disk('public')->delete($program->image);
+            if ($program->image && Storage::disk('public')->exists($program->image)) {
+                Storage::disk('public')->delete($program->image);
             }
             $imagePath = $request->file('image')->store('programs', 'public');
             $validated['image'] = $imagePath;
