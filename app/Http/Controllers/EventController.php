@@ -24,7 +24,7 @@ class EventController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'event_date' => 'required|date_format:Y-m-d\TH:i|nullable',
+            'event_date' => 'required|date_format:Y-m-d\TH:i',
             'location' => 'required|string|max:255',
             'status' => 'required|in:upcoming,ongoing,completed,cancelled',
             'images' => 'nullable|array',
@@ -35,15 +35,23 @@ class EventController extends Controller
         $imagePaths = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $path = $image->store('events', 'public');
-                $imagePaths[] = $path;
+                try {
+                    $path = $image->store('events', 'public');
+                    $imagePaths[] = $path;
+                } catch (\Exception $e) {
+                    return back()->withErrors(['images' => 'Failed to upload image: ' . $e->getMessage()]);
+                }
             }
         }
 
         $validated['images'] = $imagePaths;
-        Event::create($validated);
-
-        return redirect()->route('admin.events.index')->with('success', 'Event created successfully.');
+        
+        try {
+            Event::create($validated);
+            return redirect()->route('admin.events.index')->with('success', 'Event created successfully.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Failed to create event: ' . $e->getMessage()]);
+        }
     }
 
     public function show(Event $event)
@@ -66,7 +74,7 @@ class EventController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'event_date' => 'required|date_format:Y-m-d\TH:i|nullable',
+            'event_date' => 'required|date_format:Y-m-d\TH:i',
             'location' => 'required|string|max:255',
             'status' => 'required|in:upcoming,ongoing,completed,cancelled',
             'images' => 'nullable|array',
@@ -74,41 +82,52 @@ class EventController extends Controller
             'remove_images' => 'nullable|array',
         ]);
 
-        // Handle image removal
-        if ($request->has('remove_images')) {
-            foreach ($request->remove_images as $imagePath) {
-                Storage::disk('public')->delete($imagePath);
-                $event->images = array_diff($event->images ?? [], [$imagePath]);
+        try {
+            // Handle image removal
+            if ($request->has('remove_images') && is_array($request->remove_images)) {
+                $currentImages = $event->images ?? [];
+                foreach ($request->remove_images as $imagePath) {
+                    if (in_array($imagePath, $currentImages)) {
+                        Storage::disk('public')->delete($imagePath);
+                        $currentImages = array_diff($currentImages, [$imagePath]);
+                    }
+                }
+                $validated['images'] = array_values($currentImages);
             }
-        }
 
-        // Handle new image uploads
-        if ($request->hasFile('images')) {
-            $newImages = $event->images ?? [];
-            foreach ($request->file('images') as $image) {
-                $path = $image->store('events', 'public');
-                $newImages[] = $path;
+            // Handle new image uploads
+            if ($request->hasFile('images')) {
+                $newImages = $validated['images'] ?? $event->images ?? [];
+                foreach ($request->file('images') as $image) {
+                    $path = $image->store('events', 'public');
+                    $newImages[] = $path;
+                }
+                $validated['images'] = $newImages;
+            } else {
+                $validated['images'] = $validated['images'] ?? $event->images;
             }
-            $validated['images'] = $newImages;
-        } else {
-            $validated['images'] = $event->images;
+
+            $event->update($validated);
+            return redirect()->route('admin.events.index')->with('success', 'Event updated successfully.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Failed to update event: ' . $e->getMessage()]);
         }
-
-        $event->update($validated);
-
-        return redirect()->route('admin.events.index')->with('success', 'Event updated successfully.');
     }
 
     public function destroy(Event $event)
     {
-        // Delete associated images
-        if (!empty($event->images)) {
-            foreach ($event->images as $image) {
-                Storage::disk('public')->delete($image);
+        try {
+            // Delete associated images
+            if (!empty($event->images)) {
+                foreach ($event->images as $image) {
+                    Storage::disk('public')->delete($image);
+                }
             }
+            
+            $event->delete();
+            return redirect()->route('admin.events.index')->with('success', 'Event deleted successfully.');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Failed to delete event: ' . $e->getMessage()]);
         }
-        
-        $event->delete();
-        return redirect()->route('admin.events.index')->with('success', 'Event deleted successfully.');
     }
 }
