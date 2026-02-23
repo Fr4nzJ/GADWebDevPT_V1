@@ -22,6 +22,7 @@ class ProgramController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'description' => 'required|string',
             'category' => 'required|in:women_empowerment,education,safety,leadership,lgbtq,mainstreaming',
             'status' => 'required|in:ongoing,completed,upcoming,suspended',
@@ -33,6 +34,12 @@ class ProgramController extends Controller
             'target_group' => 'nullable|string',
             'objectives' => 'nullable|string',
         ]);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('programs', 'public');
+            $validated['image'] = $imagePath;
+        }
 
         // Convert objectives string to array
         if ($validated['objectives']) {
@@ -58,6 +65,7 @@ class ProgramController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'description' => 'required|string',
             'category' => 'required|in:women_empowerment,education,safety,leadership,lgbtq,mainstreaming',
             'status' => 'required|in:ongoing,completed,upcoming,suspended',
@@ -69,6 +77,16 @@ class ProgramController extends Controller
             'target_group' => 'nullable|string',
             'objectives' => 'nullable|string',
         ]);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($program->image && \Storage::disk('public')->exists($program->image)) {
+                \Storage::disk('public')->delete($program->image);
+            }
+            $imagePath = $request->file('image')->store('programs', 'public');
+            $validated['image'] = $imagePath;
+        }
 
         // Convert objectives string to array
         if ($validated['objectives']) {

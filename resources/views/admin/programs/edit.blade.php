@@ -27,7 +27,7 @@
 
 <!-- ===== FORM ===== -->
 <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
-    <form action="{{ route('admin.programs.update', $program) }}" method="POST">
+    <form action="{{ route('admin.programs.update', $program) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -41,6 +41,28 @@
                     @error('title')
                     <p class="help is-danger">{{ $message }}</p>
                     @enderror
+                </div>
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column is-12">
+                <div class="field">
+                    <label class="label" style="font-weight: 600; color: #2c3e50;">Program Image</label>
+                    <div class="control">
+                        <input class="input" type="file" name="image" accept="image/*" onchange="previewImage(this)">
+                    </div>
+                    <p class="help">Accepted formats: JPEG, PNG, JPG, GIF, WebP (Max 2MB). Leave empty to keep current image.</p>
+                    @error('image')
+                    <p class="help is-danger">{{ $message }}</p>
+                    @enderror
+                    @if($program->image)
+                    <div style="margin-top: 1rem;">
+                        <p style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;"><strong>Current image:</strong></p>
+                        <img src="{{ $program->image_url }}" alt="{{ $program->title }}" style="max-width: 200px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+                    </div>
+                    @endif
+                    <div id="imagePreview" style="margin-top: 1rem;"></div>
                 </div>
             </div>
         </div>
@@ -208,5 +230,26 @@
         </div>
     </form>
 </div>
+
+<script>
+function previewImage(input) {
+    const preview = document.getElementById('imagePreview');
+    preview.innerHTML = '';
+    
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.style.maxWidth = '200px';
+            img.style.borderRadius = '8px';
+            img.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+            img.style.marginTop = '0.5rem';
+            preview.appendChild(img);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
 
 @endsection

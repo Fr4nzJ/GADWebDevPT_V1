@@ -221,7 +221,16 @@
                     </div>
                     <div class="card-content">
                         <div class="columns">
+                            @if($program->image)
+                            <div class="column is-5-tablet is-4-desktop">
+                                <figure class="image" style="margin-bottom: 1.5rem;">
+                                    <img src="{{ $program->image_url }}" alt="{{ $program->title }}" style="border-radius: 8px; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1); width: 100%; height: auto; object-fit: cover;">
+                                </figure>
+                            </div>
+                            <div class="column is-7-tablet is-8-desktop">
+                            @else
                             <div class="column is-12">
+                            @endif
                                 <h4 class="title is-5">Program Overview</h4>
                                 <p style="color: #666; line-height: 1.8; margin-bottom: 1.5rem;">
                                     {{ $program->description }}

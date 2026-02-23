@@ -27,7 +27,7 @@
 
 <!-- ===== FORM ===== -->
 <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
-    <form action="{{ route('admin.programs.store') }}" method="POST">
+    <form action="{{ route('admin.programs.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="columns">
@@ -40,6 +40,22 @@
                     @error('title')
                     <p class="help is-danger">{{ $message }}</p>
                     @enderror
+                </div>
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column is-12">
+                <div class="field">
+                    <label class="label" style="font-weight: 600; color: #2c3e50;">Program Image</label>
+                    <div class="control">
+                        <input class="input" type="file" name="image" accept="image/*" onchange="previewImage(this)">
+                    </div>
+                    <p class="help">Accepted formats: JPEG, PNG, JPG, GIF, WebP (Max 2MB)</p>
+                    @error('image')
+                    <p class="help is-danger">{{ $message }}</p>
+                    @enderror
+                    <div id="imagePreview" style="margin-top: 1rem;"></div>
                 </div>
             </div>
         </div>
@@ -207,5 +223,25 @@
         </div>
     </form>
 </div>
+
+<script>
+function previewImage(input) {
+    const preview = document.getElementById('imagePreview');
+    preview.innerHTML = '';
+    
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.style.maxWidth = '200px';
+            img.style.borderRadius = '8px';
+            img.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+            preview.appendChild(img);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
 
 @endsection

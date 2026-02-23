@@ -11,6 +11,7 @@ class Program extends Model
 
     protected $fillable = [
         'title',
+        'image',
         'description',
         'category',
         'status',
@@ -71,5 +72,24 @@ class Program extends Model
             'suspended' => '#ffe8e8',
             default => '#f5f5f5',
         };
+    }
+
+    /**
+     * Get image with full path
+     */
+    public function getImageUrlAttribute(): ?string
+    {
+        if ($this->image) {
+            return asset('storage/' . $this->image);
+        }
+        return null;
+    }
+
+    /**
+     * Check if program has an image
+     */
+    public function hasImageAttribute(): bool
+    {
+        return !empty($this->image);
     }
 }
