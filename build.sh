@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # Build script for Procfile-based deployment
-# This script runs before the application starts
+# This script runs during the build phase (buildpack phase)
+# Only includes dependency installation and asset building
+# Caching commands are moved to start.sh (runtime phase)
 
 set -e
 
@@ -14,17 +16,8 @@ npm install --production
 echo "=== Building Frontend Assets ==="
 npm run build
 
-echo "=== Generating APP_KEY (if not set) ==="
-php artisan key:generate --force || true
+echo "=== Creating Storage Directories ==="
+mkdir -p storage/framework/{sessions,views,cache,testing} storage/logs bootstrap/cache
+chmod -R a+rw storage
 
-echo "=== Caching Configuration ==="
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
-
-echo "=== Creating Storage Symlink ==="
-php artisan storage:link || true
-
-echo "=== Build Complete ==="
-
-echo "=== Build Complete ==="
+echo "=== Build Phase Complete ==="
