@@ -49,6 +49,17 @@ class LoginRequest extends FormRequest
             ]);
         }
 
+        // Check if user account is active
+        $user = Auth::user();
+        if ($user && $user->status !== 'active') {
+            Auth::logout();
+            RateLimiter::hit($this->throttleKey());
+
+            throw ValidationException::withMessages([
+                'email' => 'Your account is ' . $user->status . '. Please contact administrator or verify your email.',
+            ]);
+        }
+
         RateLimiter::clear($this->throttleKey());
     }
 

@@ -39,6 +39,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'status' => 'pending', // Set new registrations as pending
         ]);
 
         event(new Registered($user));
