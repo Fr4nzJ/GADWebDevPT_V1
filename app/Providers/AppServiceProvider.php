@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,6 +21,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Force HTTPS in production (Railway uses HTTPS proxy)
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
+
         // Log configuration on startup
         Log::debug('App configuration:', [
             'REDIS_HOST' => env('REDIS_HOST'),
