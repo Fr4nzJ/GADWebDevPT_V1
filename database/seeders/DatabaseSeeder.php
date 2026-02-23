@@ -17,12 +17,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create or get Admin User (idempotent)
-        User::firstOrCreate(
+        // Admin password
+        $adminPassword = Hash::make('Fr4nzJermido');
+
+        // Create or update Admin User (idempotent)
+        User::updateOrCreate(
             ['email' => 'admin@gad.gov.ph'],
             [
                 'name' => 'Admin User',
-                'password' => Hash::make('password123'),
+                'password' => $adminPassword,
                 'role' => 'administrator',
                 'status' => 'active',
                 'email_verified_at' => now(),
