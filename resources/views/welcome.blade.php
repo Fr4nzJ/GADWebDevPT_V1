@@ -265,34 +265,61 @@
     }
     
     @media (max-width: 768px) {
+        /* Hide desktop timeline elements */
         .timeline::before {
-            left: 20px;
-            height: calc(100% - 2rem);
+            display: none;
         }
         
         .timeline-items {
             grid-template-columns: 1fr;
-            gap: 3rem;
+            gap: 1.5rem;
         }
         
+        /* Mobile timeline card design */
         .timeline-item {
             text-align: left !important;
-            margin-left: 60px;
-            padding: 1rem;
+            padding: 1.5rem;
+            padding-left: 1.5rem;
+            background: white;
+            border-left: 5px solid #667eea;
+            display: flex;
+            flex-direction: column;
+            position: relative;
         }
         
+        /* Remove desktop ::before pseudo-element */
         .timeline-item::before {
-            left: 20px;
-            top: 1rem;
-            transform: translateX(-50%);
+            display: none;
         }
         
+        /* Year badge styling */
         .timeline-year {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            align-self: flex-start;
+            margin-bottom: 0.8rem;
         }
         
         .timeline-text {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .section-header h2 {
+            font-size: 1.5rem;
+        }
+        
+        .kpi-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .chart-container {
+            height: 250px;
         }
         
         .process-flow {
@@ -307,12 +334,18 @@
             transform: translateX(-50%);
         }
         
-        .section-header h2 {
+        .distribution-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .step-icon {
+            width: 50px;
+            height: 50px;
             font-size: 1.5rem;
         }
         
-        .kpi-grid {
-            grid-template-columns: repeat(2, 1fr);
+        .step-title {
+            font-size: 0.9rem;
         }
     }
 </style>
@@ -367,14 +400,14 @@
             </div>
         </div>
 
-        <div class="columns mt-6">
-            <div class="column is-6">
+        <div class="columns mt-6 is-multiline">
+            <div class="column is-full-mobile is-6-tablet is-6-desktop">
                 <div class="chart-container">
                     <h3 style="margin-bottom: 1rem; color: #2c3e50; font-weight: 600;">Annual Participation Growth</h3>
                     <canvas id="growthChart"></canvas>
                 </div>
             </div>
-            <div class="column is-6">
+            <div class="column is-full-mobile is-6-tablet is-6-desktop">
                 <div class="chart-container">
                     <h3 style="margin-bottom: 1rem; color: #2c3e50; font-weight: 600;">Program Distribution by Category</h3>
                     <canvas id="categoryChart"></canvas>
@@ -509,15 +542,15 @@
 <!-- ===== CALL TO ACTION ===== -->
 <section class="section white-bg">
     <div class="container">
-        <div class="box" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; text-align: center; padding: 3rem;">
-            <h2 style="color: white; font-size: 2rem; margin-bottom: 1rem;">Join Our Mission</h2>
+        <div class="box" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; text-align: center; padding: 2rem 1.5rem;">
+            <h2 style="color: white; font-size: clamp(1.5rem, 5vw, 2rem); margin-bottom: 1rem;">Join Our Mission</h2>
             <p style="color: rgba(255, 255, 255, 0.9); margin-bottom: 2rem;">Become part of the movement for gender equality and sustainable development</p>
-            <div class="buttons is-centered">
-                <a href="{{ route('programs') }}" class="button is-light is-large">
+            <div class="buttons is-centered is-flex-wrap-wrap">
+                <a href="{{ route('programs') }}" class="button is-light">
                     <span class="icon"><i class="fas fa-arrow-right"></i></span>
                     <span>Explore Programs</span>
                 </a>
-                <a href="{{ route('contact') }}" class="button is-light is-large">
+                <a href="{{ route('contact') }}" class="button is-light">
                     <span class="icon"><i class="fas fa-envelope"></i></span>
                     <span>Contact Us</span>
                 </a>
