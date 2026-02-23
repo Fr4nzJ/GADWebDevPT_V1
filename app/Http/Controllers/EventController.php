@@ -24,11 +24,11 @@ class EventController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'event_date' => 'required|date',
+            'event_date' => 'required|date_format:Y-m-d\TH:i|nullable',
             'location' => 'required|string|max:255',
             'status' => 'required|in:upcoming,ongoing,completed,cancelled',
             'images' => 'nullable|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:51200',
         ]);
 
         // Handle image uploads
@@ -66,7 +66,7 @@ class EventController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'event_date' => 'required|date',
+            'event_date' => 'required|date_format:Y-m-d\TH:i|nullable',
             'location' => 'required|string|max:255',
             'status' => 'required|in:upcoming,ongoing,completed,cancelled',
             'images' => 'nullable|array',

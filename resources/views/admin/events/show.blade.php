@@ -15,25 +15,23 @@
         </div>
     </div>
 
-    {{-- NEW: Image Gallery Section --}}
-    @if(!empty($event->images) && is_array($event->images))
-    <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); margin-bottom: 2rem;">
-        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2c3e50; margin-bottom: 1rem;">
-            <i class="fas fa-images" style="color: #667eea; margin-right: 0.5rem;"></i>
-            Event Images ({{ count($event->images) }})
-        </h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;">
-            @foreach($event->images as $image)
-            <div style="position: relative; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer;" onclick="openImageModal('{{ asset('storage/' . $image) }}')">
-                <img src="{{ asset('storage/' . $image) }}" style="width: 100%; height: 200px; object-fit: cover; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.7)); padding: 1rem; color: white; font-size: 0.85rem;">
-                    <i class="fas fa-search-plus"></i> Click to enlarge
+<div class="field" style="margin-top: 1.5rem;">
+            <label class="label" style="color: #666; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Event Images</label>
+            @if($event->images && count($event->images) > 0)
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem;">
+                @foreach($event->images as $image)
+                <div style="position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12); cursor: pointer;" onclick="openImageModal('{{ asset('storage/' . $image) }}')">
+                    <img src="{{ asset('storage/' . $image) }}" style="width: 100%; height: 200px; object-fit: cover; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" alt="{{ $event->title }}">
+                    <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.7)); padding: 1rem; color: white; font-size: 0.85rem;">
+                        <i class="fas fa-search-plus"></i> Click to enlarge
+                    </div>
                 </div>
+                @endforeach
             </div>
-            @endforeach
+            @else
+            <p style="color: #999; font-style: italic;">No images uploaded for this event.</p>
+            @endif
         </div>
-    </div>
-    @endif
 
     <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
         <div class="field">
@@ -80,21 +78,6 @@
                 <i class="fas fa-map-marker-alt" style="color: #667eea; margin-right: 0.5rem;"></i>
                 {{ $event->location ?? 'Not specified' }}
             </p>
-        </div>
-
-        <div class="field" style="margin-top: 1.5rem;">
-            <label class="label" style="color: #666; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Event Images</label>
-            @if($event->images && count($event->images) > 0)
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem;">
-                @foreach($event->images as $image)
-                <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);">
-                    <img src="{{ asset('storage/' . $image) }}" style="width: 100%; height: 250px; object-fit: cover;" alt="{{ $event->title }}">
-                </div>
-                @endforeach
-            </div>
-            @else
-            <p style="color: #999; font-style: italic;">No images uploaded for this event.</p>
-            @endif
         </div>
 
         <div class="field" style="margin-top: 1.5rem;">
