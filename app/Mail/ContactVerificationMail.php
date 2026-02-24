@@ -39,6 +39,7 @@ class ContactVerificationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
+            to: [$this->email],
             subject: 'Verify Your Contact Form Submission',
         );
     }

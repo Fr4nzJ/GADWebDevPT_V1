@@ -85,6 +85,12 @@ class ContactController extends Controller
 
             // Send OTP verification email (synchronous)
             try {
+                Log::info('Attempting to send OTP email', [
+                    'mail_mailer' => config('mail.mailer'),
+                    'mail_host' => config('mail.host'),
+                    'email' => $validated['email'],
+                ]);
+                
                 Mail::to($validated['email'])->send(
                     new ContactVerificationMail(
                         $validated['name'],
@@ -93,10 +99,15 @@ class ContactController extends Controller
                         $validated['subject']
                     )
                 );
+                
+                Log::info('OTP email sent successfully', [
+                    'email' => $validated['email'],
+                ]);
             } catch (\Exception $emailException) {
-                Log::error('Email sending failed, but continuing', [
+                Log::error('Email sending failed', [
                     'error' => $emailException->getMessage(),
                     'email' => $validated['email'],
+                    'trace' => $emailException->getTraceAsString(),
                 ]);
                 // Continue anyway - OTP is in session
             }
