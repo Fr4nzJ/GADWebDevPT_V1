@@ -36,8 +36,6 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 // ===== CONTACT FORM SUBMISSION WITH OTP VERIFICATION =====
 // Throttle contact form submission to 3 attempts per 10 minutes per IP
 Route::post('/contact', [ContactController::class, 'store'])
@@ -55,14 +53,11 @@ Route::post('/contact/verify', [ContactController::class, 'verify'])
 Route::post('/contact/resend-otp', [ContactController::class, 'resendOtp'])
     ->name('contact.resend-otp')
     ->middleware('throttle:3,10'); // Limit resend attempts
-=======
 // ===== CONTACT FORM SUBMISSION =====
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
->>>>>>> parent of cd5ea8f (Contact Page Resolidify)
-=======
+
 // ===== CONTACT FORM SUBMISSION =====
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
->>>>>>> parent of cd5ea8f (Contact Page Resolidify)
 
 // ===== AUTHENTICATED ROUTES =====
 Route::get('/dashboard', function () {
