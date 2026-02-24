@@ -271,6 +271,11 @@
                     <form action="{{ route('contact.store') }}" method="POST">
                         @csrf
 
+                        <!-- Honeypot Field (Hidden from users - spam prevention) -->
+                        <div style="position: absolute; left: -9999px; opacity: 0;">
+                            <input type="text" name="website" tabindex="-1" autocomplete="off" placeholder="Website">
+                        </div>
+
                         <!-- Name Field -->
                         <div class="field">
                             <label class="label">Full Name <span style="color: #f14668;">*</span></label>
