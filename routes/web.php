@@ -55,17 +55,6 @@ Route::post('/contact/resend-otp', [ContactController::class, 'resendOtp'])
     ->name('contact.resend-otp')
     ->middleware('throttle:3,10'); // Limit resend attempts
 
-// ===== CONTACT FORM SUBMISSION =====
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-
-// ===== CONTACT FORM SUBMISSION =====
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-
-// ===== CONTACT FORM SUBMISSION =====
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-
-// ===== CONTACT FORM SUBMISSION =====
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 // ===== AUTHENTICATED ROUTES =====
 Route::get('/dashboard', function () {
     return view('dashboard');
