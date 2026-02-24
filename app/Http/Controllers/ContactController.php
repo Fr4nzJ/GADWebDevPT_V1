@@ -83,15 +83,23 @@ class ContactController extends Controller
                 'otp_created_at' => now(),
             ]);
 
-            // Send OTP verification email
-            Mail::to($validated['email'])->send(
-                new ContactVerificationMail(
-                    $validated['name'],
-                    $validated['email'],
-                    $otp,
-                    $validated['subject']
-                )
-            );
+            // Send OTP verification email (synchronous)
+            try {
+                Mail::to($validated['email'])->send(
+                    new ContactVerificationMail(
+                        $validated['name'],
+                        $validated['email'],
+                        $otp,
+                        $validated['subject']
+                    )
+                );
+            } catch (\Exception $emailException) {
+                Log::error('Email sending failed, but continuing', [
+                    'error' => $emailException->getMessage(),
+                    'email' => $validated['email'],
+                ]);
+                // Continue anyway - OTP is in session
+            }
 
             // Log OTP sent
             Log::channel('single')->info('Contact Form OTP Sent', [
@@ -259,15 +267,23 @@ class ContactController extends Controller
             $formData['otp_created_at'] = now();
             session()->put('contact_form_data', $formData);
 
-            // Send new OTP email
-            Mail::to($formData['email'])->send(
-                new ContactVerificationMail(
-                    $formData['name'],
-                    $formData['email'],
-                    $newOtp,
-                    $formData['subject']
-                )
-            );
+            // Send new OTP email (synchronous)
+            try {
+                Mail::to($formData['email'])->send(
+                    new ContactVerificationMail(
+                        $formData['name'],
+                        $formData['email'],
+                        $newOtp,
+                        $formData['subject']
+                    )
+                );
+            } catch (\Exception $emailException) {
+                Log::error('Email resend failed, but continuing', [
+                    'error' => $emailException->getMessage(),
+                    'email' => $formData['email'],
+                ]);
+                // Continue anyway - new OTP is in session
+            }
 
             Log::channel('single')->info('Contact Form OTP Resent', [
                 'email' => $formData['email'],
