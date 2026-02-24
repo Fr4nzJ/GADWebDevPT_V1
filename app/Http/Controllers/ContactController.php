@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactVerificationMail;
+use App\Mail\ContactSubmissionMail;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -260,6 +261,7 @@ class ContactController extends Controller
                 'is_verified' => true,
                 'ip_address' => $formData['ip_address'],
                 'user_agent' => $formData['user_agent'],
+                'status' => 'new',
             ]);
 
             Log::info('Contact Form - Successfully stored in database', [
@@ -269,6 +271,35 @@ class ContactController extends Controller
                 'subject' => $formData['subject'],
                 'timestamp' => now(),
             ]);
+
+            // Send the contact message to the admin (gadcatsu@gmail.com)
+            try {
+                Mail::send(
+                    new ContactSubmissionMail(
+                        $formData['name'],
+                        $formData['email'],
+                        $formData['subject'],
+                        $formData['message'],
+                        $formData['ip_address']
+                    )
+                );
+
+                Log::info('Contact Form - Admin notification email sent', [
+                    'contact_id' => $contact->id,
+                    'email' => $formData['email'],
+                    'recipient' => env('MAIL_FROM_ADDRESS', 'gadcatsu@gmail.com'),
+                    'timestamp' => now(),
+                ]);
+            } catch (\Exception $emailException) {
+                Log::error('Contact Form - Admin notification email failed', [
+                    'contact_id' => $contact->id,
+                    'error' => $emailException->getMessage(),
+                    'email' => $formData['email'],
+                    'file' => $emailException->getFile(),
+                    'line' => $emailException->getLine(),
+                ]);
+                // Continue anyway - contact is stored in database
+            }
 
             // Log successful verification
             Log::channel('single')->info('Contact Form Verified and Stored', [

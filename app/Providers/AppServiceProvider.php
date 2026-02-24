@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Register mail view namespace
+        View::addNamespace('mail', resource_path('views/emails'));
+
         // Force HTTPS in production (Railway uses HTTPS proxy)
         if ($this->app->environment('production')) {
             URL::forceScheme('https');

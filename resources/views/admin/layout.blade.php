@@ -437,6 +437,12 @@
                             <span>Manage Users</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.contacts.index') }}" @class(['is-active' => request()->routeIs('admin.contacts.*')])>
+                            <i class="fas fa-envelope"></i>
+                            <span>Contact Messages</span>
+                        </a>
+                    </li>
                 </ul>
                 
                 <p class="menu-label" style="color: #999; padding: 0 1rem; margin-top: 2rem; margin-bottom: 1rem;">

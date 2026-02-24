@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AdminContactController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
@@ -112,6 +113,15 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('admin.users.update');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
+
+    Route::get('/contacts', [AdminContactController::class, 'index'])->name('admin.contacts.index');
+    Route::get('/contacts/{contact}', [AdminContactController::class, 'show'])->name('admin.contacts.show');
+    Route::get('/contacts/{contact}/edit', [AdminContactController::class, 'edit'])->name('admin.contacts.edit');
+    Route::put('/contacts/{contact}', [AdminContactController::class, 'update'])->name('admin.contacts.update');
+    Route::post('/contacts/{contact}/reply', [AdminContactController::class, 'reply'])->name('admin.contacts.reply');
+    Route::post('/contacts/{contact}/archive', [AdminContactController::class, 'archive'])->name('admin.contacts.archive');
+    Route::post('/contacts/{contact}/restore', [AdminContactController::class, 'restore'])->name('admin.contacts.restore');
+    Route::delete('/contacts/{contact}', [AdminContactController::class, 'destroy'])->name('admin.contacts.destroy');
 
     
 });
