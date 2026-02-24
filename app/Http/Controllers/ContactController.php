@@ -72,7 +72,7 @@ class ContactController extends Controller
             $otp = $this->generateOtp();
 
             // Store form data in session for verification step
-            $request->session()->put('contact_form_data', [
+            $sessionData = [
                 'name' => $validated['name'],
                 'email' => $validated['email'],
                 'subject' => $validated['subject'],
@@ -81,6 +81,16 @@ class ContactController extends Controller
                 'user_agent' => $request->userAgent(),
                 'otp' => $otp,
                 'otp_created_at' => now(),
+            ];
+
+            $request->session()->put('contact_form_data', $sessionData);
+
+            Log::info('Contact Form - Data stored in session', [
+                'email' => $validated['email'],
+                'name' => $validated['name'],
+                'otp' => $otp,
+                'session_id' => session()->getId(),
+                'timestamp' => now(),
             ]);
 
             // Send OTP verification email (synchronous)
@@ -169,9 +179,20 @@ class ContactController extends Controller
     {
         // Check if there's contact form data in session
         if (!session()->has('contact_form_data')) {
+            Log::error('Contact Form Verification - No Session Data', [
+                'ip_address' => $request->ip(),
+                'timestamp' => now(),
+                'session_id' => session()->getId(),
+                'all_session_data' => session()->all(),
+            ]);
             return redirect()->route('contact')
                 ->withErrors(['general' => 'Verification session expired. Please submit the contact form again.']);
         }
+
+        Log::info('Contact Form Verification - Session Data Found', [
+            'session_id' => session()->getId(),
+            'timestamp' => now(),
+        ]);
 
         // Validate OTP input
         $validator = Validator::make($request->all(), [
@@ -183,6 +204,10 @@ class ContactController extends Controller
         ]);
 
         if ($validator->fails()) {
+            Log::warning('Contact Form OTP Validation Failed', [
+                'errors' => $validator->errors(),
+                'timestamp' => now(),
+            ]);
             return redirect()->route('contact.verify')
                 ->withErrors($validator);
         }
@@ -194,6 +219,7 @@ class ContactController extends Controller
             Log::warning('Contact Form OTP Verification Failed', [
                 'email' => $formData['email'],
                 'provided_otp' => $request->input('otp'),
+                'expected_otp' => $formData['otp'],
                 'ip_address' => $request->ip(),
                 'timestamp' => now(),
             ]);
@@ -219,7 +245,13 @@ class ContactController extends Controller
 
         try {
             // Store the verified contact message in database
-            Contact::create([
+            Log::info('Contact Form - Attempting to store in database', [
+                'email' => $formData['email'],
+                'name' => $formData['name'],
+                'timestamp' => now(),
+            ]);
+
+            $contact = Contact::create([
                 'name' => $formData['name'],
                 'email' => $formData['email'],
                 'subject' => $formData['subject'],
@@ -230,12 +262,21 @@ class ContactController extends Controller
                 'user_agent' => $formData['user_agent'],
             ]);
 
+            Log::info('Contact Form - Successfully stored in database', [
+                'contact_id' => $contact->id,
+                'email' => $formData['email'],
+                'name' => $formData['name'],
+                'subject' => $formData['subject'],
+                'timestamp' => now(),
+            ]);
+
             // Log successful verification
             Log::channel('single')->info('Contact Form Verified and Stored', [
                 'email' => $formData['email'],
                 'name' => $formData['name'],
                 'subject' => $formData['subject'],
                 'ip_address' => $formData['ip_address'],
+                'contact_id' => $contact->id,
                 'timestamp' => now(),
             ]);
 
@@ -252,6 +293,7 @@ class ContactController extends Controller
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
                 'trace' => $e->getTraceAsString(),
+                'email' => $formData['email'] ?? 'unknown',
             ]);
 
             return redirect()->route('contact.verify')
