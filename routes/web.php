@@ -47,7 +47,7 @@ Route::get('/contact/verify', [ContactController::class, 'showVerify'])
     ->name('contact.verify');
 
 Route::post('/contact/verify', [ContactController::class, 'verify'])
-    ->name('contact.verify')
+    ->name('contact.verify.submit')
     ->middleware('throttle:5,10'); // Slightly higher limit for OTP attempts
 
 Route::post('/contact/resend-otp', [ContactController::class, 'resendOtp'])

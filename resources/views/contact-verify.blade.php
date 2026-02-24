@@ -288,7 +288,7 @@
                     @endif
 
                     <!-- Verification Form -->
-                    <form action="{{ route('contact.verify') }}" method="POST">
+                    <form action="{{ route('contact.verify.submit') }}" method="POST">
                         @csrf
 
                         <!-- OTP Input -->
