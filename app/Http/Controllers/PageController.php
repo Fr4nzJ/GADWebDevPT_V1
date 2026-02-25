@@ -7,6 +7,7 @@ use App\Models\Milestone;
 use App\Models\ProcessStep;
 use App\Models\PageSection;
 use App\Models\ChartData;
+use App\Models\Achievement;
 
 class PageController extends Controller
 {
@@ -91,8 +92,7 @@ class PageController extends Controller
             ->orderBy('order')
             ->first();
 
-        $achievements = \App\Models\PageValue::where('type', 'achievement')
-            ->where('page', 'about')
+        $achievements = Achievement::where('page', 'about')
             ->where('is_active', true)
             ->orderBy('order')
             ->get();

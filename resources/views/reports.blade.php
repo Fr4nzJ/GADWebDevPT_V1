@@ -415,77 +415,40 @@
         <h2 class="section-title">Policy Briefs & Infographics</h2>
 
         <div class="columns is-multiline">
-            <!-- Policy Brief 1 -->
+            @forelse ($policyBriefs as $brief)
             <div class="column is-4">
-                <div class="card" style="height: 100%; display: flex; flex-direction: column; border-top: 4px solid #667eea;">
+                <div class="card" style="height: 100%; display: flex; flex-direction: column; border-top: 4px solid {{ $brief->color ?? '#667eea' }};">
                     <div class="card-header">
                         <p class="card-header-title" style="align-items: flex-start;">
-                            <span class="icon" style="color: #667eea;"><i class="fas fa-file-alt"></i></span>
-                            <span style="color: #667eea; font-weight: 600; text-align: left;">Only 1 in 4 Women Agricultural Workers Earn Fair Wages</span>
+                            <span class="icon" style="color: {{ $brief->color ?? '#667eea' }};"><i class="{{ $brief->icon ?? 'fas fa-file-alt' }}"></i></span>
+                            <span style="color: {{ $brief->color ?? '#667eea' }}; font-weight: 600; text-align: left;">{{ $brief->title }}</span>
                         </p>
                     </div>
                     <div class="card-content" style="flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
                         <div class="content">
                             <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
-                                Agricultural sector continues to pay women workers significantly less despite their critical role. Policy brief recommends wage standards and anti-discrimination enforcement.
+                                {{ $brief->description }}
                             </p>
-                            <p style="font-size: 0.9rem; color: #999;"><strong>Pages:</strong> 4 | <strong>Year:</strong> 2024</p>
+                            <p style="font-size: 0.9rem; color: #999;">
+                                @if ($brief->pages) <strong>Pages:</strong> {{ $brief->pages }} @endif
+                                @if ($brief->year) <strong>Year:</strong> {{ $brief->year }} @endif
+                            </p>
                         </div>
-                        <a href="#" class="button is-fullwidth" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; margin-top: 1rem;">
+                        <a href="#" class="button is-fullwidth" style="background: linear-gradient(135deg, {{ $brief->color ?? '#667eea' }}, #764ba2); color: white; border: none; margin-top: 1rem;">
                             <span class="icon"><i class="fas fa-download"></i></span>
                             <span>Download Brief</span>
                         </a>
                     </div>
                 </div>
             </div>
-
-            <!-- Policy Brief 2 -->
-            <div class="column is-4">
-                <div class="card" style="height: 100%; display: flex; flex-direction: column; border-top: 4px solid #764ba2;">
-                    <div class="card-header">
-                        <p class="card-header-title" style="align-items: flex-start;">
-                            <span class="icon" style="color: #764ba2;"><i class="fas fa-file-alt"></i></span>
-                            <span style="color: #764ba2; font-weight: 600; text-align: left;">Girls' Out-of-School Rate: Data & Solutions</span>
-                        </p>
-                    </div>
-                    <div class="card-content" style="flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
-                        <div class="content">
-                            <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
-                                1.2 million girls remain out of school. Brief outlines barriers (poverty, early marriage, VAWG) and proven interventions for inclusion.
-                            </p>
-                            <p style="font-size: 0.9rem; color: #999;"><strong>Pages:</strong> 6 | <strong>Year:</strong> 2023</p>
-                        </div>
-                        <a href="#" class="button is-fullwidth" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; margin-top: 1rem;">
-                            <span class="icon"><i class="fas fa-download"></i></span>
-                            <span>Download Brief</span>
-                        </a>
-                    </div>
+            @empty
+            <div class="column is-12">
+                <div style="text-align: center; padding: 2rem; color: #999;">
+                    <i class="fas fa-info-circle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                    <p>Policy briefs coming soon. Check back later.</p>
                 </div>
             </div>
-
-            <!-- Policy Brief 3 -->
-            <div class="column is-4">
-                <div class="card" style="height: 100%; display: flex; flex-direction: column; border-top: 4px solid #667eea;">
-                    <div class="card-header">
-                        <p class="card-header-title" style="align-items: flex-start;">
-                            <span class="icon" style="color: #667eea;"><i class="fas fa-file-alt"></i></span>
-                            <span style="color: #667eea; font-weight: 600; text-align: left;">Gender Budgeting: 5% Allocation Impact</span>
-                        </p>
-                    </div>
-                    <div class="card-content" style="flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
-                        <div class="content">
-                            <p style="color: #666; line-height: 1.6; margin-bottom: 1rem;">
-                                Government mandate for 5% GAD budgets represents PHP 50 billion annually for gender programs. Brief tracks allocation and outcomes.
-                            </p>
-                            <p style="font-size: 0.9rem; color: #999;"><strong>Pages:</strong> 5 | <strong>Year:</strong> 2023</p>
-                        </div>
-                        <a href="#" class="button is-fullwidth" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; margin-top: 1rem;">
-                            <span class="icon"><i class="fas fa-download"></i></span>
-                            <span>Download Brief</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            @endforelse
         </div>
     </div>
 </section>
@@ -538,69 +501,39 @@
         <h2 class="section-title">Resources for Researchers & Practitioners</h2>
 
         <div class="columns is-multiline">
+            @forelse ($resources as $resource)
             <div class="column is-6">
                 <div class="resource-box">
-                    <h4 class="title is-5" style="color: #667eea; margin-bottom: 1rem;">
-                        <i class="fas fa-book" style="margin-right: 0.75rem;"></i>Gender-Responsive Research Toolkit
+                    <h4 class="title is-5" style="color: {{ $resource->color ?? '#667eea' }}; margin-bottom: 1rem;">
+                        <i class="{{ $resource->icon ?? 'fas fa-book' }}" style="margin-right: 0.75rem;"></i>{{ $resource->title }}
                     </h4>
                     <p style="color: #666; line-height: 1.6; margin-bottom: 1.5rem;">
-                        Comprehensive guide for designing and implementing gender-responsive research projects. 
-                        Includes methodologies, sampling strategies, ethical guidelines, and analysis frameworks.
+                        {{ $resource->description }}
                     </p>
-                    <a href="#" class="button is-fullwidth" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none;">
-                        <span class="icon"><i class="fas fa-download"></i></span>
-                        <span>Download Toolkit</span>
+                    <a href="{{ $resource->button_url ?? '#' }}" class="button is-fullwidth" style="background: linear-gradient(135deg, {{ $resource->color ?? '#667eea' }}, #764ba2); color: white; border: none;">
+                        <span class="icon">
+                            @if ($resource->button_action === 'download')
+                                <i class="fas fa-download"></i>
+                            @elseif ($resource->button_action === 'access')
+                                <i class="fas fa-external-link-alt"></i>
+                            @elseif ($resource->button_action === 'view')
+                                <i class="fas fa-play-circle"></i>
+                            @else
+                                <i class="fas fa-link"></i>
+                            @endif
+                        </span>
+                        <span>{{ $resource->button_text }}</span>
                     </a>
                 </div>
             </div>
-
-            <div class="column is-6">
-                <div class="resource-box alt">
-                    <h4 class="title is-5" style="color: #764ba2; margin-bottom: 1rem;">
-                        <i class="fas fa-database" style="margin-right: 0.75rem;"></i>Gender Indicators Database
-                    </h4>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1.5rem;">
-                        Interactive online database of gender indicators across provinces. Searchable by indicator type, 
-                        year, and location. Useful for monitoring progress toward SDGs and gender equality targets.
-                    </p>
-                    <a href="#" class="button is-fullwidth" style="background: linear-gradient(135deg, #764ba2, #667eea); color: white; border: none;">
-                        <span class="icon"><i class="fas fa-external-link-alt"></i></span>
-                        <span>Access Database</span>
-                    </a>
+            @empty
+            <div class="column is-12">
+                <div style="text-align: center; padding: 2rem; color: #999;">
+                    <i class="fas fa-info-circle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                    <p>Resources coming soon. Check back later.</p>
                 </div>
             </div>
-
-            <div class="column is-6">
-                <div class="resource-box">
-                    <h4 class="title is-5" style="color: #667eea; margin-bottom: 1rem;">
-                        <i class="fas fa-graduation-cap" style="margin-right: 0.75rem;"></i>GAD Training Resources
-                    </h4>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1.5rem;">
-                        Training modules and curricula on gender analysis, gender budgeting, gender mainstreaming, 
-                        and LGBTQ+ rights. Available in PowerPoint, video, and manual formats.
-                    </p>
-                    <a href="#" class="button is-fullwidth" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none;">
-                        <span class="icon"><i class="fas fa-play-circle"></i></span>
-                        <span>View Training Materials</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="column is-6">
-                <div class="resource-box alt">
-                    <h4 class="title is-5" style="color: #764ba2; margin-bottom: 1rem;">
-                        <i class="fas fa-globe" style="margin-right: 0.75rem;"></i>International Resources
-                    </h4>
-                    <p style="color: #666; line-height: 1.6; margin-bottom: 1.5rem;">
-                        Curated links to UN Women, gender equality resources, international research networks, 
-                        and databases on gender-responsive development from partner organizations worldwide.
-                    </p>
-                    <a href="#" class="button is-fullwidth" style="background: linear-gradient(135deg, #764ba2, #667eea); color: white; border: none;">
-                        <span class="icon"><i class="fas fa-link"></i></span>
-                        <span>External Links</span>
-                    </a>
-                </div>
-            </div>
+            @endforelse
         </div>
     </div>
 </section>
@@ -611,37 +544,29 @@
         <h2 class="section-title">Our Research Impact</h2>
 
         <div class="columns is-multiline">
+            @forelse ($statistics as $stat)
             <div class="column is-6-tablet is-3-desktop">
-                <div class="stat-box" style="background: linear-gradient(135deg, #3273dc 0%, #0162f0 100%); color: white; border-radius: 12px;">
-                    <h3 class="stat-number">45+</h3>
-                    <p class="stat-label">Research Reports Published</p>
-                    <p style="font-size: 0.85rem; margin-top: 0.5rem; opacity: 0.9;">Since 2015</p>
+                <div class="stat-box" style="background: linear-gradient(135deg, {{ $stat->gradient_start }} 0%, {{ $stat->gradient_end }} 100%); color: white; border-radius: 12px;">
+                    @if ($stat->icon)
+                    <p style="font-size: 2rem; margin-bottom: 0.5rem;">
+                        <i class="{{ $stat->icon }}"></i>
+                    </p>
+                    @endif
+                    <h3 class="stat-number">{{ $stat->number }}</h3>
+                    <p class="stat-label">{{ $stat->label }}</p>
+                    @if ($stat->subtitle)
+                    <p style="font-size: 0.85rem; margin-top: 0.5rem; opacity: 0.9;">{{ $stat->subtitle }}</p>
+                    @endif
                 </div>
             </div>
-
-            <div class="column is-6-tablet is-3-desktop">
-                <div class="stat-box" style="background: linear-gradient(135deg, #48c774 0%, #2eb869 100%); color: white; border-radius: 12px;">
-                    <h3 class="stat-number">15K+</h3>
-                    <p class="stat-label">Monthly Downloads</p>
-                    <p style="font-size: 0.85rem; margin-top: 0.5rem; opacity: 0.9;">Access to publications</p>
+            @empty
+            <div class="column is-12">
+                <div style="text-align: center; padding: 2rem; color: #999;">
+                    <i class="fas fa-info-circle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                    <p>Research impact statistics coming soon. Check back later.</p>
                 </div>
             </div>
-
-            <div class="column is-6-tablet is-3-desktop">
-                <div class="stat-box" style="background: linear-gradient(135deg, #ffdd57 0%, #ffb81c 100%); color: white; border-radius: 12px;">
-                    <h3 class="stat-number">120+</h3>
-                    <p class="stat-label">Citations in Literature</p>
-                    <p style="font-size: 0.85rem; margin-top: 0.5rem; opacity: 0.9;">Academic & policy papers</p>
-                </div>
-            </div>
-
-            <div class="column is-6-tablet is-3-desktop">
-                <div class="stat-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 12px;">
-                    <h3 class="stat-number">32</h3>
-                    <p class="stat-label">Policy Briefs</p>
-                    <p style="font-size: 0.85rem; margin-top: 0.5rem; opacity: 0.9;">Informing decision makers</p>
-                </div>
-            </div>
+            @endforelse
         </div>
     </div>
 </section>

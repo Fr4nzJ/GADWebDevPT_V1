@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Program;
+use App\Models\ProgramStatistic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -110,6 +111,10 @@ class ProgramController extends Controller
     public function publicIndex()
     {
         $programs = Program::where('status', '!=', 'suspended')->latest()->get();
-        return view('programs', compact('programs'));
+        $statistics = ProgramStatistic::where('page', 'programs')
+            ->where('is_active', true)
+            ->orderBy('order')
+            ->get();
+        return view('programs', compact('programs', 'statistics'));
     }
 }

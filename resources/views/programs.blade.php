@@ -165,37 +165,21 @@
 <section class="section" style="background: linear-gradient(135deg, #f5f7ff 0%, #f0edff 100%);">
     <div class="container">
         <div class="columns is-multiline">
-            <div class="column is-6-tablet is-3-desktop">
-                <div class="box has-text-centered" style="background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
-                    <h3 class="title is-2" style="color: #667eea; margin-bottom: 0.5rem;">8</h3>
-                    <p style="color: #2c3e50; font-weight: 600;">Active Programs</p>
-                    <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">Ongoing initiatives</p>
+            @forelse($statistics as $stat)
+                <div class="column is-6-tablet is-3-desktop">
+                    <div class="box has-text-centered {{ $stat->background_class }}" style="background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+                        <h3 class="title is-2" style="color: {{ $stat->color ?? '#667eea' }}; margin-bottom: 0.5rem;">{{ $stat->value }}</h3>
+                        <p style="color: #2c3e50; font-weight: 600;">{{ $stat->label }}</p>
+                        @if($stat->description)
+                            <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">{{ $stat->description }}</p>
+                        @endif
+                    </div>
                 </div>
-            </div>
-            
-            <div class="column is-6-tablet is-3-desktop">
-                <div class="box has-text-centered" style="background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
-                    <h3 class="title is-2" style="color: #764ba2; margin-bottom: 0.5rem;">250K+</h3>
-                    <p style="color: #2c3e50; font-weight: 600;">Beneficiaries</p>
-                    <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">This year</p>
+            @empty
+                <div class="column is-12">
+                    <p style="text-align: center; color: #999; padding: 2rem;">Program statistics coming soon. Check back later.</p>
                 </div>
-            </div>
-            
-            <div class="column is-6-tablet is-3-desktop">
-                <div class="box has-text-centered" style="background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
-                    <h3 class="title is-2" style="color: #48c774; margin-bottom: 0.5rem;">₱600M+</h3>
-                    <p style="color: #2c3e50; font-weight: 600;">Total Budget</p>
-                    <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">Allocated funds</p>
-                </div>
-            </div>
-            
-            <div class="column is-6-tablet is-3-desktop">
-                <div class="box has-text-centered" style="background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
-                    <h3 class="title is-2" style="color: #f0ad4e; margin-bottom: 0.5rem;">17</h3>
-                    <p style="color: #2c3e50; font-weight: 600;">Regions</p>
-                    <p style="font-size: 0.85rem; color: #999; margin-top: 0.5rem;">Nationwide coverage</p>
-                </div>
-            </div>
+            @endforelse
         </div>
     </div>
 </section>
@@ -315,33 +299,18 @@
         <h2 class="section-title">Program Impact at a Glance</h2>
 
         <div class="columns">
-            <div class="column is-3">
-                <div class="box has-text-centered has-background-success-light">
-                    <h3 class="title is-2" style="color: #48c774;">6</h3>
-                    <p style="color: #2c3e50;"><strong>Active Programs</strong></p>
+            @forelse($statistics as $stat)
+                <div class="column is-3">
+                    <div class="box has-text-centered {{ $stat->background_class }}">
+                        <h3 class="title is-2" style="color: {{ $stat->color ?? '#2c3e50' }};">{{ $stat->value }}</h3>
+                        <p style="color: #2c3e50;"><strong>{{ $stat->label }}</strong></p>
+                    </div>
                 </div>
-            </div>
-
-            <div class="column is-3">
-                <div class="box has-text-centered has-background-info-light">
-                    <h3 class="title is-2" style="color: #3273dc;">250K+</h3>
-                    <p style="color: #2c3e50;"><strong>Total Beneficiaries</strong></p>
+            @empty
+                <div class="column is-12">
+                    <p style="text-align: center; color: #999;">Program statistics coming soon. Check back later.</p>
                 </div>
-            </div>
-
-            <div class="column is-3">
-                <div class="box has-text-centered has-background-warning-light">
-                    <h3 class="title is-2" style="color: #ffdd57;">PHP 600M</h3>
-                    <p style="color: #2c3e50;"><strong>Total Investment</strong></p>
-                </div>
-            </div>
-
-            <div class="column is-3">
-                <div class="box has-text-centered has-background-link-light">
-                    <h3 class="title is-2" style="color: #667eea;">24/7</h3>
-                    <p style="color: #2c3e50;"><strong>Support Hotline</strong></p>
-                </div>
-            </div>
+            @endforelse
         </div>
     </div>
 </section>

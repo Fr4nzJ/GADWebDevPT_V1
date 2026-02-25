@@ -15,6 +15,16 @@ use App\Http\Controllers\PageValueController;
 use App\Http\Controllers\PageSectionController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ChartDataController;
+use App\Http\Controllers\AchievementController;
+use App\Http\Controllers\ProgramStatisticController;
+use App\Http\Controllers\EventStatisticController;
+use App\Http\Controllers\PolicyBriefController;
+use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\ReportStatisticController;
+use App\Models\EventStatistic;
+use App\Models\PolicyBrief;
+use App\Models\Resource;
+use App\Models\ReportStatistic;
 use Illuminate\Support\Facades\Route;
 
 // ===== PUBLIC PAGES =====
@@ -29,12 +39,18 @@ Route::get('/news', [NewsController::class, 'newsPage'])->name('news-page');
 Route::get('/news/{news:slug}', [NewsController::class, 'publicShow'])->name('news.show');
 
 Route::get('/events', function () {
-    return view('events');
+    $statistics = EventStatistic::where('page', 'events')->where('is_active', true)->orderBy('order')->get();
+    return view('events', compact('statistics'));
 })->name('events');
 
 Route::get('/events/{event}', [EventController::class, 'publicShow'])->name('events.show');
 
-Route::get('/reports', [ReportController::class, 'publicIndex'])->name('reports');
+Route::get('/reports', function () {
+    $policyBriefs = PolicyBrief::where('page', 'reports')->where('is_active', true)->orderBy('order')->get();
+    $resources = Resource::where('page', 'reports')->where('is_active', true)->orderBy('order')->get();
+    $statistics = ReportStatistic::where('page', 'reports')->where('is_active', true)->orderBy('order')->get();
+    return view('reports', compact('policyBriefs', 'resources', 'statistics'));
+})->name('reports');
 
 Route::get('/contact', function () {
     return view('contact');
@@ -135,6 +151,12 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::resource('page-values', PageValueController::class)->except(['show'])->names('admin.page-values');
     Route::resource('page-sections', PageSectionController::class)->except(['show'])->names('admin.page-sections');
     Route::resource('chart-data', ChartDataController::class)->except(['show'])->names('admin.chart-data');
+    Route::resource('achievements', AchievementController::class)->except(['show'])->names('admin.achievements');
+    Route::resource('program-statistics', ProgramStatisticController::class)->except(['show'])->names('admin.program-statistics');
+    Route::resource('event-statistics', EventStatisticController::class)->except(['show'])->names('admin.event-statistics');
+    Route::resource('policy-briefs', PolicyBriefController::class)->except(['show'])->names('admin.policy-briefs');
+    Route::resource('resources', ResourceController::class)->except(['show'])->names('admin.resources');
+    Route::resource('report-statistics', ReportStatisticController::class)->except(['show'])->names('admin.report-statistics');
 
 });
 

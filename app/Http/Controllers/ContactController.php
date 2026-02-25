@@ -94,9 +94,9 @@ class ContactController extends Controller
                 'timestamp' => now(),
             ]);
 
-            // Send OTP verification email (synchronous)
+            // Send OTP verification email (asynchronous via queue)
             try {
-                Log::info('Attempting to send OTP email', [
+                Log::info('Attempting to queue OTP email', [
                     'mail_default' => config('mail.default'),
                     'mail_host' => config('mail.mailers.smtp.host'),
                     'mail_port' => config('mail.mailers.smtp.port'),
@@ -104,7 +104,7 @@ class ContactController extends Controller
                     'email' => $validated['email'],
                 ]);
                 
-                Mail::to($validated['email'])->send(
+                Mail::to($validated['email'])->queue(
                     new ContactVerificationMail(
                         $validated['name'],
                         $validated['email'],
@@ -113,12 +113,12 @@ class ContactController extends Controller
                     )
                 );
                 
-                Log::info('OTP email sent successfully', [
+                Log::info('OTP email queued successfully', [
                     'email' => $validated['email'],
                     'timestamp' => now(),
                 ]);
             } catch (\Exception $emailException) {
-                Log::error('Email sending failed', [
+                Log::error('Email queueing failed', [
                     'error' => $emailException->getMessage(),
                     'email' => $validated['email'],
                     'file' => $emailException->getFile(),
@@ -272,9 +272,9 @@ class ContactController extends Controller
                 'timestamp' => now(),
             ]);
 
-            // Send the contact message to the admin (gadcatsu@gmail.com)
+            // Send the contact message to the admin (gadcatsu@gmail.com) - asynchronous
             try {
-                Mail::to(env('MAIL_FROM_ADDRESS', 'gadcatsu@gmail.com'))->send(
+                Mail::to(env('MAIL_FROM_ADDRESS', 'gadcatsu@gmail.com'))->queue(
                     new ContactSubmissionMail(
                         $formData['name'],
                         $formData['email'],
@@ -284,14 +284,14 @@ class ContactController extends Controller
                     )
                 );
 
-                Log::info('Contact Form - Admin notification email sent', [
+                Log::info('Contact Form - Admin notification email queued', [
                     'contact_id' => $contact->id,
                     'email' => $formData['email'],
                     'recipient' => env('MAIL_FROM_ADDRESS', 'gadcatsu@gmail.com'),
                     'timestamp' => now(),
                 ]);
             } catch (\Exception $emailException) {
-                Log::error('Contact Form - Admin notification email failed', [
+                Log::error('Contact Form - Admin notification email queueing failed', [
                     'contact_id' => $contact->id,
                     'error' => $emailException->getMessage(),
                     'email' => $formData['email'],
@@ -356,9 +356,9 @@ class ContactController extends Controller
             $formData['otp_created_at'] = now();
             session()->put('contact_form_data', $formData);
 
-            // Send new OTP email (synchronous)
+            // Send new OTP email (asynchronous via queue)
             try {
-                Mail::to($formData['email'])->send(
+                Mail::to($formData['email'])->queue(
                     new ContactVerificationMail(
                         $formData['name'],
                         $formData['email'],
@@ -367,7 +367,7 @@ class ContactController extends Controller
                     )
                 );
             } catch (\Exception $emailException) {
-                Log::error('Email resend failed, but continuing', [
+                Log::error('Email requeue failed, but continuing', [
                     'error' => $emailException->getMessage(),
                     'email' => $formData['email'],
                 ]);

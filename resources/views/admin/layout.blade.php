@@ -485,6 +485,42 @@
                             <span>Chart Data</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.achievements.index') }}" @class(['is-active' => request()->routeIs('admin.achievements.*')])>
+                            <i class="fas fa-trophy"></i>
+                            <span>Key Achievements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.program-statistics.index') }}" @class(['is-active' => request()->routeIs('admin.program-statistics.*')])>
+                            <i class="fas fa-chart-pie"></i>
+                            <span>Program Statistics</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.event-statistics.index') }}" @class(['is-active' => request()->routeIs('admin.event-statistics.*')])>
+                            <i class="fas fa-chart-line"></i>
+                            <span>Event Statistics</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.policy-briefs.index') }}" @class(['is-active' => request()->routeIs('admin.policy-briefs.*')])>
+                            <i class="fas fa-file-alt"></i>
+                            <span>Policy Briefs</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.resources.index') }}" @class(['is-active' => request()->routeIs('admin.resources.*')])>
+                            <i class="fas fa-book"></i>
+                            <span>Resources</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.report-statistics.index') }}" @class(['is-active' => request()->routeIs('admin.report-statistics.*')])>
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Report Statistics</span>
+                        </a>
+                    </li>
                 </ul>
                 
                 <p class="menu-label" style="color: #999; padding: 0 1rem; margin-top: 2rem; margin-bottom: 1rem;">

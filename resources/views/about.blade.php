@@ -270,30 +270,18 @@
         <h2 class="section-title">Key Achievements (2020-2024)</h2>
 
         <div class="columns is-multiline">
-            <div class="column is-3-desktop is-6-tablet">
-                <div class="achievement-stat">
-                    <div class="achievement-number">250+</div>
-                    <p class="achievement-label">Agencies with Gender Focal Persons</p>
+            @forelse($achievements as $achievement)
+                <div class="column is-3-desktop is-6-tablet">
+                    <div class="achievement-stat">
+                        <div class="achievement-number">{{ $achievement->number }}</div>
+                        <p class="achievement-label">{{ $achievement->label }}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="column is-3-desktop is-6-tablet">
-                <div class="achievement-stat">
-                    <div class="achievement-number">8.5K</div>
-                    <p class="achievement-label">Women Trained in Leadership</p>
+            @empty
+                <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                    <p style="color: #999;">Key achievements data coming soon. Check back later.</p>
                 </div>
-            </div>
-            <div class="column is-3-desktop is-6-tablet">
-                <div class="achievement-stat">
-                    <div class="achievement-number">42</div>
-                    <p class="achievement-label">Gender-Responsive Laws Enacted</p>
-                </div>
-            </div>
-            <div class="column is-3-desktop is-6-tablet">
-                <div class="achievement-stat">
-                    <div class="achievement-number">150+</div>
-                    <p class="achievement-label">Research Studies Conducted</p>
-                </div>
-            </div>
+            @endforelse
         </div>
     </div>
 </section>

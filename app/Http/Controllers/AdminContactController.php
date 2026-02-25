@@ -195,9 +195,9 @@ class AdminContactController extends Controller
                 'status' => 'replied',
             ]);
 
-            // Send reply email to the contact
+            // Send reply email to the contact (asynchronous via queue)
             try {
-                Mail::send(
+                Mail::to($contact->email)->queue(
                     new ContactReplyMail(
                         $contact->name,
                         $contact->email,
@@ -206,14 +206,14 @@ class AdminContactController extends Controller
                     )
                 );
 
-                Log::info('Contact reply email sent', [
+                Log::info('Contact reply email queued', [
                     'contact_id' => $contact->id,
                     'recipient_email' => $contact->email,
                     'admin_id' => Auth::id(),
                     'admin_name' => Auth::user()->name,
                 ]);
             } catch (\Exception $emailException) {
-                Log::error('Contact reply email failed', [
+                Log::error('Contact reply email queueing failed', [
                     'contact_id' => $contact->id,
                     'error' => $emailException->getMessage(),
                 ]);

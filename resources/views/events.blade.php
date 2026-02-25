@@ -91,40 +91,32 @@
 <!-- ===== EVENTS STATISTICS ===== -->
 <section class="section" style="background: linear-gradient(135deg, #f5f7ff 0%, #f0edff 100%);">
     <div class="container">
-        <h2 class="section-title">Events Overview 2024</h2>
+        <h2 class="section-title">Events Overview</h2>
         
         <div class="columns is-multiline">
+            @forelse($statistics as $statistic)
             <div class="column is-6-tablet is-3-desktop">
                 <div style="background: white; border-radius: 12px; padding: 1.5rem; text-align: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
-                    <div style="font-size: 2.5rem; font-weight: 800; color: #667eea; margin-bottom: 0.5rem;">35</div>
-                    <div style="color: #2c3e50; font-weight: 600; margin-bottom: 0.25rem;">Total Events</div>
-                    <div style="font-size: 0.85rem; color: #999;">Planned for this year</div>
+                    @if($statistic->icon)
+                    <div style="font-size: 2.5rem; color: {{ $statistic->color ?? '#667eea' }}; margin-bottom: 1rem;">
+                        <i class="{{ $statistic->icon }}"></i>
+                    </div>
+                    @endif
+                    <div style="font-size: 2.5rem; font-weight: 800; color: {{ $statistic->color ?? '#667eea' }}; margin-bottom: 0.5rem;">{{ $statistic->value }}</div>
+                    <div style="color: #2c3e50; font-weight: 600; margin-bottom: 0.25rem;">{{ $statistic->label }}</div>
+                    @if($statistic->description)
+                    <div style="font-size: 0.85rem; color: #999;">{{ $statistic->description }}</div>
+                    @endif
                 </div>
             </div>
-            
-            <div class="column is-6-tablet is-3-desktop">
-                <div style="background: white; border-radius: 12px; padding: 1.5rem; text-align: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
-                    <div style="font-size: 2.5rem; font-weight: 800; color: #764ba2; margin-bottom: 0.5rem;">15K+</div>
-                    <div style="color: #2c3e50; font-weight: 600; margin-bottom: 0.25rem;">Expected Attendees</div>
-                    <div style="font-size: 0.85rem; color: #999;">Participants nationwide</div>
+            @empty
+            <div class="column is-12">
+                <div style="text-align: center; padding: 2rem; color: #999;">
+                    <i class="fas fa-info-circle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                    <p>Event statistics coming soon. Check back later.</p>
                 </div>
             </div>
-            
-            <div class="column is-6-tablet is-3-desktop">
-                <div style="background: white; border-radius: 12px; padding: 1.5rem; text-align: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
-                    <div style="font-size: 2.5rem; font-weight: 800; color: #48c774; margin-bottom: 0.5rem;">18</div>
-                    <div style="color: #2c3e50; font-weight: 600; margin-bottom: 0.25rem;">Regions Covered</div>
-                    <div style="font-size: 0.85rem; color: #999;">Nationwide reach</div>
-                </div>
-            </div>
-            
-            <div class="column is-6-tablet is-3-desktop">
-                <div style="background: white; border-radius: 12px; padding: 1.5rem; text-align: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
-                    <div style="font-size: 2.5rem; font-weight: 800; color: #f0ad4e; margin-bottom: 0.5rem;">₱25M</div>
-                    <div style="color: #2c3e50; font-weight: 600; margin-bottom: 0.25rem;">Budget Allocated</div>
-                    <div style="font-size: 0.85rem; color: #999;">For events & workshops</div>
-                </div>
-            </div>
+            @endforelse
         </div>
     </div>
 </section>
