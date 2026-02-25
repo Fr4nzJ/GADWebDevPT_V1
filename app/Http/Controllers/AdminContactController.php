@@ -15,6 +15,67 @@ use Illuminate\Http\RedirectResponse;
 class AdminContactController extends Controller
 {
     /**
+     * Show form to create a new contact.
+     */
+    public function create(): View
+    {
+        return view('admin.contacts.create');
+    }
+
+    /**
+     * Store a newly created contact.
+     */
+    public function store(Request $request): RedirectResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|min:2|max:255',
+            'email' => 'required|email|max:255',
+            'subject' => 'required|string|min:3|max:255',
+            'message' => 'required|string|min:10|max:5000',
+            'status' => 'required|string|in:new,read,replied,archived',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        try {
+            $contact = Contact::create([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'subject' => $request->input('subject'),
+                'message' => $request->input('message'),
+                'status' => $request->input('status'),
+                'is_verified' => true,
+                'verification_code' => 'MANUAL',
+            ]);
+
+            Log::info('Admin created contact manually', [
+                'contact_id' => $contact->id,
+                'admin_id' => Auth::id(),
+                'admin_name' => Auth::user()->name,
+                'email' => $contact->email,
+            ]);
+
+            return redirect()->route('admin.contacts.show', $contact)
+                ->with('success', 'Contact created successfully.');
+
+        } catch (\Exception $e) {
+            Log::error('Contact creation error', [
+                'error' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+
+            return redirect()->back()
+                ->withErrors(['general' => 'An error occurred while creating the contact.'])
+                ->withInput();
+        }
+    }
+
+    /**
      * Show all contacts with filtering and pagination.
      */
     public function index(Request $request): View

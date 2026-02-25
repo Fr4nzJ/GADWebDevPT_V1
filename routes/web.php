@@ -115,6 +115,8 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy');
 
     Route::get('/contacts', [AdminContactController::class, 'index'])->name('admin.contacts.index');
+    Route::get('/contacts/create', [AdminContactController::class, 'create'])->name('admin.contacts.create');
+    Route::post('/contacts', [AdminContactController::class, 'store'])->name('admin.contacts.store');
     Route::get('/contacts/{contact}', [AdminContactController::class, 'show'])->name('admin.contacts.show');
     Route::get('/contacts/{contact}/edit', [AdminContactController::class, 'edit'])->name('admin.contacts.edit');
     Route::put('/contacts/{contact}', [AdminContactController::class, 'update'])->name('admin.contacts.update');
