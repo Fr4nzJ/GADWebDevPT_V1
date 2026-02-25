@@ -503,38 +503,26 @@
         </div>
 
         <div class="distribution-grid">
-            <div class="distribution-card">
-                <div style="font-size: 2.5rem; margin-bottom: 1rem; color: #667eea;"><i class="fas fa-dollar-sign"></i></div>
-                <h4 style="color: #2c3e50; font-weight: 600; margin-bottom: 0.5rem;">Women Entrepreneurs</h4>
-                <div style="font-size: 1.8rem; color: #667eea; font-weight: 700; margin: 1rem 0;">50K</div>
-                <p style="color: #999; font-size: 0.9rem;">Women trained & funded</p>
-                <div style="height: 5px; background: #f0f0f0; border-radius: 3px; margin: 1rem 0;">
-                    <div style="height: 100%; width: 85%; background: linear-gradient(90deg, #667eea, #764ba2); border-radius: 3px;"></div>
+            @forelse($featuredPrograms as $program)
+                <div class="distribution-card">
+                    @if($program->icon)
+                        <div style="font-size: 2.5rem; margin-bottom: 1rem; color: {{ $program->color ?? '#667eea' }};"><i class="{{ $program->icon }}"></i></div>
+                    @endif
+                    <h4 style="color: #2c3e50; font-weight: 600; margin-bottom: 0.5rem;">{{ $program->title }}</h4>
+                    <div style="font-size: 1.8rem; color: {{ $program->color ?? '#667eea' }}; font-weight: 700; margin: 1rem 0;">{{ $program->value }}</div>
+                    <p style="color: #999; font-size: 0.9rem;">{{ $program->label }}</p>
+                    @if($program->description)
+                        <div style="height: 5px; background: #f0f0f0; border-radius: 3px; margin: 1rem 0;">
+                            <div style="height: 100%; width: {{ $program->description }}%; background: linear-gradient(90deg, {{ $program->color ?? '#667eea' }}, {{ $program->color ?? '#667eea' }}); border-radius: 3px;"></div>
+                        </div>
+                        <p style="color: #999; font-size: 0.85rem;">{{ $program->description }}% completion</p>
+                    @endif
                 </div>
-                <p style="color: #999; font-size: 0.85rem;">85% completion rate</p>
-            </div>
-
-            <div class="distribution-card">
-                <div style="font-size: 2.5rem; margin-bottom: 1rem; color: #48c774;"><i class="fas fa-shield-alt"></i></div>
-                <h4 style="color: #2c3e50; font-weight: 600; margin-bottom: 0.5rem;">VAWG Prevention</h4>
-                <div style="font-size: 1.8rem; color: #48c774; font-weight: 700; margin: 1rem 0;">75K</div>
-                <p style="color: #999; font-size: 0.9rem;">Beneficiaries reached</p>
-                <div style="height: 5px; background: #f0f0f0; border-radius: 3px; margin: 1rem 0;">
-                    <div style="height: 100%; width: 92%; background: linear-gradient(90deg, #48c774, #3aab6a); border-radius: 3px;"></div>
+            @empty
+                <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                    <p style="color: #999;">No featured programs data available. <a href="{{ route('admin.statistics.create') }}" style="color: #667eea;">Add featured programs</a></p>
                 </div>
-                <p style="color: #999; font-size: 0.85rem;">92% community support</p>
-            </div>
-
-            <div class="distribution-card">
-                <div style="font-size: 2.5rem; margin-bottom: 1rem; color: #f0ad4e;"><i class="fas fa-graduation-cap"></i></div>
-                <h4 style="color: #2c3e50; font-weight: 600; margin-bottom: 0.5rem;">Education Access</h4>
-                <div style="font-size: 1.8rem; color: #f0ad4e; font-weight: 700; margin: 1rem 0;">120K</div>
-                <p style="color: #999; font-size: 0.9rem;">Students supported</p>
-                <div style="height: 5px; background: #f0f0f0; border-radius: 3px; margin: 1rem 0;">
-                    <div style="height: 100%; width: 78%; background: linear-gradient(90deg, #f0ad4e, #e89a3c); border-radius: 3px;"></div>
-                </div>
-                <p style="color: #999; font-size: 0.85rem;">78% advancement rate</p>
-            </div>
+            @endforelse
         </div>
     </div>
 </section>

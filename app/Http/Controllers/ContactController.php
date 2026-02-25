@@ -274,7 +274,7 @@ class ContactController extends Controller
 
             // Send the contact message to the admin (gadcatsu@gmail.com)
             try {
-                Mail::send(
+                Mail::to(env('MAIL_FROM_ADDRESS', 'gadcatsu@gmail.com'))->send(
                     new ContactSubmissionMail(
                         $formData['name'],
                         $formData['email'],

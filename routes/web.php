@@ -8,16 +8,18 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\StatisticController;
+use App\Http\Controllers\MilestoneController;
+use App\Http\Controllers\ProcessStepController;
+use App\Http\Controllers\PageValueController;
+use App\Http\Controllers\PageSectionController;
+use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
 // ===== PUBLIC PAGES =====
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [PageController::class, 'home'])->name('welcome');
 
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
+Route::get('/about', [PageController::class, 'about'])->name('about');
 
 Route::get('/programs', [ProgramController::class, 'publicIndex'])->name('programs');
 
@@ -125,7 +127,13 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::post('/contacts/{contact}/restore', [AdminContactController::class, 'restore'])->name('admin.contacts.restore');
     Route::delete('/contacts/{contact}', [AdminContactController::class, 'destroy'])->name('admin.contacts.destroy');
 
-    
+    // Page Content Management Routes
+    Route::resource('statistics', StatisticController::class)->except(['show'])->names('admin.statistics');
+    Route::resource('milestones', MilestoneController::class)->except(['show'])->names('admin.milestones');
+    Route::resource('process-steps', ProcessStepController::class)->except(['show'])->names('admin.process-steps');
+    Route::resource('page-values', PageValueController::class)->except(['show'])->names('admin.page-values');
+    Route::resource('page-sections', PageSectionController::class)->except(['show'])->names('admin.page-sections');
+
 });
 
 require __DIR__.'/auth.php';

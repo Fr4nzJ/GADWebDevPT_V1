@@ -14,7 +14,7 @@ class ContactSubmissionMail extends Mailable
 
     public string $name;
     public string $email;
-    public string $subject;
+    public string $contactSubject;
     public string $message;
     public string $ipAddress;
 
@@ -30,7 +30,7 @@ class ContactSubmissionMail extends Mailable
     ) {
         $this->name = $name;
         $this->email = $email;
-        $this->subject = $subject;
+        $this->contactSubject = $subject;
         $this->message = $message;
         $this->ipAddress = $ipAddress;
     }
@@ -41,9 +41,8 @@ class ContactSubmissionMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            to: [env('MAIL_FROM_ADDRESS', 'gadcatsu@gmail.com')],
             replyTo: [$this->email],
-            subject: 'New Contact Form Submission: ' . $this->subject,
+            subject: 'New Contact Form Submission: ' . $this->contactSubject,
         );
     }
 
@@ -57,7 +56,7 @@ class ContactSubmissionMail extends Mailable
             with: [
                 'name' => $this->name,
                 'email' => $this->email,
-                'subject' => $this->subject,
+                'subject' => $this->contactSubject,
                 'message' => $this->message,
                 'ipAddress' => $this->ipAddress,
             ],

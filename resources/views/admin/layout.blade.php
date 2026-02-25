@@ -444,6 +444,42 @@
                         </a>
                     </li>
                 </ul>
+
+                <p class="menu-label" style="color: #999; padding: 0 1rem; margin-top: 2rem; margin-bottom: 1rem;">
+                    Page Content Management
+                </p>
+                <ul class="menu-list">
+                    <li>
+                        <a href="{{ route('admin.statistics.index') }}" @class(['is-active' => request()->routeIs('admin.statistics.*')])>
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Featured Programs</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.milestones.index') }}" @class(['is-active' => request()->routeIs('admin.milestones.*')])>
+                            <i class="fas fa-timeline"></i>
+                            <span>Milestones</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.process-steps.index') }}" @class(['is-active' => request()->routeIs('admin.process-steps.*')])>
+                            <i class="fas fa-tasks"></i>
+                            <span>Process Steps</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.page-values.index') }}" @class(['is-active' => request()->routeIs('admin.page-values.*')])>
+                            <i class="fas fa-feather"></i>
+                            <span>Page Values</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.page-sections.index') }}" @class(['is-active' => request()->routeIs('admin.page-sections.*')])>
+                            <i class="fas fa-window-maximize"></i>
+                            <span>Page Sections</span>
+                        </a>
+                    </li>
+                </ul>
                 
                 <p class="menu-label" style="color: #999; padding: 0 1rem; margin-top: 2rem; margin-bottom: 1rem;">
                     System
