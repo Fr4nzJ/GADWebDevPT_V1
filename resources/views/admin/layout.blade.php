@@ -479,6 +479,12 @@
                             <span>Page Sections</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.chart-data.index') }}" @class(['is-active' => request()->routeIs('admin.chart-data.*')])>
+                            <i class="fas fa-chart-column"></i>
+                            <span>Chart Data</span>
+                        </a>
+                    </li>
                 </ul>
                 
                 <p class="menu-label" style="color: #999; padding: 0 1rem; margin-top: 2rem; margin-bottom: 1rem;">

@@ -378,41 +378,41 @@
         </div>
 
         <div class="kpi-grid">
-            <div class="kpi-card blue">
-                <div class="kpi-icon"><i class="fas fa-users"></i></div>
-                <div class="kpi-number">250K+</div>
-                <div class="kpi-label">Direct Beneficiaries</div>
-            </div>
-            <div class="kpi-card green">
-                <div class="kpi-icon"><i class="fas fa-project-diagram"></i></div>
-                <div class="kpi-number">6</div>
-                <div class="kpi-label">Active Programs</div>
-            </div>
-            <div class="kpi-card orange">
-                <div class="kpi-icon"><i class="fas fa-file-pdf"></i></div>
-                <div class="kpi-number">45+</div>
-                <div class="kpi-label">Research Reports</div>
-            </div>
-            <div class="kpi-card purple">
-                <div class="kpi-icon"><i class="fas fa-map-marker-alt"></i></div>
-                <div class="kpi-number">17</div>
-                <div class="kpi-label">Regions Covered</div>
-            </div>
+            @forelse($statistics as $stat)
+                <div class="kpi-card {{ $stat->color ?? 'blue' }}">
+                    @if($stat->icon)
+                        <div class="kpi-icon"><i class="{{ $stat->icon }}"></i></div>
+                    @endif
+                    <div class="kpi-number">{{ $stat->value }}</div>
+                    <div class="kpi-label">{{ $stat->label }}</div>
+                    @if($stat->description)
+                        <p style="color: #999; font-size: 0.85rem; margin-top: 0.5rem;">{{ $stat->description }}</p>
+                    @endif
+                </div>
+            @empty
+                <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                    <p style="color: #999;">Key performance indicators will be available soon.</p>
+                </div>
+            @endforelse
         </div>
 
         <div class="columns mt-6 is-multiline">
-            <div class="column is-full-mobile is-6-tablet is-6-desktop">
-                <div class="chart-container">
-                    <h3 style="margin-bottom: 1rem; color: #2c3e50; font-weight: 600;">Annual Participation Growth</h3>
-                    <canvas id="growthChart"></canvas>
+            @if($growthChart->count() > 0)
+                <div class="column is-full-mobile is-6-tablet is-6-desktop">
+                    <div class="chart-container">
+                        <h3 style="margin-bottom: 1rem; color: #2c3e50; font-weight: 600;">Annual Participation Growth</h3>
+                        <canvas id="growthChart"></canvas>
+                    </div>
                 </div>
-            </div>
-            <div class="column is-full-mobile is-6-tablet is-6-desktop">
-                <div class="chart-container">
-                    <h3 style="margin-bottom: 1rem; color: #2c3e50; font-weight: 600;">Program Distribution by Category</h3>
-                    <canvas id="categoryChart"></canvas>
+            @endif
+            @if($distributionChart->count() > 0)
+                <div class="column is-full-mobile is-6-tablet is-6-desktop">
+                    <div class="chart-container">
+                        <h3 style="margin-bottom: 1rem; color: #2c3e50; font-weight: 600;">Program Distribution by Category</h3>
+                        <canvas id="categoryChart"></canvas>
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 </section>
@@ -427,30 +427,19 @@
 
         <div class="timeline">
             <div class="timeline-items">
-                <div class="timeline-item">
-                    <div class="timeline-year">2019</div>
-                    <div class="timeline-text">CatSu GAD established with initial programs focusing on VAWG prevention and economic empowerment</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2020</div>
-                    <div class="timeline-text">Adapted programs during COVID-19, reaching 45,000 beneficiaries through virtual channels</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2021</div>
-                    <div class="timeline-text">Expanded to 12 regions, published first comprehensive GAD Statistical Report</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2022</div>
-                    <div class="timeline-text">Launched Women Entrepreneurship Fund with ₱150M budget allocation</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2023</div>
-                    <div class="timeline-text">Achieved 100K+ beneficiaries milestone, established LGBTQ+ rights advocacy alliance</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2024</div>
-                    <div class="timeline-text">Expanded to 17 regions, reached 250K+ cumulative beneficiaries</div>
-                </div>
+                @forelse($milestones as $milestone)
+                    <div class="timeline-item">
+                        <div class="timeline-year">{{ $milestone->year }}</div>
+                        <div class="timeline-text">{{ $milestone->description }}</div>
+                        @if($milestone->icon)
+                            <p style="color: #667eea; font-size: 1.2rem; margin-top: 0.5rem;"><i class="{{ $milestone->icon }}"></i></p>
+                        @endif
+                    </div>
+                @empty
+                    <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                        <p style="color: #999;">Our organizational milestones and achievements are being compiled.</p>
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>
@@ -465,26 +454,19 @@
         </div>
 
         <div class="process-flow">
-            <div class="process-step">
-                <div class="step-icon"><i class="fas fa-search"></i></div>
-                <div class="step-title">Research & Assessment</div>
-                <div class="step-desc">Identify community needs and gender gaps</div>
-            </div>
-            <div class="process-step">
-                <div class="step-icon"><i class="fas fa-lightbulb"></i></div>
-                <div class="step-title">Program Design</div>
-                <div class="step-desc">Develop targeted interventions</div>
-            </div>
-            <div class="process-step">
-                <div class="step-icon"><i class="fas fa-rocket"></i></div>
-                <div class="step-title">Implementation</div>
-                <div class="step-desc">Execute programs with stakeholders</div>
-            </div>
-            <div class="process-step">
-                <div class="step-icon"><i class="fas fa-chart-line"></i></div>
-                <div class="step-title">Monitor & Evaluate</div>
-                <div class="step-desc">Measure impact and outcomes</div>
-            </div>
+            @forelse($processSteps as $step)
+                <div class="process-step">
+                    @if($step->icon)
+                        <div class="step-icon"><i class="{{ $step->icon }}"></i></div>
+                    @endif
+                    <div class="step-title">{{ $step->title }}</div>
+                    <div class="step-desc">{{ $step->description }}</div>
+                </div>
+            @empty
+                <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
+                    <p style="color: #999;">Our detailed methodology and process information will be available soon.</p>
+                </div>
+            @endforelse
         </div>
 
         <div class="box mt-5" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); border-left: 5px solid #667eea;">
@@ -520,7 +502,7 @@
                 </div>
             @empty
                 <div style="grid-column: 1/-1; text-align: center; padding: 2rem;">
-                    <p style="color: #999;">No featured programs data available. <a href="{{ route('admin.statistics.create') }}" style="color: #667eea;">Add featured programs</a></p>
+                    <p style="color: #999;">Featured programs information coming soon. Check back later.</p>
                 </div>
             @endforelse
         </div>
@@ -551,66 +533,70 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 <script>
     // Participation Growth Bar Chart
-    const growthCtx = document.getElementById('growthChart').getContext('2d');
-    new Chart(growthCtx, {
-        type: 'bar',
-        data: {
-            labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
-            datasets: [{
-                label: 'Beneficiaries Reached',
-                data: [15000, 45000, 85000, 130000, 180000, 250000],
-                backgroundColor: [
-                    '#667eea',
-                    '#764ba2',
-                    '#48c774',
-                    '#f0ad4e',
-                    '#e74c3c',
-                    '#3273dc'
-                ],
-                borderRadius: 6,
-                borderSkipped: false
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { display: false }
+    @if($growthChart->count() > 0)
+        const growthCtx = document.getElementById('growthChart').getContext('2d');
+        new Chart(growthCtx, {
+            type: 'bar',
+            data: {
+                labels: {!! json_encode($growthChart->pluck('label')) !!},
+                datasets: [{
+                    label: 'Beneficiaries Reached',
+                    data: {!! json_encode($growthChart->pluck('value')) !!},
+                    backgroundColor: [
+                        '#667eea',
+                        '#764ba2',
+                        '#48c774',
+                        '#f0ad4e',
+                        '#e74c3c',
+                        '#3273dc'
+                    ],
+                    borderRadius: 6,
+                    borderSkipped: false
+                }]
             },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: { callback: v => (v / 1000) + 'K' }
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { callback: v => (v / 1000) + 'K' }
+                    }
                 }
             }
-        }
-    });
+        });
+    @endif
 
     // Program Category Distribution Pie Chart
-    const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-    new Chart(categoryCtx, {
-        type: 'doughnut',
-        data: {
-            labels: ['VAWG Prevention', 'Economic Empowerment', 'Education Access', 'LGBTQ+ Rights', 'Health & Wellness'],
-            datasets: [{
-                data: [75000, 50000, 120000, 25000, 18000],
-                backgroundColor: [
-                    '#667eea',
-                    '#764ba2',
-                    '#48c774',
-                    '#f0ad4e',
-                    '#e74c3c'
-                ]
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: { position: 'bottom' }
+    @if($distributionChart->count() > 0)
+        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+        new Chart(categoryCtx, {
+            type: 'doughnut',
+            data: {
+                labels: {!! json_encode($distributionChart->pluck('label')) !!},
+                datasets: [{
+                    data: {!! json_encode($distributionChart->pluck('value')) !!},
+                    backgroundColor: [
+                        '#667eea',
+                        '#764ba2',
+                        '#48c774',
+                        '#f0ad4e',
+                        '#e74c3c'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
             }
-        }
-    });
+        });
+    @endif
 </script>
 
 @endsection

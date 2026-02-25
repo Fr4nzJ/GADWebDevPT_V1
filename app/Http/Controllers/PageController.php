@@ -6,6 +6,7 @@ use App\Models\Statistic;
 use App\Models\Milestone;
 use App\Models\ProcessStep;
 use App\Models\PageSection;
+use App\Models\ChartData;
 
 class PageController extends Controller
 {
@@ -34,13 +35,25 @@ class PageController extends Controller
             ->orderBy('order')
             ->get();
 
+        $growthChart = ChartData::where('chart_type', 'growth')
+            ->where('page', 'home')
+            ->where('is_active', true)
+            ->orderBy('order')
+            ->get();
+
+        $distributionChart = ChartData::where('chart_type', 'distribution')
+            ->where('page', 'home')
+            ->where('is_active', true)
+            ->orderBy('order')
+            ->get();
+
         $sections = PageSection::where('page', 'home')
             ->where('is_active', true)
             ->orderBy('order')
             ->get()
             ->keyBy('section_key');
 
-        return view('welcome', compact('statistics', 'milestones', 'processSteps', 'featuredPrograms', 'sections'));
+        return view('welcome', compact('statistics', 'milestones', 'processSteps', 'featuredPrograms', 'growthChart', 'distributionChart', 'sections'));
     }
 
     /**

@@ -14,6 +14,7 @@ use App\Http\Controllers\ProcessStepController;
 use App\Http\Controllers\PageValueController;
 use App\Http\Controllers\PageSectionController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ChartDataController;
 use Illuminate\Support\Facades\Route;
 
 // ===== PUBLIC PAGES =====
@@ -133,6 +134,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::resource('process-steps', ProcessStepController::class)->except(['show'])->names('admin.process-steps');
     Route::resource('page-values', PageValueController::class)->except(['show'])->names('admin.page-values');
     Route::resource('page-sections', PageSectionController::class)->except(['show'])->names('admin.page-sections');
+    Route::resource('chart-data', ChartDataController::class)->except(['show'])->names('admin.chart-data');
 
 });
 

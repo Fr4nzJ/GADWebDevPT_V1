@@ -174,6 +174,47 @@ class PageContentSeeder extends Seeder
             'is_active' => true,
         ]);
 
+        // Seed Chart Data for Growth Chart
+        $growthData = [
+            ['2019', 15000],
+            ['2020', 45000],
+            ['2021', 85000],
+            ['2022', 130000],
+            ['2023', 180000],
+            ['2024', 250000],
+        ];
+
+        foreach ($growthData as $index => [$label, $value]) {
+            \App\Models\ChartData::create([
+                'chart_type' => 'growth',
+                'label' => $label,
+                'value' => $value,
+                'page' => 'home',
+                'order' => $index,
+                'is_active' => true,
+            ]);
+        }
+
+        // Seed Chart Data for Distribution Chart
+        $distributionData = [
+            ['VAWG Prevention', 75000],
+            ['Economic Empowerment', 50000],
+            ['Education Access', 120000],
+            ['LGBTQ+ Rights', 25000],
+            ['Health & Wellness', 18000],
+        ];
+
+        foreach ($distributionData as $index => [$label, $value]) {
+            \App\Models\ChartData::create([
+                'chart_type' => 'distribution',
+                'label' => $label,
+                'value' => $value,
+                'page' => 'home',
+                'order' => $index,
+                'is_active' => true,
+            ]);
+        }
+
         $this->command->info('Page content seeded successfully!');
     }
 }
