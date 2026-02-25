@@ -272,8 +272,20 @@ class ContactController extends Controller
                 'timestamp' => now(),
             ]);
 
-            // Send the contact message to the admin (gadcatsu@gmail.com) - asynchronous
+            // Send the contact message to the admin (gadcatsu@gmail.com) - asynchronous via queue
             try {
+                Log::info('Contact Form - Preparing to send admin notification email', [
+                    'contact_id' => $contact->id,
+                    'email' => $formData['email'],
+                    'admin_email' => env('MAIL_FROM_ADDRESS', 'gadcatsu@gmail.com'),
+                    'mail_driver' => config('mail.default'),
+                    'queue_connection' => config('queue.default'),
+                    'smtp_host' => config('mail.mailers.smtp.host'),
+                    'smtp_port' => config('mail.mailers.smtp.port'),
+                    'smtp_encryption' => config('mail.mailers.smtp.encryption'),
+                    'timestamp' => now(),
+                ]);
+
                 Mail::to(env('MAIL_FROM_ADDRESS', 'gadcatsu@gmail.com'))->queue(
                     new ContactSubmissionMail(
                         $formData['name'],
@@ -284,21 +296,28 @@ class ContactController extends Controller
                     )
                 );
 
-                Log::info('Contact Form - Admin notification email queued', [
+                Log::info('Contact Form - Admin notification email queued successfully', [
                     'contact_id' => $contact->id,
                     'email' => $formData['email'],
                     'recipient' => env('MAIL_FROM_ADDRESS', 'gadcatsu@gmail.com'),
+                    'mailable_class' => 'ContactSubmissionMail',
+                    'reply_to' => $formData['email'],
+                    'subject' => 'New Contact Form Submission: ' . $formData['subject'],
                     'timestamp' => now(),
                 ]);
             } catch (\Exception $emailException) {
                 Log::error('Contact Form - Admin notification email queueing failed', [
                     'contact_id' => $contact->id,
-                    'error' => $emailException->getMessage(),
-                    'email' => $formData['email'],
-                    'file' => $emailException->getFile(),
-                    'line' => $emailException->getLine(),
+                    'sender_email' => $formData['email'],
+                    'admin_email' => env('MAIL_FROM_ADDRESS', 'gadcatsu@gmail.com'),
+                    'error_message' => $emailException->getMessage(),
+                    'error_code' => $emailException->getCode(),
+                    'error_file' => $emailException->getFile(),
+                    'error_line' => $emailException->getLine(),
+                    'mail_driver' => config('mail.default'),
+                    'trace' => $emailException->getTraceAsString(),
                 ]);
-                // Continue anyway - contact is stored in database
+                // Continue anyway - contact is stored in database, email retry can happen later
             }
 
             // Log successful verification
