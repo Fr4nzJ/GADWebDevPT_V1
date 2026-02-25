@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ReportStatistic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ReportStatisticController extends Controller
 {
@@ -33,12 +34,12 @@ class ReportStatisticController extends Controller
 
         try {
             $validated['page'] = 'reports';
-            $validated['is_active'] = $request->has('is_active');
+            $validated['is_active'] = $request->boolean('is_active', false);
             ReportStatistic::create($validated);
             return redirect()->route('admin.report-statistics.index')
                 ->with('success', 'Report statistic created successfully!');
         } catch (\Exception $e) {
-            \Log::error('ReportStatistic creation error: ' . $e->getMessage());
+            Log::error('ReportStatistic creation error: ' . $e->getMessage());
             return back()->withErrors(['error' => 'Failed to create report statistic: ' . $e->getMessage()]);
         }
     }
@@ -62,12 +63,12 @@ class ReportStatisticController extends Controller
         ]);
 
         try {
-            $validated['is_active'] = $request->has('is_active');
+            $validated['is_active'] = $request->boolean('is_active', false);
             $reportStatistic->update($validated);
             return redirect()->route('admin.report-statistics.index')
                 ->with('success', 'Report statistic updated successfully!');
         } catch (\Exception $e) {
-            \Log::error('ReportStatistic update error: ' . $e->getMessage());
+            Log::error('ReportStatistic update error: ' . $e->getMessage());
             return back()->withErrors(['error' => 'Failed to update report statistic: ' . $e->getMessage()]);
         }
     }
@@ -79,7 +80,7 @@ class ReportStatisticController extends Controller
             return redirect()->route('admin.report-statistics.index')
                 ->with('success', 'Report statistic deleted successfully!');
         } catch (\Exception $e) {
-            \Log::error('ReportStatistic deletion error: ' . $e->getMessage());
+            Log::error('ReportStatistic deletion error: ' . $e->getMessage());
             return back()->withErrors(['error' => 'Failed to delete report statistic: ' . $e->getMessage()]);
         }
     }

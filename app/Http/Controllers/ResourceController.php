@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Resource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ResourceController extends Controller
 {
@@ -34,12 +35,12 @@ class ResourceController extends Controller
 
         try {
             $validated['page'] = 'reports';
-            $validated['is_active'] = $request->has('is_active');
+            $validated['is_active'] = $request->boolean('is_active', false);
             Resource::create($validated);
             return redirect()->route('admin.resources.index')
                 ->with('success', 'Resource created successfully!');
         } catch (\Exception $e) {
-            \Log::error('Resource creation error: ' . $e->getMessage());
+            Log::error('Resource creation error: ' . $e->getMessage());
             return back()->withErrors(['error' => 'Failed to create resource: ' . $e->getMessage()]);
         }
     }
@@ -64,12 +65,12 @@ class ResourceController extends Controller
         ]);
 
         try {
-            $validated['is_active'] = $request->has('is_active');
+            $validated['is_active'] = $request->boolean('is_active', false);
             $resource->update($validated);
             return redirect()->route('admin.resources.index')
                 ->with('success', 'Resource updated successfully!');
         } catch (\Exception $e) {
-            \Log::error('Resource update error: ' . $e->getMessage());
+            Log::error('Resource update error: ' . $e->getMessage());
             return back()->withErrors(['error' => 'Failed to update resource: ' . $e->getMessage()]);
         }
     }
@@ -81,7 +82,7 @@ class ResourceController extends Controller
             return redirect()->route('admin.resources.index')
                 ->with('success', 'Resource deleted successfully!');
         } catch (\Exception $e) {
-            \Log::error('Resource deletion error: ' . $e->getMessage());
+            Log::error('Resource deletion error: ' . $e->getMessage());
             return back()->withErrors(['error' => 'Failed to delete resource: ' . $e->getMessage()]);
         }
     }

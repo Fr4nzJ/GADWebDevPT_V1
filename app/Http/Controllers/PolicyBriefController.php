@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PolicyBrief;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PolicyBriefController extends Controller
 {
@@ -33,12 +34,12 @@ class PolicyBriefController extends Controller
 
         try {
             $validated['page'] = 'reports';
-            $validated['is_active'] = $request->has('is_active');
+            $validated['is_active'] = $request->boolean('is_active', false);
             PolicyBrief::create($validated);
             return redirect()->route('admin.policy-briefs.index')
                 ->with('success', 'Policy brief created successfully!');
         } catch (\Exception $e) {
-            \Log::error('PolicyBrief creation error: ' . $e->getMessage());
+            Log::error('PolicyBrief creation error: ' . $e->getMessage());
             return back()->withErrors(['error' => 'Failed to create policy brief: ' . $e->getMessage()]);
         }
     }
@@ -62,12 +63,12 @@ class PolicyBriefController extends Controller
         ]);
 
         try {
-            $validated['is_active'] = $request->has('is_active');
+            $validated['is_active'] = $request->boolean('is_active', false);
             $policyBrief->update($validated);
             return redirect()->route('admin.policy-briefs.index')
                 ->with('success', 'Policy brief updated successfully!');
         } catch (\Exception $e) {
-            \Log::error('PolicyBrief update error: ' . $e->getMessage());
+            Log::error('PolicyBrief update error: ' . $e->getMessage());
             return back()->withErrors(['error' => 'Failed to update policy brief: ' . $e->getMessage()]);
         }
     }
@@ -79,7 +80,7 @@ class PolicyBriefController extends Controller
             return redirect()->route('admin.policy-briefs.index')
                 ->with('success', 'Policy brief deleted successfully!');
         } catch (\Exception $e) {
-            \Log::error('PolicyBrief deletion error: ' . $e->getMessage());
+            Log::error('PolicyBrief deletion error: ' . $e->getMessage());
             return back()->withErrors(['error' => 'Failed to delete policy brief: ' . $e->getMessage()]);
         }
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProgramStatistic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ProgramStatisticController extends Controller
 {
@@ -48,7 +49,7 @@ class ProgramStatisticController extends Controller
 
             return redirect()->route('admin.program-statistics.index')->with('success', 'Program statistic created successfully.');
         } catch (\Exception $e) {
-            \Log::error('Program statistic creation error:', ['error' => $e->getMessage()]);
+            Log::error('Program statistic creation error:', ['error' => $e->getMessage()]);
             return back()->withInput()->with('error', 'Failed to create statistic: ' . $e->getMessage());
         }
     }
@@ -84,7 +85,7 @@ class ProgramStatisticController extends Controller
 
             return redirect()->route('admin.program-statistics.index')->with('success', 'Program statistic updated successfully.');
         } catch (\Exception $e) {
-            \Log::error('Program statistic update error:', ['error' => $e->getMessage()]);
+            Log::error('Program statistic update error:', ['error' => $e->getMessage()]);
             return back()->withInput()->with('error', 'Failed to update statistic: ' . $e->getMessage());
         }
     }
@@ -98,7 +99,7 @@ class ProgramStatisticController extends Controller
             $programStatistic->delete();
             return redirect()->route('admin.program-statistics.index')->with('success', 'Program statistic deleted successfully.');
         } catch (\Exception $e) {
-            \Log::error('Program statistic deletion error:', ['error' => $e->getMessage()]);
+            Log::error('Program statistic deletion error:', ['error' => $e->getMessage()]);
             return back()->with('error', 'Failed to delete statistic: ' . $e->getMessage());
         }
     }

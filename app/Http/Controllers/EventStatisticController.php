@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\EventStatistic;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Log;
 class EventStatisticController extends Controller
 {
     /**
@@ -47,7 +47,7 @@ class EventStatisticController extends Controller
 
             return redirect()->route('admin.event-statistics.index')->with('success', 'Event statistic created successfully.');
         } catch (\Exception $e) {
-            \Log::error('Event statistic creation error:', ['error' => $e->getMessage()]);
+            Log::error('Event statistic creation error:', ['error' => $e->getMessage()]);
             return back()->withInput()->with('error', 'Failed to create statistic: ' . $e->getMessage());
         }
     }
@@ -82,7 +82,7 @@ class EventStatisticController extends Controller
 
             return redirect()->route('admin.event-statistics.index')->with('success', 'Event statistic updated successfully.');
         } catch (\Exception $e) {
-            \Log::error('Event statistic update error:', ['error' => $e->getMessage()]);
+            Log::error('Event statistic update error:', ['error' => $e->getMessage()]);
             return back()->withInput()->with('error', 'Failed to update statistic: ' . $e->getMessage());
         }
     }
@@ -96,7 +96,7 @@ class EventStatisticController extends Controller
             $eventStatistic->delete();
             return redirect()->route('admin.event-statistics.index')->with('success', 'Event statistic deleted successfully.');
         } catch (\Exception $e) {
-            \Log::error('Event statistic deletion error:', ['error' => $e->getMessage()]);
+            Log::error('Event statistic deletion error:', ['error' => $e->getMessage()]);
             return back()->with('error', 'Failed to delete statistic: ' . $e->getMessage());
         }
     }

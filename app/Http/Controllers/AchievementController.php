@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Achievement;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Log;
 class AchievementController extends Controller
 {
     /**
@@ -45,7 +45,7 @@ class AchievementController extends Controller
 
             return redirect()->route('admin.achievements.index')->with('success', 'Achievement created successfully.');
         } catch (\Exception $e) {
-            \Log::error('Achievement creation error:', ['error' => $e->getMessage()]);
+            Log::error('Achievement creation error:', ['error' => $e->getMessage()]);
             return back()->withInput()->with('error', 'Failed to create achievement: ' . $e->getMessage());
         }
     }
@@ -78,7 +78,7 @@ class AchievementController extends Controller
 
             return redirect()->route('admin.achievements.index')->with('success', 'Achievement updated successfully.');
         } catch (\Exception $e) {
-            \Log::error('Achievement update error:', ['error' => $e->getMessage()]);
+            Log::error('Achievement update error:', ['error' => $e->getMessage()]);
             return back()->withInput()->with('error', 'Failed to update achievement: ' . $e->getMessage());
         }
     }
@@ -92,7 +92,7 @@ class AchievementController extends Controller
             $achievement->delete();
             return redirect()->route('admin.achievements.index')->with('success', 'Achievement deleted successfully.');
         } catch (\Exception $e) {
-            \Log::error('Achievement deletion error:', ['error' => $e->getMessage()]);
+            Log::error('Achievement deletion error:', ['error' => $e->getMessage()]);
             return back()->with('error', 'Failed to delete achievement: ' . $e->getMessage());
         }
     }
