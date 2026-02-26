@@ -26,6 +26,7 @@ use App\Models\PolicyBrief;
 use App\Models\Resource;
 use App\Models\ReportStatistic;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 // ===== PUBLIC PAGES =====
 Route::get('/', [PageController::class, 'home'])->name('welcome');
@@ -158,6 +159,11 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::resource('resources', ResourceController::class)->except(['show'])->names('admin.resources');
     Route::resource('report-statistics', ReportStatisticController::class)->except(['show'])->names('admin.report-statistics');
 
+});
+Route::get('/_railway/clear', function () {
+    Artisan::call('config:clear');
+    Artisan::call('cache:clear');
+    return 'Cleared';
 });
 
 require __DIR__.'/auth.php';
