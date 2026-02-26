@@ -160,10 +160,5 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::resource('report-statistics', ReportStatisticController::class)->except(['show'])->names('admin.report-statistics');
 
 });
-Route::get('/_railway/clear', function () {
-    Artisan::call('config:clear');
-    Artisan::call('cache:clear');
-    return 'Cleared';
-});
 
 require __DIR__.'/auth.php';
