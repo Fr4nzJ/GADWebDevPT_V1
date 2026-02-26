@@ -41,7 +41,14 @@ class SendGridMailService
             if (empty($recipients)) {
                 throw new \Exception('No recipient email address found in Mailable envelope');
             }
-            $to = is_array($recipients) ? $recipients[0] : $recipients;
+            
+            // Handle Address object or string
+            $recipient = is_array($recipients) ? $recipients[0] : $recipients;
+            if (is_object($recipient) && method_exists($recipient, 'address')) {
+                $to = $recipient->address;
+            } else {
+                $to = (string) $recipient;
+            }
 
             // Get the content and render the view
             $content = $mailable->content();
