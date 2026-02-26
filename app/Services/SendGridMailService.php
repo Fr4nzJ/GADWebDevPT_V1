@@ -36,18 +36,10 @@ class SendGridMailService
             $envelope = $mailable->envelope();
             $subject = $envelope->subject;
 
-            // Get the recipient(s)
-            $recipients = $envelope->to ?? [];
-            if (empty($recipients)) {
+            // Get the recipient email address
+            $toEmail = $this->extractEmailFromRecipient($envelope->to ?? []);
+            if (!$toEmail) {
                 throw new \Exception('No recipient email address found in Mailable envelope');
-            }
-            
-            // Handle Address object or string
-            $recipient = is_array($recipients) ? $recipients[0] : $recipients;
-            if (is_object($recipient) && method_exists($recipient, 'address')) {
-                $to = $recipient->address;
-            } else {
-                $to = (string) $recipient;
             }
 
             // Get the content and render the view
@@ -56,10 +48,47 @@ class SendGridMailService
             $htmlContent = \Illuminate\Support\Facades\View::make($content->view, $viewData)->render();
 
             // Send via SendGrid
-            return $this->send($to, $subject, $htmlContent);
+            return $this->send($toEmail, $subject, $htmlContent);
         } catch (\Exception $e) {
             throw new \Exception('Failed to send Mailable via SendGrid: ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Extract email address from recipient (handles Address objects and strings)
+     *
+     * @param array|string $recipients The recipient(s) from envelope
+     * @return string|null The email address
+     */
+    private function extractEmailFromRecipient($recipients)
+    {
+        // Handle empty
+        if (empty($recipients)) {
+            return null;
+        }
+
+        // Get first recipient if array
+        $recipient = is_array($recipients) ? $recipients[0] : $recipients;
+
+        // If it's an Address object, extract the address property
+        if (is_object($recipient)) {
+            // Address object has 'address' property
+            if (isset($recipient->address)) {
+                return $recipient->address;
+            }
+            // Try to get email property as fallback
+            if (isset($recipient->email)) {
+                return $recipient->email;
+            }
+            // Try string conversion as last resort
+            if (method_exists($recipient, '__toString')) {
+                return (string) $recipient;
+            }
+            return null;
+        }
+
+        // If it's already a string, return it
+        return (string) $recipient;
     }
 
     /**
