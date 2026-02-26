@@ -36,7 +36,7 @@ class ContactController extends Controller
         Log::info('[CONTACT FORM] ==== STORE METHOD STARTED ====', [
             'ip_address' => $request->ip(),
             'timestamp' => now(),
-            'request_all' => array_except($request->all(), ['website']),
+            'request_all' => $request->except('website'),
         ]);
 
         // Validate incoming request data with custom messages
