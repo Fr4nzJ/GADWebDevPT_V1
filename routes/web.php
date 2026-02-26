@@ -10,6 +10,8 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StatisticalYearbookController;
 use App\Http\Controllers\DashboardStatisticController;
 use App\Http\Controllers\DashboardActivityController;
+use App\Http\Controllers\MonthlyEventChartController;
+use App\Http\Controllers\ProgramDistributionChartController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\MilestoneController;
@@ -32,6 +34,8 @@ use App\Models\Report;
 use App\Models\StatisticalYearbook;
 use App\Models\DashboardStatistic;
 use App\Models\DashboardActivity;
+use App\Models\MonthlyEventChart;
+use App\Models\ProgramDistributionChart;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 
@@ -101,7 +105,9 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         $statistics = DashboardStatistic::where('is_active', true)->orderBy('order')->get();
         $activities = DashboardActivity::where('is_active', true)->orderByDesc('action_time')->limit(5)->get();
-        return view('admin.dashboard', compact('statistics', 'activities'));
+        $monthlyEventCharts = MonthlyEventChart::where('is_active', true)->orderBy('order')->get();
+        $programDistributionCharts = ProgramDistributionChart::where('is_active', true)->orderBy('order')->get();
+        return view('admin.dashboard', compact('statistics', 'activities', 'monthlyEventCharts', 'programDistributionCharts'));
     })->name('admin.dashboard');
     
     Route::get('/news', [NewsController::class, 'index'])->name('admin.news.index');
@@ -172,6 +178,8 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::resource('statistical-yearbooks', StatisticalYearbookController::class)->names('admin.statistical-yearbooks');
     Route::resource('dashboard-statistics', DashboardStatisticController::class)->names('admin.dashboard-statistics');
     Route::resource('dashboard-activities', DashboardActivityController::class)->names('admin.dashboard-activities');
+    Route::resource('monthly-event-charts', MonthlyEventChartController::class)->names('admin.monthly-event-charts');
+    Route::resource('program-distribution-charts', ProgramDistributionChartController::class)->names('admin.program-distribution-charts');
 
 });
 

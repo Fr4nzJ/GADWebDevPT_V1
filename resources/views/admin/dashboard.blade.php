@@ -176,13 +176,19 @@
 <script>
     // Monthly Events Overview Chart
     const eventsCtx = document.getElementById('eventsChart').getContext('2d');
+    const monthlyChartData = @json($monthlyEventCharts ?? []);
+    
+    // Extract months and values from database
+    const monthLabels = monthlyChartData.map(item => item.month) || ['January', 'February', 'March', 'April', 'May', 'June'];
+    const monthValues = monthlyChartData.map(item => item.value) || [4, 6, 5, 8, 7, 5];
+    
     new Chart(eventsCtx, {
         type: 'line',
         data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+            labels: monthLabels,
             datasets: [{
                 label: 'Events Created',
-                data: [4, 6, 5, 8, 7, 5],
+                data: monthValues,
                 borderColor: '#667eea',
                 backgroundColor: 'rgba(102, 126, 234, 0.1)',
                 tension: 0.4,
@@ -221,25 +227,20 @@
 
     // Program Distribution Chart
     const programsCtx = document.getElementById('programsChart').getContext('2d');
+    const programChartData = @json($programDistributionCharts ?? []);
+    
+    // Extract labels, values, and colors from database
+    const programLabels = programChartData.map(item => item.label) || ['VAWG Prevention', 'Women Entrepreneurship', 'Gender Mainstreaming', 'Educational Access', 'Health & Wellness'];
+    const programValues = programChartData.map(item => item.value) || [8, 6, 5, 4, 3];
+    const programColors = programChartData.map(item => item.color_hex || '#667eea') || ['#667eea', '#764ba2', '#48c774', '#f0ad4e', '#e74c3c'];
+    
     new Chart(programsCtx, {
         type: 'doughnut',
         data: {
-            labels: [
-                'VAWG Prevention',
-                'Women Entrepreneurship',
-                'Gender Mainstreaming',
-                'Educational Access',
-                'Health & Wellness'
-            ],
+            labels: programLabels,
             datasets: [{
-                data: [8, 6, 5, 4, 3],
-                backgroundColor: [
-                    '#667eea',
-                    '#764ba2',
-                    '#48c774',
-                    '#f0ad4e',
-                    '#e74c3c'
-                ],
+                data: programValues,
+                backgroundColor: programColors,
                 borderColor: '#fff',
                 borderWidth: 3
             }]
