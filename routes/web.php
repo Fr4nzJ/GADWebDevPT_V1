@@ -51,7 +51,7 @@ Route::get('/reports', function () {
     $policyBriefs = PolicyBrief::where('page', 'reports')->where('is_active', true)->orderBy('order')->get();
     $resources = Resource::where('page', 'reports')->where('is_active', true)->orderBy('order')->get();
     $statistics = ReportStatistic::where('page', 'reports')->where('is_active', true)->orderBy('order')->get();
-    $hasPublishedReports = Report::where('is_published', true)->exists();
+    $hasPublishedReports = Report::where('status', 'published')->exists();
     return view('reports', compact('policyBriefs', 'resources', 'statistics', 'hasPublishedReports'));
 })->name('reports');
 
