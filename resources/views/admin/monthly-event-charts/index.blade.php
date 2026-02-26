@@ -1,74 +1,82 @@
-@extends('layouts.app')
+@extends('admin.layout')
+
+@section('title', 'Monthly Event Chart Data - GAD Admin Panel')
 
 @section('content')
-<div class="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-7xl mx-auto">
-        <!-- Header -->
-        <div class="mb-8 flex justify-between items-center">
-            <div>
-                <h1 class="text-3xl font-bold text-gray-900">Monthly Event Chart Data</h1>
-                <p class="mt-2 text-gray-600">Manage data points for the monthly events overview line chart</p>
-            </div>
-            <a href="{{ route('admin.monthly-event-charts.create') }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                + Add New Data Point
+<!-- ===== PAGE HEADER ===== -->
+<div class="page-header">
+    <h1 class="page-title">Monthly Event Chart Management</h1>
+    <a href="{{ route('admin.monthly-event-charts.create') }}" class="button" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; font-weight: 600;">
+        <span class="icon"><i class="fas fa-plus"></i></span>
+        <span>Add New Data Point</span>
+    </a>
+</div>
+
+<!-- ===== SUCCESS MESSAGE ===== -->
+@if (session('success'))
+    <div class="notification is-success is-light" style="margin-bottom: 2rem;">
+        <button class="delete"></button>
+        {{ session('success') }}
+    </div>
+@endif
+
+<!-- ===== CHART DATA TABLE ===== -->
+<div class="admin-table" style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+    @if($chartData->count() > 0)
+        <table class="table is-striped is-hoverable is-fullwidth">
+            <thead style="background-color: #f5f7fa;">
+                <tr>
+                    <th style="padding: 1.25rem; font-weight: 700; color: #2c3e50;">Month</th>
+                    <th style="padding: 1.25rem; font-weight: 700; color: #2c3e50;">Value (Events)</th>
+                    <th style="padding: 1.25rem; font-weight: 700; color: #2c3e50;">Order</th>
+                    <th style="padding: 1.25rem; font-weight: 700; color: #2c3e50;">Status</th>
+                    <th style="padding: 1.25rem; font-weight: 700; color: #2c3e50; text-align: center;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($chartData as $item)
+                    <tr>
+                        <td style="padding: 1.25rem; border: none;"><strong>{{ $item->month }}</strong></td>
+                        <td style="padding: 1.25rem; border: none;"><span style="color: #667eea; font-weight: 600;">{{ $item->value }}</span></td>
+                        <td style="padding: 1.25rem; border: none; color: #999;">{{ $item->order }}</td>
+                        <td style="padding: 1.25rem; border: none;">
+                            @if($item->is_active)
+                                <span style="background: #c8e6c9; color: #2e7d32; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 500;">Active</span>
+                            @else
+                                <span style="background: #f5f5f5; color: #999; padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 500;">Inactive</span>
+                            @endif
+                        </td>
+                        <td style="padding: 1.25rem; border: none; text-align: center;">
+                            <a href="{{ route('admin.monthly-event-charts.edit', $item->id) }}" class="button is-small is-info is-light" style="margin-right: 0.5rem;">
+                                <span class="icon"><i class="fas fa-edit"></i></span>
+                                <span>Edit</span>
+                            </a>
+                            <form action="{{ route('admin.monthly-event-charts.destroy', $item->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="button is-small is-danger is-light">
+                                    <span class="icon"><i class="fas fa-trash"></i></span>
+                                    <span>Delete</span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        <!-- ===== PAGINATION ===== -->
+        <div style="padding: 1.5rem; background: #f5f7fa; border-top: 1px solid #ebebeb;">
+            {{ $chartData->links() }}
+        </div>
+    @else
+        <div style="padding: 3rem; text-align: center;">
+            <p style="color: #999; margin-bottom: 1rem;">No chart data points yet.</p>
+            <a href="{{ route('admin.monthly-event-charts.create') }}" class="button is-primary is-light">
+                <span class="icon"><i class="fas fa-plus"></i></span>
+                <span>Add the first data point</span>
             </a>
         </div>
-
-        <!-- Success Message -->
-        @if (session('success'))
-            <div class="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        <!-- Table -->
-        <div class="bg-white rounded-lg shadow overflow-hidden">
-            @if($chartData->count() > 0)
-                <table class="w-full">
-                    <thead class="bg-gray-50 border-b">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Month</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Value (Events)</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Order</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y">
-                        @foreach($chartData as $item)
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-6 py-4">{{ $item->month }}</td>
-                                <td class="px-6 py-4 font-semibold text-blue-600">{{ $item->value }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-500">{{ $item->order }}</td>
-                                <td class="px-6 py-4">
-                                    <span class="px-3 py-1 rounded-full text-xs font-semibold {{ $item->is_active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
-                                        {{ $item->is_active ? 'Active' : 'Inactive' }}
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 flex gap-2">
-                                    <a href="{{ route('admin.monthly-event-charts.edit', $item->id) }}" class="text-blue-600 hover:underline">Edit</a>
-                                    <form action="{{ route('admin.monthly-event-charts.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure?');" class="inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:underline">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-
-                <!-- Pagination -->
-                <div class="px-6 py-4 bg-gray-50 border-t">
-                    {{ $chartData->links() }}
-                </div>
-            @else
-                <div class="px-6 py-12 text-center">
-                    <p class="text-gray-500 mb-4">No chart data points yet.</p>
-                    <a href="{{ route('admin.monthly-event-charts.create') }}" class="text-blue-600 hover:underline">Add the first data point</a>
-                </div>
-            @endif
-        </div>
-    </div>
+    @endif
 </div>
 @endsection
