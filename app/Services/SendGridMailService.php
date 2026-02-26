@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
+use SendGrid;
 use SendGrid\Mail\Mail;
 use SendGrid\Mail\To;
 use SendGrid\Mail\HtmlContent;
+use SendGrid\Mail\PlainTextContent;
 use Illuminate\Mail\Mailable;
 
 class SendGridMailService
@@ -17,7 +19,7 @@ class SendGridMailService
         if (!$apiKey) {
             throw new \Exception('SendGrid API key not configured (MAIL_SENDGRID_SECRET)');
         }
-        $this->sendgrid = new \SendGrid($apiKey);
+        $this->sendgrid = new SendGrid($apiKey);
     }
 
     /**
@@ -122,7 +124,7 @@ class SendGridMailService
             $email->setFrom($fromEmail, $fromName);
             $email->setSubject($subject);
             $email->addTo(new To($to));
-            $email->addContent(new \SendGrid\Mail\PlainTextContent($textContent));
+            $email->addContent(new PlainTextContent($textContent));
 
             $response = $this->sendgrid->send($email);
 
