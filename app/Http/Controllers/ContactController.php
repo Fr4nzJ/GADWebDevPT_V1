@@ -170,7 +170,7 @@ class ContactController extends Controller
             ]);
 
             try {
-                Mail::to($validated['email'])->queue(
+                Mail::to($validated['email'])->send(
                     new ContactVerificationMail(
                         $validated['name'],
                         $validated['email'],
@@ -422,7 +422,7 @@ class ContactController extends Controller
             ]);
 
             try {
-                Mail::to(env('MAIL_FROM_ADDRESS', 'gadcatsu@gmail.com'))->queue(
+                Mail::to(env('MAIL_FROM_ADDRESS', 'gadcatsu@gmail.com'))->send(
                     new ContactSubmissionMail(
                         $formData['name'],
                         $formData['email'],
@@ -545,13 +545,13 @@ class ContactController extends Controller
 
             // Send new OTP email (asynchronous via queue)
             try {
-                Log::info('[CONTACT FORM] RESEND OTP: Queueing new OTP email', [
+                Log::info('[CONTACT FORM] RESEND OTP: Sending new OTP email', [
                     'contact_id' => $formData['contact_id'] ?? null,
                     'email' => $formData['email'],
                     'timestamp' => now(),
                 ]);
 
-                Mail::to($formData['email'])->queue(
+                Mail::to($formData['email'])->send(
                     new ContactVerificationMail(
                         $formData['name'],
                         $formData['email'],
