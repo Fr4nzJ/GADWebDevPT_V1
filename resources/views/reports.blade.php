@@ -458,40 +458,62 @@
     <div class="container">
         <h2 class="section-title">GAD Statistical Yearbook</h2>
 
-        <div style="background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08); overflow: hidden;">
+        @forelse ($yearbooks as $yearbook)
+        <div style="background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08); overflow: hidden; margin-bottom: 2rem;">
             <div class="columns is-gapless">
                 <div class="column is-7" style="padding: 2.5rem;">
-                    <h4 class="title is-5" style="color: #667eea; margin-bottom: 1rem;">CatSu GAD Statistical Yearbook 2024</h4>
+                    <h4 class="title is-5" style="color: #667eea; margin-bottom: 1rem;">{{ $yearbook->title }}</h4>
                     <p style="color: #666; line-height: 1.8; margin-bottom: 1.5rem;">
-                        Comprehensive compilation of gender-related statistics covering population, health, 
-                        education, employment, poverty, violence, and political participation. Includes trend 
-                        analysis, gender indicators, and regional breakdowns.
+                        {{ $yearbook->description }}
                     </p>
                     <div style="margin: 1.5rem 0;">
                         <p style="margin-bottom: 0.75rem;"><strong style="color: #667eea;">Publication Details:</strong></p>
                         <ul style="font-size: 0.95rem; color: #666;">
-                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-calendar" style="color: #667eea; width: 1.5rem;"></i> <strong>Publication Date:</strong> January 2024</li>
-                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-file" style="color: #667eea; width: 1.5rem;"></i> <strong>Pages:</strong> 180</li>
-                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-file-pdf" style="color: #667eea; width: 1.5rem;"></i> <strong>Format:</strong> PDF + Excel Data Tables</li>
-                            <li><i class="fas fa-globe" style="color: #667eea; width: 1.5rem;"></i> <strong>Languages:</strong> English & Filipino</li>
+                            @if ($yearbook->publication_date)
+                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-calendar" style="color: #667eea; width: 1.5rem;"></i> <strong>Publication Date:</strong> {{ $yearbook->publication_date->format('F Y') }}</li>
+                            @endif
+                            @if ($yearbook->pages)
+                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-file" style="color: #667eea; width: 1.5rem;"></i> <strong>Pages:</strong> {{ $yearbook->pages }}</li>
+                            @endif
+                            @if ($yearbook->format)
+                            <li style="margin-bottom: 0.5rem;"><i class="fas fa-file-pdf" style="color: #667eea; width: 1.5rem;"></i> <strong>Format:</strong> {{ $yearbook->format }}</li>
+                            @endif
+                            @if ($yearbook->languages)
+                            <li><i class="fas fa-globe" style="color: #667eea; width: 1.5rem;"></i> <strong>Languages:</strong> {{ $yearbook->languages }}</li>
+                            @endif
                         </ul>
                     </div>
                 </div>
                 <div class="column is-full-mobile is-full-tablet is-5-desktop" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; padding: 2.5rem;">
                     <div style="text-align: center; color: white;">
-                        <p style="font-size: 4rem; font-weight: 800; line-height: 1;">180</p>
+                        <p style="font-size: 4rem; font-weight: 800; line-height: 1;">{{ $yearbook->pages ?? '—' }}</p>
                         <p style="font-size: 1.2rem; margin-bottom: 2rem;">Pages of Data</p>
                         <i class="fas fa-chart-bar" style="font-size: 4rem; opacity: 0.3;"></i>
                         <div style="margin-top: 2.5rem;">
-                            <a href="#" class="button" style="background: white; color: #667eea; border: none; font-weight: 600; width: 90%;">
-                                <span class="icon"><i class="fas fa-download"></i></span>
-                                <span>Download (15 MB)</span>
-                            </a>
+                            @if ($yearbook->file_path)
+                                <a href="{{ $yearbook->file_path }}" class="button" style="background: white; color: #667eea; border: none; font-weight: 600; width: 90%;">
+                                    <span class="icon"><i class="fas fa-download"></i></span>
+                                    <span>Download @if ($yearbook->download_size)({{ $yearbook->download_size }})@endif</span>
+                                </a>
+                            @else
+                                <div class="button is-disabled" style="background: rgba(255, 255, 255, 0.5); color: #667eea; border: none; font-weight: 600; width: 90%; cursor: not-allowed;">
+                                    <span class="icon"><i class="fas fa-file"></i></span>
+                                    <span>File Not Available</span>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        @empty
+        <div style="background: #f5f7ff; padding: 3rem; border-radius: 12px; margin-bottom: 2rem; text-align: center;">
+            <p style="color: #667eea; font-size: 1.1rem; font-weight: 600; margin-bottom: 1.5rem;">
+                📊 Statistical Yearbooks Coming Soon
+            </p>
+            <p style="color: #666; margin-bottom: 2rem;">Data will be added soon. Check back regularly for updates on our statistical yearbooks and research publications.</p>
+        </div>
+        @endforelse
     </div>
 </section>
 

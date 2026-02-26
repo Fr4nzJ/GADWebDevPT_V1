@@ -7,6 +7,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\StatisticalYearbookController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\MilestoneController;
@@ -26,6 +27,7 @@ use App\Models\PolicyBrief;
 use App\Models\Resource;
 use App\Models\ReportStatistic;
 use App\Models\Report;
+use App\Models\StatisticalYearbook;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 
@@ -52,7 +54,8 @@ Route::get('/reports', function () {
     $resources = Resource::where('page', 'reports')->where('is_active', true)->orderBy('order')->get();
     $statistics = ReportStatistic::where('page', 'reports')->where('is_active', true)->orderBy('order')->get();
     $hasPublishedReports = Report::where('status', 'published')->exists();
-    return view('reports', compact('policyBriefs', 'resources', 'statistics', 'hasPublishedReports'));
+    $yearbooks = StatisticalYearbook::where('is_active', true)->latest('publication_date')->get();
+    return view('reports', compact('policyBriefs', 'resources', 'statistics', 'hasPublishedReports', 'yearbooks'));
 })->name('reports');
 
 Route::get('/contact', function () {
@@ -160,6 +163,7 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::resource('policy-briefs', PolicyBriefController::class)->except(['show'])->names('admin.policy-briefs');
     Route::resource('resources', ResourceController::class)->except(['show'])->names('admin.resources');
     Route::resource('report-statistics', ReportStatisticController::class)->except(['show'])->names('admin.report-statistics');
+    Route::resource('statistical-yearbooks', StatisticalYearbookController::class)->names('admin.statistical-yearbooks');
 
 });
 
