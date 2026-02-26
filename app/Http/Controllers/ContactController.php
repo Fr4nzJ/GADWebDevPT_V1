@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Mail\ContactVerificationMail;
 use App\Mail\ContactSubmissionMail;
+use App\Services\SendGridMailService;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
@@ -170,7 +170,8 @@ class ContactController extends Controller
             ]);
 
             try {
-                Mail::to($validated['email'])->send(
+                $sendGridService = new SendGridMailService();
+                $sendGridService->sendMailable(
                     new ContactVerificationMail(
                         $validated['name'],
                         $validated['email'],
@@ -179,7 +180,7 @@ class ContactController extends Controller
                     )
                 );
                 
-                Log::info('[CONTACT FORM] STEP 4 SUCCESS: OTP email queued to mailbox', [
+                Log::info('[CONTACT FORM] STEP 4 SUCCESS: OTP email sent via SendGrid', [
                     'contact_id' => $contact->id,
                     'email' => $validated['email'],
                     'timestamp' => now(),
@@ -422,7 +423,8 @@ class ContactController extends Controller
             ]);
 
             try {
-                Mail::to(env('MAIL_FROM_ADDRESS', 'gadcatsu@gmail.com'))->send(
+                $sendGridService = new SendGridMailService();
+                $sendGridService->sendMailable(
                     new ContactSubmissionMail(
                         $formData['name'],
                         $formData['email'],
@@ -432,7 +434,7 @@ class ContactController extends Controller
                     )
                 );
 
-                Log::info('[CONTACT FORM] VERIFY STEP 2 SUCCESS: Admin notification queued', [
+                Log::info('[CONTACT FORM] VERIFY STEP 2 SUCCESS: Admin notification sent via SendGrid', [
                     'contact_id' => $contactId,
                     'email' => $formData['email'],
                     'recipient' => env('MAIL_FROM_ADDRESS', 'gadcatsu@gmail.com'),
@@ -551,7 +553,8 @@ class ContactController extends Controller
                     'timestamp' => now(),
                 ]);
 
-                Mail::to($formData['email'])->send(
+                $sendGridService = new SendGridMailService();
+                $sendGridService->sendMailable(
                     new ContactVerificationMail(
                         $formData['name'],
                         $formData['email'],
@@ -560,7 +563,7 @@ class ContactController extends Controller
                     )
                 );
 
-                Log::info('[CONTACT FORM] RESEND OTP: Email queued successfully', [
+                Log::info('[CONTACT FORM] RESEND OTP: Email sent via SendGrid successfully', [
                     'contact_id' => $formData['contact_id'] ?? null,
                     'email' => $formData['email'],
                     'timestamp' => now(),
