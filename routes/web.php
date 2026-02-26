@@ -25,6 +25,7 @@ use App\Models\EventStatistic;
 use App\Models\PolicyBrief;
 use App\Models\Resource;
 use App\Models\ReportStatistic;
+use App\Models\Report;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 
@@ -50,7 +51,8 @@ Route::get('/reports', function () {
     $policyBriefs = PolicyBrief::where('page', 'reports')->where('is_active', true)->orderBy('order')->get();
     $resources = Resource::where('page', 'reports')->where('is_active', true)->orderBy('order')->get();
     $statistics = ReportStatistic::where('page', 'reports')->where('is_active', true)->orderBy('order')->get();
-    return view('reports', compact('policyBriefs', 'resources', 'statistics'));
+    $hasPublishedReports = Report::where('is_published', true)->exists();
+    return view('reports', compact('policyBriefs', 'resources', 'statistics', 'hasPublishedReports'));
 })->name('reports');
 
 Route::get('/contact', function () {
