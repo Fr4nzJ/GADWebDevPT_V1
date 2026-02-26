@@ -521,7 +521,42 @@
                             <span>Report Statistics</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.statistical-yearbooks.index') }}" @class(['is-active' => request()->routeIs('admin.statistical-yearbooks.*')])>
+                            <i class="fas fa-book"></i>
+                            <span>Statistical Yearbooks</span>
+                        </a>
+                    </li>
                 </ul>
+                
+                <p class="menu-label" style="color: #999; padding: 0 1rem; margin-top: 2rem; margin-bottom: 1rem;">
+                    Dashboard Management
+                </p>
+                <ul class="menu-list">
+                    <li>
+                        <a href="{{ route('admin.dashboard-statistics.index') }}" @class(['is-active' => request()->routeIs('admin.dashboard-statistics.*')])>
+                            <i class="fas fa-chart-column"></i>
+                            <span>Dashboard Statistics</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.dashboard-activities.index') }}" @class(['is-active' => request()->routeIs('admin.dashboard-activities.*')])>
+                            <i class="fas fa-history"></i>
+                            <span>Dashboard Activities</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.monthly-event-charts.index') }}" @class(['is-active' => request()->routeIs('admin.monthly-event-charts.*')])>
+                            <i class="fas fa-chart-line"></i>
+                            <span>Monthly Events Chart</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.program-distribution-charts.index') }}" @class(['is-active' => request()->routeIs('admin.program-distribution-charts.*')])>
+                            <i class="fas fa-chart-pie"></i>
+                            <span>Program Distribution Chart</span>
+                        </a>
+                    </li>
                 
                 <p class="menu-label" style="color: #999; padding: 0 1rem; margin-top: 2rem; margin-bottom: 1rem;">
                     System
