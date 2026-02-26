@@ -56,60 +56,30 @@
 
 <!-- ===== STATISTICS CARDS ===== -->
 <div class="columns is-multiline">
+    @forelse ($statistics as $stat)
     <div class="column is-6-tablet is-3-desktop">
-        <div class="stat-card blue">
-            <div class="stat-number" style="color: white;">48</div>
-            <div class="stat-label">News Posts</div>
+        <div class="stat-card {{ $stat->color_class }}">
+            <div class="stat-number" style="color: white;">{{ $stat->value }}</div>
+            <div class="stat-label">{{ $stat->label }}</div>
             <p class="trend-indicator" >
-                <i class="fas fa-arrow-up" style="color: #48c774; margin-right: 0.25rem;"></i>
-                12 this month
+                @if ($stat->trend_direction === 'up')
+                    <i class="fas fa-arrow-up" style="color: #48c774; margin-right: 0.25rem;"></i>
+                @elseif ($stat->trend_direction === 'down')
+                    <i class="fas fa-arrow-down" style="color: #e74c3c; margin-right: 0.25rem;"></i>
+                @else
+                    <i class="fas fa-minus" style="margin-right: 0.25rem;"></i>
+                @endif
+                {{ $stat->trend_text ?? 'No change' }}
             </p>
         </div>
     </div>
-
-    <div class="column is-6-tablet is-3-desktop">
-        <div class="stat-card purple">
-            <div class="stat-number" style="color: white;">35</div>
-            <div class="stat-label">Events Scheduled</div>
-            <p class="trend-indicator">
-                <i class="fas fa-arrow-up" style="color: #48c774; margin-right: 0.25rem;"></i>
-                8 this month
-            </p>
+    @empty
+    <div class="column is-12">
+        <div class="notification is-info is-light">
+            <p>No statistics configured. <a href="{{ route('admin.dashboard-statistics.create') }}">Add statistics</a></p>
         </div>
     </div>
-
-    <div class="column is-6-tablet is-3-desktop">
-        <div class="stat-card green">
-            <div class="stat-number" style="color: white;">26</div>
-            <div class="stat-label">Programs Active</div>
-            <p class="trend-indicator">
-                <i class="fas fa-minus" style="margin-right: 0.25rem;"></i>
-                No changes
-            </p>
-        </div>
-    </div>
-
-    <div class="column is-6-tablet is-3-desktop">
-        <div class="stat-card orange">
-            <div class="stat-number" style="color: white;">52</div>
-            <div class="stat-label">Reports Published</div>
-            <p class="trend-indicator">
-                <i class="fas fa-arrow-up" style="color: #48c774; margin-right: 0.25rem;"></i>
-                5 this month
-            </p>
-        </div>
-    </div>
-
-    <div class="column is-6-tablet is-3-desktop">
-        <div class="stat-card red">
-            <div class="stat-number" style="color: white;">24</div>
-            <div class="stat-label">Admin Users</div>
-            <p class="trend-indicator">
-                <i class="fas fa-arrow-up" style="color: #48c774; margin-right: 0.25rem;"></i>
-                3 new users
-            </p>
-        </div>
-    </div>
+    @endforelse
 </div>
 
 <!-- ===== CHARTS ROW ===== -->
@@ -141,6 +111,7 @@
         <h4 style="font-weight: 600; color: #2c3e50; margin-bottom: 1.5rem; font-size: 1rem;">
             <i class="fas fa-history" style="color: #667eea; margin-right: 0.5rem;"></i>
             Recent Activity
+            <a href="{{ route('admin.dashboard-activities.index') }}" style="float: right; font-size: 0.85rem; color: #667eea; text-decoration: none;">View All →</a>
         </h4>
 
         <table class="table is-fullwidth">
@@ -154,95 +125,49 @@
                 </tr>
             </thead>
             <tbody>
+                @forelse ($activities as $activity)
                 <tr style="border-bottom: 1px solid #f0f0f0;">
                     <td style="padding: 1.25rem; border: none;">
-                        <span style="font-size: 0.85rem; color: #999;">Today, 02:45 PM</span>
+                        <span style="font-size: 0.85rem; color: #999;">{{ $activity->action_time->format('M d, h:i A') }}</span>
                     </td>
                     <td style="padding: 1.25rem; border: none;">
-                        <strong>Maria Santos</strong>
+                        <strong>{{ $activity->user_name }}</strong>
                     </td>
                     <td style="padding: 1.25rem; border: none;">
-                        <span style="color: #667eea; font-weight: 500;">Created</span>
+                        @if ($activity->action === 'created')
+                            <span style="color: #667eea; font-weight: 500;">Created</span>
+                        @elseif ($activity->action === 'updated')
+                            <span style="color: #48c774; font-weight: 500;">Updated</span>
+                        @else
+                            <span style="color: #e74c3c; font-weight: 500;">Deleted</span>
+                        @endif
                     </td>
                     <td style="padding: 1.25rem; border: none;">
-                        News - "Women's Month Celebration 2024"
+                        {{ $activity->module }} - {{ $activity->description }}
                     </td>
                     <td style="padding: 1.25rem; border: none;">
-                        <span class="status-badge status-published">Published</span>
+                        <span class="status-badge status-{{ strtolower($activity->status) }}">
+                            @if ($activity->status === 'published')
+                                Published
+                            @elseif ($activity->status === 'pending')
+                                Pending Review
+                            @elseif ($activity->status === 'active')
+                                Active
+                            @elseif ($activity->status === 'archived')
+                                Archived
+                            @else
+                                {{ ucfirst($activity->status) }}
+                            @endif
+                        </span>
                     </td>
                 </tr>
-
-                <tr style="border-bottom: 1px solid #f0f0f0;">
-                    <td style="padding: 1.25rem; border: none;">
-                        <span style="font-size: 0.85rem; color: #999;">Today, 01:20 PM</span>
-                    </td>
-                    <td style="padding: 1.25rem; border: none;">
-                        <strong>Jennifer Reyes</strong>
-                    </td>
-                    <td style="padding: 1.25rem; border: none;">
-                        <span style="color: #48c774; font-weight: 500;">Updated</span>
-                    </td>
-                    <td style="padding: 1.25rem; border: none;">
-                        Event - "Gender Mainstreaming Training"
-                    </td>
-                    <td style="padding: 1.25rem; border: none;">
-                        <span class="status-badge status-pending">Pending Review</span>
-                    </td>
-                </tr>
-
-                <tr style="border-bottom: 1px solid #f0f0f0;">
-                    <td style="padding: 1.25rem; border: none;">
-                        <span style="font-size: 0.85rem; color: #999;">Yesterday, 04:15 PM</span>
-                    </td>
-                    <td style="padding: 1.25rem; border: none;">
-                        <strong>Clara Gonzales</strong>
-                    </td>
-                    <td style="padding: 1.25rem; border: none;">
-                        <span style="color: #667eea; font-weight: 500;">Created</span>
-                    </td>
-                    <td style="padding: 1.25rem; border: none;">
-                        Program - "VAWG Prevention Initiative"
-                    </td>
-                    <td style="padding: 1.25rem; border: none;">
-                        <span class="status-badge status-active">Active</span>
-                    </td>
-                </tr>
-
-                <tr style="border-bottom: 1px solid #f0f0f0;">
-                    <td style="padding: 1.25rem; border: none;">
-                        <span style="font-size: 0.85rem; color: #999;">Yesterday, 10:30 AM</span>
-                    </td>
-                    <td style="padding: 1.25rem; border: none;">
-                        <strong>Rebecca Torres</strong>
-                    </td>
-                    <td style="padding: 1.25rem; border: none;">
-                        <span style="color: #667eea; font-weight: 500;">Created</span>
-                    </td>
-                    <td style="padding: 1.25rem; border: none;">
-                        Report - "NGSInS 2024 Survey"
-                    </td>
-                    <td style="padding: 1.25rem; border: none;">
-                        <span class="status-badge status-published">Published</span>
-                    </td>
-                </tr>
-
+                @empty
                 <tr>
-                    <td style="padding: 1.25rem; border: none;">
-                        <span style="font-size: 0.85rem; color: #999;">Feb 15, 03:00 PM</span>
-                    </td>
-                    <td style="padding: 1.25rem; border: none;">
-                        <strong>Ramon Cruz</strong>
-                    </td>
-                    <td style="padding: 1.25rem; border: none;">
-                        <span style="color: #e74c3c; font-weight: 500;">Deleted</span>
-                    </td>
-                    <td style="padding: 1.25rem; border: none;">
-                        News - "Outdated Article"
-                    </td>
-                    <td style="padding: 1.25rem; border: none;">
-                        <span class="status-badge status-inactive">Archived</span>
+                    <td colspan="5" style="padding: 2rem; text-align: center; border: none; color: #999;">
+                        <p>No activities logged yet. <a href="{{ route('admin.dashboard-activities.create') }}">Log an activity</a></p>
                     </td>
                 </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

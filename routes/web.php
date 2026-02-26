@@ -8,6 +8,8 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StatisticalYearbookController;
+use App\Http\Controllers\DashboardStatisticController;
+use App\Http\Controllers\DashboardActivityController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\MilestoneController;
@@ -28,6 +30,8 @@ use App\Models\Resource;
 use App\Models\ReportStatistic;
 use App\Models\Report;
 use App\Models\StatisticalYearbook;
+use App\Models\DashboardStatistic;
+use App\Models\DashboardActivity;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 
@@ -95,7 +99,9 @@ Route::middleware('auth')->group(function () {
 // ===== ADMIN ROUTES =====
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('admin.dashboard');
+        $statistics = DashboardStatistic::where('is_active', true)->orderBy('order')->get();
+        $activities = DashboardActivity::where('is_active', true)->orderByDesc('action_time')->limit(5)->get();
+        return view('admin.dashboard', compact('statistics', 'activities'));
     })->name('admin.dashboard');
     
     Route::get('/news', [NewsController::class, 'index'])->name('admin.news.index');
@@ -164,6 +170,8 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::resource('resources', ResourceController::class)->except(['show'])->names('admin.resources');
     Route::resource('report-statistics', ReportStatisticController::class)->except(['show'])->names('admin.report-statistics');
     Route::resource('statistical-yearbooks', StatisticalYearbookController::class)->names('admin.statistical-yearbooks');
+    Route::resource('dashboard-statistics', DashboardStatisticController::class)->names('admin.dashboard-statistics');
+    Route::resource('dashboard-activities', DashboardActivityController::class)->names('admin.dashboard-activities');
 
 });
 
