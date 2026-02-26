@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('admin.layout')
 
-@section('title', 'Edit Statistical Yearbook')
+@section('title', 'Edit Statistical Yearbook - GAD Admin Panel')
 
 @section('content')
 <div class="container">

@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('admin.layout')
 
-@section('title', $statisticalYearbook->title)
+@section('title', $statisticalYearbook->title . ' - GAD Admin Panel')
 
 @section('content')
 <div class="container">

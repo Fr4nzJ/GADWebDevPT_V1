@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('admin.layout')
 
-@section('title', 'Log Dashboard Activity')
+@section('title', 'Create Dashboard Activity - GAD Admin Panel')
 
 @section('content')
 <div class="container">
