@@ -164,37 +164,74 @@ class ComprehensiveDataSeeder extends Seeder
     {
         $this->warn('Clearing all data except protected tables...');
 
-        // Disable foreign key checks
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        $driver = DB::getDriverName();
 
-        // Get all tables in the database
-        $tables = DB::select('SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ?', [
-            DB::getDatabaseName()
-        ]);
+        try {
+            if ($driver === 'pgsql') {
+                // PostgreSQL - disable triggers and truncate
+                DB::statement('SET session_replication_role = replica');
 
-        foreach ($tables as $table) {
-            $tableName = $table->TABLE_NAME;
+                // Get all tables
+                $tables = DB::select("
+                    SELECT table_name 
+                    FROM information_schema.tables 
+                    WHERE table_schema = 'public' 
+                    AND table_type = 'BASE TABLE'
+                ");
 
-            // Skip protected tables
-            if (in_array($tableName, $this->protectedTables)) {
-                continue;
+                foreach ($tables as $table) {
+                    $tableName = $table->table_name;
+
+                    // Skip protected tables
+                    if (in_array($tableName, $this->protectedTables)) {
+                        continue;
+                    }
+
+                    try {
+                        DB::statement("TRUNCATE TABLE \"{$tableName}\" CASCADE");
+                        $this->line("Cleared: {$tableName}");
+                    } catch (\Exception $e) {
+                        $this->warn("Could not clear {$tableName}: " . $e->getMessage());
+                    }
+                }
+
+                // Re-enable triggers
+                DB::statement('SET session_replication_role = default');
+            } else {
+                // MySQL
+                DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
+                // Get all tables in the database
+                $tables = DB::select('SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ?', [
+                    DB::getDatabaseName()
+                ]);
+
+                foreach ($tables as $table) {
+                    $tableName = $table->TABLE_NAME;
+
+                    // Skip protected tables
+                    if (in_array($tableName, $this->protectedTables)) {
+                        continue;
+                    }
+
+                    // Skip cache and jobs tables
+                    if (in_array($tableName, ['cache', 'cache_locks', 'jobs', 'failed_jobs'])) {
+                        continue;
+                    }
+
+                    try {
+                        DB::table($tableName)->truncate();
+                        $this->line("Cleared: {$tableName}");
+                    } catch (\Exception $e) {
+                        $this->warn("Could not clear {$tableName}: " . $e->getMessage());
+                    }
+                }
+
+                DB::statement('SET FOREIGN_KEY_CHECKS=1');
             }
-
-            // Skip cache and jobs tables
-            if (in_array($tableName, ['cache', 'cache_locks', 'jobs', 'failed_jobs'])) {
-                continue;
-            }
-
-            try {
-                DB::table($tableName)->truncate();
-                $this->line("Cleared: {$tableName}");
-            } catch (\Exception $e) {
-                $this->warn("Could not clear {$tableName}: " . $e->getMessage());
-            }
+        } catch (\Exception $e) {
+            throw new \Exception('Error clearing database: ' . $e->getMessage());
         }
-
-        // Re-enable foreign key checks
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 
     /**
