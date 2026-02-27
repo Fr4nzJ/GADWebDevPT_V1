@@ -343,7 +343,7 @@ class ComprehensiveDataSeeder extends Seeder
                 'excerpt' => 'Successful launch of new initiative',
                 'category' => 'announcements',
                 'author' => 'Admin',
-                'published' => true,
+                'status' => 'published',
             ],
             [
                 'title' => 'Community Leaders Gather for Training Session',
@@ -352,7 +352,7 @@ class ComprehensiveDataSeeder extends Seeder
                 'excerpt' => 'Leadership training brings together community leaders',
                 'category' => 'events',
                 'author' => 'Admin',
-                'published' => true,
+                'status' => 'published',
             ],
             [
                 'title' => 'Research Study Shows Impact of Programs',
@@ -361,7 +361,7 @@ class ComprehensiveDataSeeder extends Seeder
                 'excerpt' => 'Study shows positive program impact',
                 'category' => 'research',
                 'author' => 'Admin',
-                'published' => true,
+                'status' => 'published',
             ],
         ];
 
@@ -384,6 +384,7 @@ class ComprehensiveDataSeeder extends Seeder
                 'file_path' => 'reports/annual-2025.pdf',
                 'year' => 2025,
                 'type' => 'annual',
+                'status' => 'published',
             ],
             [
                 'title' => 'Q1 Progress Report 2026',
@@ -391,6 +392,7 @@ class ComprehensiveDataSeeder extends Seeder
                 'file_path' => 'reports/q1-2026.pdf',
                 'year' => 2026,
                 'type' => 'quarterly',
+                'status' => 'published',
             ],
         ];
 
@@ -408,27 +410,31 @@ class ComprehensiveDataSeeder extends Seeder
     {
         $milestones = [
             [
-                'title' => 'Organization Foundation',
                 'description' => 'GAD organization established',
                 'year' => 2015,
+                'page' => 'about',
+                'order' => 1,
                 'is_active' => true,
             ],
             [
-                'title' => 'First Major Program Launch',
                 'description' => 'Launch of women empowerment program',
                 'year' => 2016,
+                'page' => 'about',
+                'order' => 2,
                 'is_active' => true,
             ],
             [
-                'title' => 'Regional Expansion',
                 'description' => 'Expanded operations to 10 regions',
                 'year' => 2018,
+                'page' => 'about',
+                'order' => 3,
                 'is_active' => true,
             ],
             [
-                'title' => 'Milestone Achievement',
                 'description' => 'Reached 100k beneficiaries',
                 'year' => 2020,
+                'page' => 'about',
+                'order' => 4,
                 'is_active' => true,
             ],
         ];
@@ -450,6 +456,7 @@ class ComprehensiveDataSeeder extends Seeder
                 'title' => 'Assessment',
                 'description' => 'Initial assessment of community needs',
                 'order' => 1,
+                'page' => 'about',
                 'icon' => 'fas fa-check',
                 'is_active' => true,
             ],
@@ -457,6 +464,7 @@ class ComprehensiveDataSeeder extends Seeder
                 'title' => 'Planning',
                 'description' => 'Develop strategic plans based on assessment',
                 'order' => 2,
+                'page' => 'about',
                 'icon' => 'fas fa-clipboard',
                 'is_active' => true,
             ],
@@ -464,6 +472,7 @@ class ComprehensiveDataSeeder extends Seeder
                 'title' => 'Implementation',
                 'description' => 'Execute programs and initiatives',
                 'order' => 3,
+                'page' => 'about',
                 'icon' => 'fas fa-rocket',
                 'is_active' => true,
             ],
@@ -471,6 +480,7 @@ class ComprehensiveDataSeeder extends Seeder
                 'title' => 'Monitoring',
                 'description' => 'Track progress and outcomes',
                 'order' => 4,
+                'page' => 'about',
                 'icon' => 'fas fa-eye',
                 'is_active' => true,
             ],
@@ -478,6 +488,7 @@ class ComprehensiveDataSeeder extends Seeder
                 'title' => 'Evaluation',
                 'description' => 'Assess effectiveness and impact',
                 'order' => 5,
+                'page' => 'about',
                 'icon' => 'fas fa-chart-bar',
                 'is_active' => true,
             ],
@@ -497,27 +508,51 @@ class ComprehensiveDataSeeder extends Seeder
     {
         $values = [
             [
-                'title' => 'Equity',
-                'description' => 'Fair and inclusive access to opportunities for all',
+                'type' => 'value',
+                'content' => 'Fair and inclusive access to opportunities for all',
+                'page' => 'about',
+                'order' => 1,
                 'icon' => 'fas fa-balance-scale',
                 'is_active' => true,
             ],
             [
-                'title' => 'Inclusion',
-                'description' => 'Ensuring all voices are heard and valued',
+                'type' => 'value',
+                'content' => 'Ensuring all voices are heard and valued',
+                'page' => 'about',
+                'order' => 2,
                 'icon' => 'fas fa-handshake',
                 'is_active' => true,
             ],
             [
-                'title' => 'Empowerment',
-                'description' => 'Building capacity and agency in communities',
+                'type' => 'value',
+                'content' => 'Building capacity and agency in communities',
+                'page' => 'about',
+                'order' => 3,
                 'icon' => 'fas fa-bolt',
                 'is_active' => true,
             ],
             [
-                'title' => 'Accountability',
-                'description' => 'Transparent and responsible operations',
+                'type' => 'value',
+                'content' => 'Transparent and responsible operations',
+                'page' => 'about',
+                'order' => 4,
                 'icon' => 'fas fa-shield-alt',
+                'is_active' => true,
+            ],
+            [
+                'type' => 'mission',
+                'content' => 'To promote gender equality and empower all individuals to achieve their full potential',
+                'page' => 'about',
+                'order' => 1,
+                'icon' => 'fas fa-target',
+                'is_active' => true,
+            ],
+            [
+                'type' => 'vision',
+                'content' => 'A society where gender equality is realized and all individuals are valued and respected',
+                'page' => 'about',
+                'order' => 1,
+                'icon' => 'fas fa-lightbulb',
                 'is_active' => true,
             ],
         ];
