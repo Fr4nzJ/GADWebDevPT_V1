@@ -73,12 +73,12 @@ class ComprehensiveDataSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->command->info('Starting comprehensive data seeding...');
+        $this->info('Starting comprehensive data seeding...');
 
         // Check if we should clear data first
-        if ($this->command->confirm('Do you want to delete all existing data (except users) before seeding?', false)) {
+        if ($this->shouldConfirm() && $this->confirm('Do you want to delete all existing data (except users) before seeding?', false)) {
             $this->clearAllData();
-            $this->command->info('All data cleared successfully!');
+            $this->info('All data cleared successfully!');
         }
 
         // Seed the data
@@ -105,7 +105,56 @@ class ComprehensiveDataSeeder extends Seeder
         $this->seedDashboardStatistics();
         $this->seedDashboardActivities();
 
-        $this->command->info('Comprehensive data seeding completed successfully!');
+        $this->info('Comprehensive data seeding completed successfully!');
+    }
+
+    /**
+     * Check if command object exists (for Artisan execution)
+     */
+    protected function shouldConfirm(): bool
+    {
+        return isset($this->command);
+    }
+
+    /**
+     * Output info message
+     */
+    protected function info(string $message): void
+    {
+        if (isset($this->command)) {
+            $this->command->info($message);
+        }
+    }
+
+    /**
+     * Output warning message
+     */
+    protected function warn(string $message): void
+    {
+        if (isset($this->command)) {
+            $this->command->warn($message);
+        }
+    }
+
+    /**
+     * Output line message
+     */
+    protected function line(string $message): void
+    {
+        if (isset($this->command)) {
+            $this->command->line($message);
+        }
+    }
+
+    /**
+     * Ask for confirmation
+     */
+    protected function confirm(string $question, bool $default = false): bool
+    {
+        if (isset($this->command)) {
+            return $this->command->confirm($question, $default);
+        }
+        return $default;
     }
 
     /**
@@ -113,7 +162,7 @@ class ComprehensiveDataSeeder extends Seeder
      */
     public function clearAllData(): void
     {
-        $this->command->warn('Clearing all data except protected tables...');
+        $this->warn('Clearing all data except protected tables...');
 
         // Disable foreign key checks
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
@@ -138,9 +187,9 @@ class ComprehensiveDataSeeder extends Seeder
 
             try {
                 DB::table($tableName)->truncate();
-                $this->command->line("Cleared: {$tableName}");
+                $this->line("Cleared: {$tableName}");
             } catch (\Exception $e) {
-                $this->command->warn("Could not clear {$tableName}: " . $e->getMessage());
+                $this->warn("Could not clear {$tableName}: " . $e->getMessage());
             }
         }
 
@@ -200,7 +249,7 @@ class ComprehensiveDataSeeder extends Seeder
             Statistic::create($stat);
         }
 
-        $this->command->line('Statistics seeded.');
+        $this->line('Statistics seeded.');
     }
 
     /**
@@ -239,7 +288,7 @@ class ComprehensiveDataSeeder extends Seeder
             Program::create($program);
         }
 
-        $this->command->line('Programs seeded.');
+        $this->line('Programs seeded.');
     }
 
     /**
@@ -278,7 +327,7 @@ class ComprehensiveDataSeeder extends Seeder
             Event::create($event);
         }
 
-        $this->command->line('Events seeded.');
+        $this->line('Events seeded.');
     }
 
     /**
@@ -320,7 +369,7 @@ class ComprehensiveDataSeeder extends Seeder
             News::create($item);
         }
 
-        $this->command->line('News seeded.');
+        $this->line('News seeded.');
     }
 
     /**
@@ -349,7 +398,7 @@ class ComprehensiveDataSeeder extends Seeder
             Report::create($report);
         }
 
-        $this->command->line('Reports seeded.');
+        $this->line('Reports seeded.');
     }
 
     /**
@@ -388,7 +437,7 @@ class ComprehensiveDataSeeder extends Seeder
             Milestone::create($milestone);
         }
 
-        $this->command->line('Milestones seeded.');
+        $this->line('Milestones seeded.');
     }
 
     /**
@@ -438,7 +487,7 @@ class ComprehensiveDataSeeder extends Seeder
             ProcessStep::create($step);
         }
 
-        $this->command->line('Process steps seeded.');
+        $this->line('Process steps seeded.');
     }
 
     /**
@@ -477,7 +526,7 @@ class ComprehensiveDataSeeder extends Seeder
             PageValue::create($value);
         }
 
-        $this->command->line('Page values seeded.');
+        $this->line('Page values seeded.');
     }
 
     /**
@@ -520,7 +569,7 @@ class ComprehensiveDataSeeder extends Seeder
             PageSection::create($section);
         }
 
-        $this->command->line('Page sections seeded.');
+        $this->line('Page sections seeded.');
     }
 
     /**
@@ -559,7 +608,7 @@ class ComprehensiveDataSeeder extends Seeder
             Achievement::create($achievement);
         }
 
-        $this->command->line('Achievements seeded.');
+        $this->line('Achievements seeded.');
     }
 
     /**
@@ -579,7 +628,7 @@ class ComprehensiveDataSeeder extends Seeder
             ]);
         }
 
-        $this->command->line('Program statistics seeded.');
+        $this->line('Program statistics seeded.');
     }
 
     /**
@@ -598,7 +647,7 @@ class ComprehensiveDataSeeder extends Seeder
             ]);
         }
 
-        $this->command->line('Event statistics seeded.');
+        $this->line('Event statistics seeded.');
     }
 
     /**
@@ -617,7 +666,7 @@ class ComprehensiveDataSeeder extends Seeder
             ]);
         }
 
-        $this->command->line('Report statistics seeded.');
+        $this->line('Report statistics seeded.');
     }
 
     /**
@@ -646,7 +695,7 @@ class ComprehensiveDataSeeder extends Seeder
             PolicyBrief::create($brief);
         }
 
-        $this->command->line('Policy briefs seeded.');
+        $this->line('Policy briefs seeded.');
     }
 
     /**
@@ -675,7 +724,7 @@ class ComprehensiveDataSeeder extends Seeder
             Resource::create($resource);
         }
 
-        $this->command->line('Resources seeded.');
+        $this->line('Resources seeded.');
     }
 
     /**
@@ -702,7 +751,7 @@ class ComprehensiveDataSeeder extends Seeder
             StatisticalYearbook::create($yearbook);
         }
 
-        $this->command->line('Statistical yearbooks seeded.');
+        $this->line('Statistical yearbooks seeded.');
     }
 
     /**
@@ -741,7 +790,7 @@ class ComprehensiveDataSeeder extends Seeder
             ChartData::create($data);
         }
 
-        $this->command->line('Chart data seeded.');
+        $this->line('Chart data seeded.');
     }
 
     /**
@@ -758,7 +807,7 @@ class ComprehensiveDataSeeder extends Seeder
             ]);
         }
 
-        $this->command->line('Monthly event charts seeded.');
+        $this->line('Monthly event charts seeded.');
     }
 
     /**
@@ -777,7 +826,7 @@ class ComprehensiveDataSeeder extends Seeder
             ]);
         }
 
-        $this->command->line('Program distribution charts seeded.');
+        $this->line('Program distribution charts seeded.');
     }
 
     /**
@@ -806,7 +855,7 @@ class ComprehensiveDataSeeder extends Seeder
             Contact::create($contact);
         }
 
-        $this->command->line('Contacts seeded.');
+        $this->line('Contacts seeded.');
     }
 
     /**
@@ -849,7 +898,7 @@ class ComprehensiveDataSeeder extends Seeder
             DashboardStatistic::create($stat);
         }
 
-        $this->command->line('Dashboard statistics seeded.');
+        $this->line('Dashboard statistics seeded.');
     }
 
     /**
@@ -892,6 +941,6 @@ class ComprehensiveDataSeeder extends Seeder
             DashboardActivity::create($activity);
         }
 
-        $this->command->line('Dashboard activities seeded.');
+        $this->line('Dashboard activities seeded.');
     }
 }

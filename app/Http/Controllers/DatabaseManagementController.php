@@ -28,37 +28,58 @@ class DatabaseManagementController extends Controller
             // Check if user wants to clear data first
             $clearData = $request->boolean('clear_data', false);
 
-            // Create a mock command to pass to the seeder
+            // Create seeder instance
             $seeder = new ComprehensiveDataSeeder();
 
             // Manually clear data if requested
             if ($clearData) {
-                $this->clearAllData();
+                try {
+                    $this->clearAllData();
+                } catch (\Exception $e) {
+                    throw new \Exception('Error clearing data: ' . $e->getMessage());
+                }
             }
 
-            // Run seeding methods
-            $seeder->seedStatistics();
-            $seeder->seedPrograms();
-            $seeder->seedEvents();
-            $seeder->seedNews();
-            $seeder->seedReports();
-            $seeder->seedMilestones();
-            $seeder->seedProcessSteps();
-            $seeder->seedPageValues();
-            $seeder->seedPageSections();
-            $seeder->seedAchievements();
-            $seeder->seedProgramStatistics();
-            $seeder->seedEventStatistics();
-            $seeder->seedReportStatistics();
-            $seeder->seedPolicyBriefs();
-            $seeder->seedResources();
-            $seeder->seedStatisticalYearbooks();
-            $seeder->seedChartData();
-            $seeder->seedMonthlyEventCharts();
-            $seeder->seedProgramDistributionCharts();
-            $seeder->seedContacts();
-            $seeder->seedDashboardStatistics();
-            $seeder->seedDashboardActivities();
+            // Run seeding methods with individual error handling
+            $seedingMethods = [
+                'seedStatistics' => 'Statistics',
+                'seedPrograms' => 'Programs',
+                'seedEvents' => 'Events',
+                'seedNews' => 'News',
+                'seedReports' => 'Reports',
+                'seedMilestones' => 'Milestones',
+                'seedProcessSteps' => 'Process Steps',
+                'seedPageValues' => 'Page Values',
+                'seedPageSections' => 'Page Sections',
+                'seedAchievements' => 'Achievements',
+                'seedProgramStatistics' => 'Program Statistics',
+                'seedEventStatistics' => 'Event Statistics',
+                'seedReportStatistics' => 'Report Statistics',
+                'seedPolicyBriefs' => 'Policy Briefs',
+                'seedResources' => 'Resources',
+                'seedStatisticalYearbooks' => 'Statistical Yearbooks',
+                'seedChartData' => 'Chart Data',
+                'seedMonthlyEventCharts' => 'Monthly Event Charts',
+                'seedProgramDistributionCharts' => 'Program Distribution Charts',
+                'seedContacts' => 'Contacts',
+                'seedDashboardStatistics' => 'Dashboard Statistics',
+                'seedDashboardActivities' => 'Dashboard Activities',
+            ];
+
+            foreach ($seedingMethods as $method => $label) {
+                try {
+                    if (method_exists($seeder, $method)) {
+                        $seeder->$method();
+                    }
+                } catch (\Exception $e) {
+                    Log::error("Error seeding {$label}", [
+                        'method' => $method,
+                        'error' => $e->getMessage(),
+                        'user_id' => Auth::id(),
+                    ]);
+                    throw new \Exception("Error seeding {$label}: " . $e->getMessage());
+                }
+            }
 
             Log::info('Comprehensive database seeding completed', [
                 'clear_data' => $clearData,
@@ -69,15 +90,17 @@ class DatabaseManagementController extends Controller
                 'success' => true,
                 'message' => 'Database seeding completed successfully!' . ($clearData ? ' All data was cleared before seeding.' : ''),
             ]);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            $errorMessage = $e->getMessage();
             Log::error('Database seeding failed', [
-                'error' => $e->getMessage(),
+                'error' => $errorMessage,
+                'trace' => $e->getTraceAsString(),
                 'user_id' => Auth::id(),
             ]);
 
             return response()->json([
                 'success' => false,
-                'message' => 'Error during seeding: ' . $e->getMessage(),
+                'message' => 'Error during seeding: ' . $errorMessage,
             ], 500);
         }
     }
