@@ -131,37 +131,71 @@ class DatabaseManagementController extends Controller
             'personal_access_tokens',
         ];
 
-        // Disable foreign key checks
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        $driver = DB::getDriverName();
 
         try {
-            // Get all tables in the database
-            $tables = DB::select('SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ?', [
-                DB::getDatabaseName()
-            ]);
+            if ($driver === 'pgsql') {
+                // PostgreSQL - disable triggers and truncate
+                DB::statement('SET session_replication_role = replica');
 
-            foreach ($tables as $table) {
-                $tableName = $table->TABLE_NAME;
+                // Get all tables
+                $tables = DB::select("
+                    SELECT table_name 
+                    FROM information_schema.tables 
+                    WHERE table_schema = 'public' 
+                    AND table_type = 'BASE TABLE'
+                ");
 
-                // Skip protected tables
-                if (in_array($tableName, $protectedTables)) {
-                    continue;
+                foreach ($tables as $table) {
+                    $tableName = $table->table_name;
+
+                    // Skip protected tables
+                    if (in_array($tableName, $protectedTables)) {
+                        continue;
+                    }
+
+                    try {
+                        DB::statement("TRUNCATE TABLE \"{$tableName}\" CASCADE");
+                    } catch (\Exception $e) {
+                        Log::warning("Could not clear {$tableName}: " . $e->getMessage());
+                    }
                 }
 
-                // Skip cache and jobs tables
-                if (in_array($tableName, ['cache', 'cache_locks', 'jobs', 'failed_jobs'])) {
-                    continue;
+                // Re-enable triggers
+                DB::statement('SET session_replication_role = default');
+            } else {
+                // MySQL
+                DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
+                $tables = DB::select('SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ?', [
+                    DB::getDatabaseName()
+                ]);
+
+                foreach ($tables as $table) {
+                    $tableName = $table->TABLE_NAME;
+
+                    // Skip protected tables
+                    if (in_array($tableName, $protectedTables)) {
+                        continue;
+                    }
+
+                    // Skip cache and jobs tables
+                    if (in_array($tableName, ['cache', 'cache_locks', 'jobs', 'failed_jobs'])) {
+                        continue;
+                    }
+
+                    try {
+                        DB::table($tableName)->truncate();
+                    } catch (\Exception $e) {
+                        Log::warning("Could not clear {$tableName}: " . $e->getMessage());
+                    }
                 }
 
-                try {
-                    DB::table($tableName)->truncate();
-                } catch (\Exception $e) {
-                    Log::warning("Could not clear {$tableName}: " . $e->getMessage());
-                }
+                DB::statement('SET FOREIGN_KEY_CHECKS=1');
             }
-        } finally {
-            // Re-enable foreign key checks
-            DB::statement('SET FOREIGN_KEY_CHECKS=1');
+        } catch (\Exception $e) {
+            Log::error('Error clearing database: ' . $e->getMessage());
+            throw $e;
         }
     }
 
@@ -171,25 +205,63 @@ class DatabaseManagementController extends Controller
     public function getStats()
     {
         try {
-            $stats = [];
-
-            // Get table information
-            $tables = DB::select('SELECT TABLE_NAME, TABLE_ROWS FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ?', [
-                DB::getDatabaseName()
-            ]);
-
-            $totalRows = 0;
             $tableStats = [];
+            $totalRows = 0;
+            $driver = DB::getDriverName();
 
-            foreach ($tables as $table) {
-                $tableName = $table->TABLE_NAME;
-                $rows = $table->TABLE_ROWS ?? DB::table($tableName)->count();
-                
-                if ($rows > 0) {
-                    $tableStats[$tableName] = $rows;
-                    $totalRows += $rows;
+            if ($driver === 'pgsql') {
+                // PostgreSQL - get tables and count rows
+                $tables = DB::select("
+                    SELECT table_name 
+                    FROM information_schema.tables 
+                    WHERE table_schema = 'public' 
+                    AND table_type = 'BASE TABLE'
+                ");
+
+                foreach ($tables as $table) {
+                    $tableName = $table->table_name;
+                    
+                    // Skip certain system tables
+                    if (in_array($tableName, ['migrations', 'personal_access_tokens'])) {
+                        continue;
+                    }
+
+                    try {
+                        $count = DB::table($tableName)->count();
+                        if ($count > 0) {
+                            $tableStats[$tableName] = $count;
+                            $totalRows += $count;
+                        }
+                    } catch (\Exception $e) {
+                        Log::warning("Could not count rows in {$tableName}: " . $e->getMessage());
+                    }
+                }
+            } else {
+                // MySQL - use TABLE_ROWS for faster statistics
+                $tables = DB::select('SELECT TABLE_NAME, TABLE_ROWS FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ?', [
+                    DB::getDatabaseName()
+                ]);
+
+                foreach ($tables as $table) {
+                    $tableName = $table->TABLE_NAME;
+
+                    // Skip protected tables
+                    if (in_array($tableName, ['users', 'migrations', 'personal_access_tokens'])) {
+                        continue;
+                    }
+
+                    // Use TABLE_ROWS if available, otherwise count
+                    $rows = $table->TABLE_ROWS > 0 ? $table->TABLE_ROWS : DB::table($tableName)->count();
+                    
+                    if ($rows > 0) {
+                        $tableStats[$tableName] = $rows;
+                        $totalRows += $rows;
+                    }
                 }
             }
+
+            // Sort tables by row count descending
+            arsort($tableStats);
 
             return response()->json([
                 'success' => true,
@@ -197,6 +269,7 @@ class DatabaseManagementController extends Controller
                 'tables' => $tableStats,
             ]);
         } catch (\Exception $e) {
+            Log::error('Failed to retrieve database statistics: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
                 'message' => 'Error retrieving statistics: ' . $e->getMessage(),
