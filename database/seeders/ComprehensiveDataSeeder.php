@@ -246,7 +246,10 @@ class ComprehensiveDataSeeder extends Seeder
         ];
 
         foreach ($statistics as $stat) {
-            Statistic::create($stat);
+            Statistic::firstOrCreate(
+                ['title' => $stat['title'], 'page' => $stat['page']],
+                $stat
+            );
         }
 
         $this->line('Statistics seeded.');
@@ -285,7 +288,10 @@ class ComprehensiveDataSeeder extends Seeder
         ];
 
         foreach ($programs as $program) {
-            Program::create($program);
+            Program::firstOrCreate(
+                ['title' => $program['title']],
+                $program
+            );
         }
 
         $this->line('Programs seeded.');
@@ -324,7 +330,10 @@ class ComprehensiveDataSeeder extends Seeder
         ];
 
         foreach ($events as $event) {
-            Event::create($event);
+            Event::firstOrCreate(
+                ['title' => $event['title']],
+                $event
+            );
         }
 
         $this->line('Events seeded.');
@@ -366,7 +375,10 @@ class ComprehensiveDataSeeder extends Seeder
         ];
 
         foreach ($news as $item) {
-            News::create($item);
+            News::firstOrCreate(
+                ['slug' => $item['slug']],
+                $item
+            );
         }
 
         $this->line('News seeded.');
@@ -397,7 +409,10 @@ class ComprehensiveDataSeeder extends Seeder
         ];
 
         foreach ($reports as $report) {
-            Report::create($report);
+            Report::firstOrCreate(
+                ['title' => $report['title']],
+                $report
+            );
         }
 
         $this->line('Reports seeded.');
@@ -440,7 +455,10 @@ class ComprehensiveDataSeeder extends Seeder
         ];
 
         foreach ($milestones as $milestone) {
-            Milestone::create($milestone);
+            Milestone::firstOrCreate(
+                ['year' => $milestone['year']],
+                $milestone
+            );
         }
 
         $this->line('Milestones seeded.');
@@ -495,7 +513,10 @@ class ComprehensiveDataSeeder extends Seeder
         ];
 
         foreach ($steps as $step) {
-            ProcessStep::create($step);
+            ProcessStep::firstOrCreate(
+                ['title' => $step['title']],
+                $step
+            );
         }
 
         $this->line('Process steps seeded.');
@@ -558,7 +579,10 @@ class ComprehensiveDataSeeder extends Seeder
         ];
 
         foreach ($values as $value) {
-            PageValue::create($value);
+            PageValue::firstOrCreate(
+                ['type' => $value['type'], 'content' => $value['content']],
+                $value
+            );
         }
 
         $this->line('Page values seeded.');
@@ -571,37 +595,44 @@ class ComprehensiveDataSeeder extends Seeder
     {
         $sections = [
             [
-                'name' => 'hero',
+                'page' => 'home',
+                'section_key' => 'hero',
                 'title' => 'Hero Section',
-                'description' => 'Main hero section with call to action',
-                'page' => 'home',
+                'content' => 'Main hero section with call to action',
+                'order' => 1,
                 'is_active' => true,
             ],
             [
-                'name' => 'about',
+                'page' => 'home',
+                'section_key' => 'about',
                 'title' => 'About Us',
-                'description' => 'Organization overview and mission',
-                'page' => 'home',
+                'content' => 'Organization overview and mission',
+                'order' => 2,
                 'is_active' => true,
             ],
             [
-                'name' => 'programs',
+                'page' => 'home',
+                'section_key' => 'programs',
                 'title' => 'Our Programs',
-                'description' => 'Featured programs section',
-                'page' => 'home',
+                'content' => 'Featured programs section',
+                'order' => 3,
                 'is_active' => true,
             ],
             [
-                'name' => 'impact',
-                'title' => 'Our Impact',
-                'description' => 'Statistics and impact section',
                 'page' => 'home',
+                'section_key' => 'impact',
+                'title' => 'Our Impact',
+                'content' => 'Statistics and impact section',
+                'order' => 4,
                 'is_active' => true,
             ],
         ];
 
         foreach ($sections as $section) {
-            PageSection::create($section);
+            PageSection::firstOrCreate(
+                ['section_key' => $section['section_key'], 'page' => $section['page']],
+                $section
+            );
         }
 
         $this->line('Page sections seeded.');
@@ -614,33 +645,36 @@ class ComprehensiveDataSeeder extends Seeder
     {
         $achievements = [
             [
-                'title' => '250K+ Direct Beneficiaries',
-                'description' => 'Successfully reached over 250,000 direct beneficiaries',
-                'year' => 2025,
-                'category' => 'reach',
+                'number' => '250K+',
+                'label' => 'Direct Beneficiaries',
                 'icon' => 'fas fa-award',
+                'page' => 'home',
+                'order' => 1,
                 'is_active' => true,
             ],
             [
-                'title' => 'ISO Certification',
-                'description' => 'Achieved ISO 9001 certification for quality management',
-                'year' => 2024,
-                'category' => 'certification',
+                'number' => 'ISO',
+                'label' => 'Certification (9001)',
                 'icon' => 'fas fa-certificate',
+                'page' => 'home',
+                'order' => 2,
                 'is_active' => true,
             ],
             [
-                'title' => '17 Regions Covered',
-                'description' => 'Expanded operations across 17 regions',
-                'year' => 2025,
-                'category' => 'expansion',
+                'number' => '17',
+                'label' => 'Regions Covered',
                 'icon' => 'fas fa-map',
+                'page' => 'home',
+                'order' => 3,
                 'is_active' => true,
             ],
         ];
 
         foreach ($achievements as $achievement) {
-            Achievement::create($achievement);
+            Achievement::firstOrCreate(
+                ['number' => $achievement['number'], 'label' => $achievement['label']],
+                $achievement
+            );
         }
 
         $this->line('Achievements seeded.');
@@ -651,16 +685,44 @@ class ComprehensiveDataSeeder extends Seeder
      */
     public function seedProgramStatistics(): void
     {
-        $programs = Program::all();
+        $stats = [
+            [
+                'label' => 'Program Reach',
+                'value' => '125,000+',
+                'icon' => 'fas fa-users',
+                'color' => 'blue',
+                'page' => 'programs',
+                'order' => 1,
+                'description' => 'Total beneficiaries across all programs',
+                'is_active' => true,
+            ],
+            [
+                'label' => 'Success Rate',
+                'value' => '92%',
+                'icon' => 'fas fa-check-circle',
+                'color' => 'green',
+                'page' => 'programs',
+                'order' => 2,
+                'description' => 'Program completion and impact success',
+                'is_active' => true,
+            ],
+            [
+                'label' => 'Active Programs',
+                'value' => '6',
+                'icon' => 'fas fa-project-diagram',
+                'color' => 'purple',
+                'page' => 'programs',
+                'order' => 3,
+                'description' => 'Number of active programs',
+                'is_active' => true,
+            ],
+        ];
 
-        foreach ($programs as $program) {
-            ProgramStatistic::create([
-                'program_id' => $program->id,
-                'beneficiaries_reached' => rand(1000, 50000),
-                'success_rate' => rand(70, 95),
-                'activities_conducted' => rand(10, 100),
-                'year' => now()->year,
-            ]);
+        foreach ($stats as $stat) {
+            ProgramStatistic::firstOrCreate(
+                ['label' => $stat['label']],
+                $stat
+            );
         }
 
         $this->line('Program statistics seeded.');
@@ -671,15 +733,34 @@ class ComprehensiveDataSeeder extends Seeder
      */
     public function seedEventStatistics(): void
     {
-        $events = Event::all();
+        $stats = [
+            [
+                'label' => 'Events Conducted',
+                'value' => '45',
+                'icon' => 'fas fa-calendar-alt',
+                'color' => 'blue',
+                'page' => 'events',
+                'order' => 1,
+                'description' => 'Total events organized',
+                'is_active' => true,
+            ],
+            [
+                'label' => 'Total Attendees',
+                'value' => '8,500+',
+                'icon' => 'fas fa-users',
+                'color' => 'green',
+                'page' => 'events',
+                'order' => 2,
+                'description' => 'People participated in events',
+                'is_active' => true,
+            ],
+        ];
 
-        foreach ($events as $event) {
-            EventStatistic::create([
-                'event_id' => $event->id,
-                'attendees' => rand(50, 1000),
-                'feedback_score' => rand(3, 5),
-                'completion_rate' => rand(80, 100),
-            ]);
+        foreach ($stats as $stat) {
+            EventStatistic::firstOrCreate(
+                ['label' => $stat['label']],
+                $stat
+            );
         }
 
         $this->line('Event statistics seeded.');
@@ -690,183 +771,248 @@ class ComprehensiveDataSeeder extends Seeder
      */
     public function seedReportStatistics(): void
     {
-        $reports = Report::all();
+        $stats = [
+            [
+                'label' => 'Reports Published',
+                'number' => '28',
+                'subtitle' => 'Research and analysis reports',
+                'icon' => 'fas fa-file-alt',
+                'gradient_start' => '#667eea',
+                'gradient_end' => '#764ba2',
+                'page' => 'reports',
+                'order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'label' => 'Total Downloads',
+                'number' => '12,500',
+                'subtitle' => 'Report downloads',
+                'icon' => 'fas fa-download',
+                'gradient_start' => '#f093fb',
+                'gradient_end' => '#f5576c',
+                'page' => 'reports',
+                'order' => 2,
+                'is_active' => true,
+            ],
+        ];
 
-        foreach ($reports as $report) {
-            ReportStatistic::create([
-                'report_id' => $report->id,
-                'downloads' => rand(50, 500),
-                'views' => rand(100, 2000),
-                'shares' => rand(10, 200),
-            ]);
+        foreach ($stats as $stat) {
+            ReportStatistic::firstOrCreate(
+                ['label' => $stat['label']],
+                $stat
+            );
         }
 
         $this->line('Report statistics seeded.');
     }
 
-    /**
-     * Seed Policy Briefs table.
-     */
     public function seedPolicyBriefs(): void
     {
         $briefs = [
             [
-                'title' => 'Policy Brief: Women Empowerment',
-                'slug' => 'policy-women-empowerment',
-                'content' => 'Key policy recommendations for advancing women empowerment initiatives',
-                'file_path' => 'briefs/women-empowerment.pdf',
-                'published' => true,
+                'title' => 'Women Empowerment Policy',
+                'description' => 'Key policy recommendations for advancing women empowerment initiatives and gender equality programs',
+                'pages' => 12,
+                'year' => 2025,
+                'icon' => 'fas fa-book',
+                'color' => 'info',
+                'page' => 'reports',
+                'order' => 1,
+                'is_active' => true,
             ],
             [
-                'title' => 'Policy Brief: Community Development',
-                'slug' => 'policy-community-dev',
-                'content' => 'Strategic recommendations for sustainable community development',
-                'file_path' => 'briefs/community-development.pdf',
-                'published' => true,
+                'title' => 'Community Development Strategy',
+                'description' => 'Strategic recommendations for sustainable community development and social impact',
+                'pages' => 18,
+                'year' => 2025,
+                'icon' => 'fas fa-building',
+                'color' => 'success',
+                'page' => 'reports',
+                'order' => 2,
+                'is_active' => true,
             ],
         ];
 
         foreach ($briefs as $brief) {
-            PolicyBrief::create($brief);
+            PolicyBrief::firstOrCreate(
+                ['title' => $brief['title']],
+                $brief
+            );
         }
 
         $this->line('Policy briefs seeded.');
     }
 
-    /**
-     * Seed Resources table.
-     */
     public function seedResources(): void
     {
         $resources = [
             [
-                'title' => 'Resource: Training Materials',
-                'description' => 'Comprehensive training materials for program implementation',
-                'file_path' => 'resources/training-materials.pdf',
-                'type' => 'training',
+                'title' => 'Training Materials',
+                'description' => 'Comprehensive training materials for program implementation and staff development',
+                'icon' => 'fas fa-book-open',
+                'color' => 'primary',
+                'button_text' => 'Download Training',
+                'button_url' => '#',
+                'button_action' => 'download',
+                'page' => 'reports',
+                'order' => 1,
                 'is_active' => true,
             ],
             [
-                'title' => 'Resource: Guidelines Handbook',
-                'description' => 'Operational guidelines and best practices',
-                'file_path' => 'resources/guidelines.pdf',
-                'type' => 'guide',
+                'title' => 'Operational Guidelines',
+                'description' => 'Operational guidelines and best practices for effective program delivery',
+                'icon' => 'fas fa-clipboard-list',
+                'color' => 'success',
+                'button_text' => 'View Guidelines',
+                'button_url' => '#',
+                'button_action' => 'view',
+                'page' => 'reports',
+                'order' => 2,
                 'is_active' => true,
             ],
         ];
 
         foreach ($resources as $resource) {
-            Resource::create($resource);
+            Resource::firstOrCreate(
+                ['title' => $resource['title']],
+                $resource
+            );
         }
 
         $this->line('Resources seeded.');
     }
 
-    /**
-     * Seed Statistical Yearbooks table.
-     */
     public function seedStatisticalYearbooks(): void
     {
         $yearbooks = [
             [
                 'title' => 'Statistical Yearbook 2024',
-                'year' => 2024,
+                'description' => 'Comprehensive statistical data and analysis for the year 2024',
+                'publication_date' => now()->subYear()->format('Y-01-15'),
+                'pages' => 150,
+                'format' => 'PDF',
+                'languages' => 'English, Filipino',
                 'file_path' => 'yearbooks/statistical-2024.pdf',
-                'published' => true,
+                'download_size' => '12 MB',
+                'is_active' => true,
             ],
             [
                 'title' => 'Statistical Yearbook 2025',
-                'year' => 2025,
+                'description' => 'Comprehensive statistical data and analysis for the year 2025',
+                'publication_date' => now()->format('Y-01-15'),
+                'pages' => 160,
+                'format' => 'PDF + Excel',
+                'languages' => 'English, Filipino',
                 'file_path' => 'yearbooks/statistical-2025.pdf',
-                'published' => true,
+                'download_size' => '18 MB',
+                'is_active' => true,
             ],
         ];
 
         foreach ($yearbooks as $yearbook) {
-            StatisticalYearbook::create($yearbook);
+            StatisticalYearbook::firstOrCreate(
+                ['title' => $yearbook['title']],
+                $yearbook
+            );
         }
 
         $this->line('Statistical yearbooks seeded.');
     }
 
-    /**
-     * Seed Chart Data table.
-     */
     public function seedChartData(): void
     {
         $chartData = [
             [
-                'label' => 'Q1 2026 Beneficiaries',
+                'chart_type' => 'growth',
+                'label' => '2023',
                 'value' => 45000,
-                'chart_type' => 'bar',
-                'category' => 'beneficiaries',
+                'page' => 'home',
+                'order' => 1,
+                'is_active' => true,
             ],
             [
-                'label' => 'Q2 2026 Beneficiaries',
+                'chart_type' => 'growth',
+                'label' => '2024',
                 'value' => 52000,
-                'chart_type' => 'bar',
-                'category' => 'beneficiaries',
+                'page' => 'home',
+                'order' => 2,
+                'is_active' => true,
             ],
             [
-                'label' => 'Program A Achievement',
+                'chart_type' => 'distribution',
+                'label' => 'Program A',
                 'value' => 85,
-                'chart_type' => 'pie',
-                'category' => 'performance',
+                'page' => 'home',
+                'order' => 3,
+                'is_active' => true,
             ],
             [
-                'label' => 'Program B Achievement',
+                'chart_type' => 'distribution',
+                'label' => 'Program B',
                 'value' => 92,
-                'chart_type' => 'pie',
-                'category' => 'performance',
+                'page' => 'home',
+                'order' => 4,
+                'is_active' => true,
             ],
         ];
 
         foreach ($chartData as $data) {
-            ChartData::create($data);
+            ChartData::firstOrCreate(
+                ['label' => $data['label'], 'chart_type' => $data['chart_type']],
+                $data
+            );
         }
 
         $this->line('Chart data seeded.');
     }
 
-    /**
-     * Seed Monthly Event Charts table.
-     */
     public function seedMonthlyEventCharts(): void
     {
-        for ($month = 1; $month <= 12; $month++) {
-            MonthlyEventChart::create([
-                'month' => $month,
-                'year' => now()->year,
-                'event_count' => rand(5, 20),
-                'attendees' => rand(500, 5000),
-            ]);
+        $months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        foreach ($months as $index => $month) {
+            MonthlyEventChart::firstOrCreate(
+                ['month' => $month],
+                [
+                    'month' => $month,
+                    'value' => rand(5, 20),
+                    'order' => $index + 1,
+                    'is_active' => true,
+                ]
+            );
         }
 
         $this->line('Monthly event charts seeded.');
     }
 
-    /**
-     * Seed Program Distribution Charts table.
-     */
     public function seedProgramDistributionCharts(): void
     {
-        $programs = Program::all();
+        $programs = [
+            'VAWG Prevention' => '#667eea',
+            'Women Entrepreneurship' => '#764ba2',
+            'Health and Wellness' => '#f093fb',
+            'Education & Skills' => '#4ecdc4',
+            'Community Development' => '#44af69',
+            'Economic Empowerment' => '#f38181',
+        ];
 
-        foreach ($programs as $program) {
-            ProgramDistributionChart::create([
-                'program_id' => $program->id,
-                'label' => $program->title,
-                'value' => rand(10, 40),
-                'color' => '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT),
-            ]);
+        $order = 1;
+        foreach ($programs as $label => $color) {
+            ProgramDistributionChart::firstOrCreate(
+                ['label' => $label],
+                [
+                    'label' => $label,
+                    'value' => rand(10, 40),
+                    'color_hex' => $color,
+                    'order' => $order++,
+                    'is_active' => true,
+                ]
+            );
         }
 
         $this->line('Program distribution charts seeded.');
     }
 
-    /**
-     * Seed Contacts table.
-     */
     public function seedContacts(): void
     {
         $contacts = [
@@ -875,105 +1021,142 @@ class ComprehensiveDataSeeder extends Seeder
                 'email' => 'john@example.com',
                 'subject' => 'Inquiry about programs',
                 'message' => 'I am interested in learning more about your programs.',
-                'status' => 'new',
+                'verification_code' => 'VERIFY' . bin2hex(random_bytes(8)),
+                'is_verified' => false,
+                'ip_address' => '192.168.1.1',
+                'user_agent' => 'Mozilla/5.0',
             ],
             [
                 'name' => 'Jane Smith',
                 'email' => 'jane@example.com',
                 'subject' => 'Partnership proposal',
                 'message' => 'We would like to explore partnership opportunities.',
-                'status' => 'responded',
+                'verification_code' => 'VERIFY' . bin2hex(random_bytes(8)),
+                'is_verified' => true,
+                'ip_address' => '192.168.1.2',
+                'user_agent' => 'Mozilla/5.0',
             ],
         ];
 
         foreach ($contacts as $contact) {
-            Contact::create($contact);
+            Contact::firstOrCreate(
+                ['email' => $contact['email']],
+                $contact
+            );
         }
 
         $this->line('Contacts seeded.');
     }
 
-    /**
-     * Seed Dashboard Statistics table.
-     */
     public function seedDashboardStatistics(): void
     {
         $stats = [
             [
                 'label' => 'Total Beneficiaries',
                 'value' => 250000,
-                'icon' => 'fas fa-users',
-                'color' => 'blue',
-                'type' => 'primary',
+                'icon_class' => 'fas fa-users',
+                'color_class' => 'blue',
+                'trend_value' => 8,
+                'trend_direction' => 'up',
+                'trend_text' => '8% increase',
+                'order' => 1,
+                'is_active' => true,
             ],
             [
                 'label' => 'Active Programs',
                 'value' => 6,
-                'icon' => 'fas fa-project-diagram',
-                'color' => 'green',
-                'type' => 'primary',
+                'icon_class' => 'fas fa-project-diagram',
+                'color_class' => 'green',
+                'trend_value' => 2,
+                'trend_direction' => 'up',
+                'trend_text' => '2 new programs',
+                'order' => 2,
+                'is_active' => true,
             ],
             [
                 'label' => 'Completed Events',
                 'value' => 45,
-                'icon' => 'fas fa-calendar-check',
-                'color' => 'purple',
-                'type' => 'secondary',
+                'icon_class' => 'fas fa-calendar-check',
+                'color_class' => 'purple',
+                'trend_value' => 12,
+                'trend_direction' => 'up',
+                'trend_text' => '12 this month',
+                'order' => 3,
+                'is_active' => true,
             ],
             [
                 'label' => 'Published Reports',
                 'value' => 28,
-                'icon' => 'fas fa-file-alt',
-                'color' => 'orange',
-                'type' => 'secondary',
+                'icon_class' => 'fas fa-file-alt',
+                'color_class' => 'orange',
+                'trend_value' => 3,
+                'trend_direction' => 'up',
+                'trend_text' => '3 new reports',
+                'order' => 4,
+                'is_active' => true,
             ],
         ];
 
         foreach ($stats as $stat) {
-            DashboardStatistic::create($stat);
+            DashboardStatistic::firstOrCreate(
+                ['label' => $stat['label']],
+                $stat
+            );
         }
 
         $this->line('Dashboard statistics seeded.');
     }
 
-    /**
-     * Seed Dashboard Activities table.
-     */
     public function seedDashboardActivities(): void
     {
         $activities = [
             [
-                'user_id' => 1,
-                'activity_type' => 'program_created',
-                'description' => 'Created new program',
-                'related_model' => 'Program',
-                'related_id' => 1,
+                'user_name' => 'Admin User',
+                'action' => 'created',
+                'module' => 'Program',
+                'description' => 'Created new Women Empowerment Program',
+                'status' => 'active',
+                'action_time' => now()->subDays(5),
+                'order' => 1,
+                'is_active' => true,
             ],
             [
-                'user_id' => 1,
-                'activity_type' => 'event_updated',
-                'description' => 'Updated event details',
-                'related_model' => 'Event',
-                'related_id' => 1,
+                'user_name' => 'Admin User',
+                'action' => 'updated',
+                'module' => 'Event',
+                'description' => 'Updated event "Community Workshop" details',
+                'status' => 'active',
+                'action_time' => now()->subDays(3),
+                'order' => 2,
+                'is_active' => true,
             ],
             [
-                'user_id' => 1,
-                'activity_type' => 'report_published',
-                'description' => 'Published annual report',
-                'related_model' => 'Report',
-                'related_id' => 1,
+                'user_name' => 'Admin User',
+                'action' => 'published',
+                'module' => 'Report',
+                'description' => 'Published annual impact report',
+                'status' => 'published',
+                'action_time' => now()->subDays(1),
+                'order' => 3,
+                'is_active' => true,
             ],
             [
-                'user_id' => 1,
-                'activity_type' => 'contact_replied',
-                'description' => 'Replied to contact inquiry',
-                'related_model' => 'Contact',
-                'related_id' => 1,
+                'user_name' => 'Admin User',
+                'action' => 'responded',
+                'module' => 'Contact',
+                'description' => 'Replied to contact inquiry from John Doe',
+                'status' => 'active',
+                'action_time' => now(),
+                'order' => 4,
+                'is_active' => true,
             ],
         ];
 
         foreach ($activities as $activity) {
-            DashboardActivity::create($activity);
+            DashboardActivity::firstOrCreate(
+                ['user_name' => $activity['user_name'], 'description' => $activity['description']],
+                $activity
+            );
         }
 
         $this->line('Dashboard activities seeded.');
