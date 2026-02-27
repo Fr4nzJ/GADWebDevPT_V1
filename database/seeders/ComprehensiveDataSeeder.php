@@ -259,28 +259,28 @@ class ComprehensiveDataSeeder extends Seeder
     {
         $programs = [
             [
-                'name' => 'Women Empowerment Program',
+                'title' => 'Women Empowerment Program',
                 'description' => 'Empowering women through skills training and entrepreneurship',
+                'category' => 'women_empowerment',
                 'status' => 'active',
-                'year' => now()->year,
             ],
             [
-                'name' => 'Rural Development Initiative',
+                'title' => 'Rural Development Initiative',
                 'description' => 'Community development in rural areas',
+                'category' => 'mainstreaming',
                 'status' => 'active',
-                'year' => now()->year,
             ],
             [
-                'name' => 'Education Access Project',
+                'title' => 'Education Access Project',
                 'description' => 'Providing educational opportunities to underserved communities',
+                'category' => 'education',
                 'status' => 'active',
-                'year' => now()->year,
             ],
             [
-                'name' => 'Health and Wellness Campaign',
+                'title' => 'Health and Wellness Campaign',
                 'description' => 'Promoting health awareness and wellness programs',
+                'category' => 'mainstreaming',
                 'status' => 'active',
-                'year' => now()->year,
             ],
         ];
 
@@ -820,7 +820,7 @@ class ComprehensiveDataSeeder extends Seeder
         foreach ($programs as $program) {
             ProgramDistributionChart::create([
                 'program_id' => $program->id,
-                'label' => $program->name,
+                'label' => $program->title,
                 'value' => rand(10, 40),
                 'color' => '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT),
             ]);
