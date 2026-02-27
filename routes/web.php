@@ -12,6 +12,7 @@ use App\Http\Controllers\DashboardStatisticController;
 use App\Http\Controllers\DashboardActivityController;
 use App\Http\Controllers\MonthlyEventChartController;
 use App\Http\Controllers\ProgramDistributionChartController;
+use App\Http\Controllers\DatabaseManagementController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\MilestoneController;
@@ -180,6 +181,12 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::resource('dashboard-activities', DashboardActivityController::class)->names('admin.dashboard-activities');
     Route::resource('monthly-event-charts', MonthlyEventChartController::class)->names('admin.monthly-event-charts');
     Route::resource('program-distribution-charts', ProgramDistributionChartController::class)->names('admin.program-distribution-charts');
+
+    // Database Management Routes
+    Route::get('/database-management', [DatabaseManagementController::class, 'index'])->name('admin.database-management.index');
+    Route::post('/database-management/run-seeder', [DatabaseManagementController::class, 'runSeeder'])->name('admin.database-management.run-seeder');
+    Route::post('/database-management/delete-data', [DatabaseManagementController::class, 'deleteAllData'])->name('admin.database-management.delete-data');
+    Route::get('/database-management/stats', [DatabaseManagementController::class, 'getStats'])->name('admin.database-management.stats');
 
 });
 

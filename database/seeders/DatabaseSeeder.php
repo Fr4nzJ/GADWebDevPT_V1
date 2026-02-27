@@ -45,6 +45,9 @@ class DatabaseSeeder extends Seeder
                 ]
             );
         }
+
+        // Call the comprehensive data seeder
+        $this->call(ComprehensiveDataSeeder::class);
     }
 }
 
