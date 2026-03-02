@@ -27,7 +27,12 @@
                         </p>
                         <p style="color: #666; margin: 0.25rem 0; font-size: 0.9rem;">
                             <i class="fas fa-calendar" style="margin-right: 0.5rem;"></i>
-                            <strong>Published:</strong> {{ $news->created_at->format('F d, Y') }}
+                            <strong>Published:</strong> 
+                            @if($news->created_at)
+                                {{ $news->created_at->format('F d, Y') }}
+                            @else
+                                Date not available
+                            @endif
                         </p>
                         <p style="color: #666; margin: 0.25rem 0; font-size: 0.9rem;">
                             <i class="fas fa-eye" style="margin-right: 0.5rem;"></i>
@@ -124,7 +129,13 @@
                     </p>
                     <p style="margin-bottom: 0.75rem;">
                         <strong style="color: #666;">Published:</strong><br>
-                        <span>{{ $news->created_at->format('F d, Y \a\t g:i A') }}</span>
+                        <span>
+                            @if($news->created_at)
+                                {{ $news->created_at->format('F d, Y \a\t g:i A') }}
+                            @else
+                                Date not available
+                            @endif
+                        </span>
                     </p>
                     <p style="margin-bottom: 0;">
                         <strong style="color: #666;">Last Updated:</strong><br>
@@ -147,7 +158,11 @@
                                     {{ $article->title }}
                                 </h5>
                                 <p style="color: #999; font-size: 0.85rem; margin: 0.5rem 0 0 0;">
-                                    {{ $article->created_at->format('M d, Y') }}
+                                    @if($article->created_at)
+                                        {{ $article->created_at->format('M d, Y') }}
+                                    @else
+                                        Date not available
+                                    @endif
                                 </p>
                             </a>
                         @endforeach

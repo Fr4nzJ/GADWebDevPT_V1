@@ -239,11 +239,15 @@
                                         <div style="background: #f5f7ff; padding: 1rem; border-radius: 8px; text-align: center;">
                                             <p style="color: #999; font-size: 0.85rem; margin-bottom: 0.5rem;">Program Period</p>
                                             <p style="color: #667eea; font-weight: 600;">
-                                                {{ $program->start_date->format('M d, Y') }}
-                                                @if($program->end_date)
-                                                    to {{ $program->end_date->format('M d, Y') }}
+                                                @if($program->start_date)
+                                                    {{ $program->start_date->format('M d, Y') }}
+                                                    @if($program->end_date)
+                                                        to {{ $program->end_date->format('M d, Y') }}
+                                                    @else
+                                                        (Ongoing)
+                                                    @endif
                                                 @else
-                                                    (Ongoing)
+                                                    Date not specified
                                                 @endif
                                             </p>
                                         </div>

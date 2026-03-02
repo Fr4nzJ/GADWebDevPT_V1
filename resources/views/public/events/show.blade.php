@@ -74,12 +74,16 @@
                                 <p style="color: #999; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">
                                     <i class="fas fa-calendar-alt" style="color: #667eea; margin-right: 0.5rem;"></i>Date & Time
                                 </p>
+                                @if($event->event_date)
                                 <p style="color: #2c3e50; font-weight: 600; font-size: 1.1rem; margin: 0;">
                                     {{ $event->event_date->format('F j, Y') }}
                                 </p>
                                 <p style="color: #666; margin-top: 0.5rem;">
                                     {{ $event->event_date->format('g:i A') }}
                                 </p>
+                                @else
+                                <p style="color: #999; margin-top: 0.5rem;">Date not specified</p>
+                                @endif
                             </div>
                         </div>
 
@@ -124,11 +128,18 @@
                                 <p style="color: #999; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">
                                     <i class="fas fa-clock" style="color: #667eea; margin-right: 0.5rem;"></i>Posted
                                 </p>
+                                @if($event->created_at)
                                 <p style="color: #2c3e50; font-weight: 600; margin: 0;">
                                     {{ $event->created_at->format('M d, Y') }}
                                 </p>
+                                @else
+                                <p style="color: #999; font-weight: 600; margin: 0;">Date not available</p>
+                                @endif
+                                @if($event->updated_at)
                                 <p style="color: #666; font-size: 0.9rem;">
                                     Updated: {{ $event->updated_at->format('M d, Y') }}
+                                </p>
+                                @endif
                                 </p>
                             </div>
                         </div>
@@ -162,12 +173,16 @@
 
                     <div style="background: #f5f7ff; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; text-align: center;">
                         <p style="color: #999; font-size: 0.85rem; margin: 0 0 0.5rem 0;">WHEN</p>
+                        @if($event->event_date)
                         <p style="color: #2c3e50; font-weight: 700; font-size: 1.1rem; margin: 0;">
                             {{ $event->event_date->format('M d, Y') }}
                         </p>
                         <p style="color: #667eea; font-weight: 600; margin: 0.5rem 0 0 0;">
                             {{ $event->event_date->format('g:i A') }}
                         </p>
+                        @else
+                        <p style="color: #999; font-weight: 700; font-size: 1.1rem; margin: 0;">Date not specified</p>
+                        @endif
                     </div>
 
                     <div style="background: #f5f7ff; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; text-align: center;">
@@ -229,9 +244,11 @@
                         <h4 style="color: #2c3e50; font-weight: 700; margin: 0 0 0.75rem 0; line-height: 1.4;">
                             {{ Str::limit($otherEvent->title, 50) }}
                         </h4>
+                        @if($otherEvent->event_date)
                         <p style="color: #999; font-size: 0.9rem; margin-bottom: 0.75rem;">
                             <i class="fas fa-calendar"></i> {{ $otherEvent->event_date->format('M d, Y') }}
                         </p>
+                        @endif
                         <a href="{{ route('events.show', $otherEvent) }}" class="button is-small is-primary" style="background: linear-gradient(135deg, #667eea, #764ba2); border: none; width: 100%; color: white; font-weight: 600;">
                             View Details
                         </a>

@@ -174,7 +174,13 @@
                     </div>
                     <div>
                         <h4 style="color: #2c3e50; font-weight: 700; margin: 0;">{{ $event->title }}</h4>
-                        <p style="color: #999; font-size: 0.85rem; margin: 0;">{{ $event->created_at->format('M d, Y') }}</p>
+                        <p style="color: #999; font-size: 0.85rem; margin: 0;">
+                            @if($event->created_at)
+                                {{ $event->created_at->format('M d, Y') }}
+                            @else
+                                Date not available
+                            @endif
+                        </p>
                     </div>
                 </div>
                 <div style="text-align: right;">
@@ -221,12 +227,16 @@
                         <p style="color: #999; font-size: 0.85rem; margin: 0 0 0.25rem 0;">
                             <i class="fas fa-calendar-check" style="color: #667eea; margin-right: 0.5rem;"></i>DATE & TIME
                         </p>
+                        @if($event->event_date)
                         <p style="color: #2c3e50; font-weight: 600; font-size: 1.1rem; margin: 0;">
                             {{ $event->event_date->format('F d, Y') }}
                         </p>
                         <p style="color: #666; font-size: 0.9rem; margin: 0.25rem 0 0 0;">
                             {{ $event->event_date->format('g:i A') }}
                         </p>
+                        @else
+                        <p style="color: #999; font-weight: 600; font-size: 1.1rem; margin: 0;">Date not specified</p>
+                        @endif
                     </div>
                     <div style="flex: 1; min-width: 200px;">
                         <p style="color: #999; font-size: 0.85rem; margin: 0 0 0.25rem 0;">
@@ -289,10 +299,12 @@
                         {{ Str::limit($event->description, 200, '...') }}
                     </p>
                     <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        @if($event->event_date)
                         <span style="color: #999; font-size: 0.9rem;">
                             <i class="fas fa-calendar" style="color: #667eea; margin-right: 0.5rem;"></i>
                             {{ $event->event_date->format('F d, Y') }}
                         </span>
+                        @endif
                         <span style="color: #999; font-size: 0.9rem;">
                             <i class="fas fa-map-marker-alt" style="color: #667eea; margin-right: 0.5rem;"></i>
                             {{ $event->location }}

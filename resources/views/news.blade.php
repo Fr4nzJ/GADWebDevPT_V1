@@ -121,7 +121,12 @@
                             {{ $article->category }}
                         </span>
                         <span style="color: #999; font-size: 0.9rem;">
-                            <i class="fas fa-calendar"></i> {{ $article->created_at->format('M d, Y') }}
+                            <i class="fas fa-calendar"></i> 
+                            @if($article->created_at)
+                                {{ $article->created_at->format('M d, Y') }}
+                            @else
+                                Date not available
+                            @endif
                         </span>
                     </div>
 
