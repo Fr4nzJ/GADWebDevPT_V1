@@ -8,22 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            background: linear-gradient(
-                135deg,
-                #0c0c0c 0%,
-                #1a1a2e 15%,
-                #16213e 35%,
-                #0f3460 50%,
-                #533a7d 70%,
-                #8b5a8c 85%,
-                #a0616a 100%
-            );
+            background: #f8f9fa;
             background-attachment: fixed;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .login-container {
@@ -33,11 +24,9 @@
         }
 
         .login-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             padding: 40px;
         }
 
@@ -48,19 +37,19 @@
 
         .logo-icon {
             font-size: 3rem;
-            color: rgba(255, 200, 100, 0.9);
+            color: #ff6b6b;
             margin-bottom: 15px;
         }
 
         .login-header h1 {
-            color: white;
+            color: #2d2d2d;
             font-size: 2rem;
             margin-bottom: 10px;
             font-weight: 700;
         }
 
         .login-header p {
-            color: rgba(255, 255, 255, 0.8);
+            color: #6c757d;
             font-size: 0.95rem;
         }
 
@@ -69,30 +58,29 @@
         }
 
         .field label {
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 600;
+            color: #2d2d2d;
+            font-weight: 700;
             margin-bottom: 8px;
             display: block;
         }
 
         .input {
-            background: rgba(255, 255, 255, 0.1) !important;
-            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            background: #ffffff !important;
+            border: 1px solid #e0e0e0 !important;
             border-radius: 10px;
             padding: 12px 15px;
             transition: all 0.3s;
-            color: white !important;
-            backdrop-filter: blur(10px);
+            color: #2d2d2d !important;
         }
 
         .input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
+            color: #b0b0b0;
         }
 
         .input:focus {
-            border-color: white !important;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.4) !important;
-            background: rgba(255, 255, 255, 0.15) !important;
+            border-color: #ff6b6b !important;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1) !important;
+            background: #ffffff !important;
         }
 
         .password-field {
@@ -105,7 +93,7 @@
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
-            color: rgba(255, 200, 100, 0.9);
+            color: #ff6b6b;
             z-index: 10;
         }
 
@@ -120,34 +108,32 @@
             height: 18px;
             cursor: pointer;
             margin-right: 10px;
-            accent-color: rgba(255, 200, 100, 0.9);
+            accent-color: #ff6b6b;
         }
 
         .remember-checkbox label {
             margin: 0;
             cursor: pointer;
-            color: rgba(255, 255, 255, 0.8);
+            color: #6c757d;
             font-weight: normal;
         }
 
         .login-button {
-            background: rgba(255, 255, 255, 0.15);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: #ff6b6b;
+            border: none;
             color: white;
             padding: 12px 24px;
-            border-radius: 50px;
-            font-weight: 600;
+            border-radius: 10px;
+            font-weight: 700;
             width: 100%;
             cursor: pointer;
             transition: all 0.2s;
-            backdrop-filter: blur(10px);
         }
 
         .login-button:hover {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: white;
+            background: #ff5252;
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
         }
 
         .login-button:active {
@@ -158,38 +144,38 @@
             text-align: center;
             margin-top: 30px;
             padding-top: 25px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid #e0e0e0;
         }
 
         .login-footer p {
-            color: rgba(255, 255, 255, 0.8);
+            color: #6c757d;
             margin-bottom: 15px;
         }
 
         .login-footer a {
-            color: rgba(255, 200, 100, 0.9);
+            color: #ff6b6b;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             transition: color 0.2s;
         }
 
         .login-footer a:hover {
-            color: white;
+            color: #ff5252;
         }
 
         .error-message {
-            background: rgba(255, 100, 100, 0.2);
-            border-left: 4px solid rgba(255, 100, 100, 0.8);
-            color: rgba(255, 200, 200, 0.9);
+            background: #ffe8e8;
+            border-left: 4px solid #ff6b6b;
+            color: #d32f2f;
             padding: 12px 15px;
             border-radius: 8px;
             margin-bottom: 20px;
         }
 
         .success-message {
-            background: rgba(100, 200, 100, 0.2);
-            border-left: 4px solid rgba(100, 200, 100, 0.8);
-            color: rgba(200, 255, 200, 0.9);
+            background: #e8f5e9;
+            border-left: 4px solid #48c774;
+            color: #2e7d32;
             padding: 12px 15px;
             border-radius: 8px;
             margin-bottom: 20px;
@@ -199,7 +185,7 @@
             display: flex;
             align-items: center;
             margin: 30px 0;
-            color: rgba(255, 255, 255, 0.5);
+            color: #b0b0b0;
         }
 
         .divider::before,
@@ -207,35 +193,11 @@
             content: '';
             flex: 1;
             height: 1px;
-            background: rgba(255, 255, 255, 0.1);
+            background: #e0e0e0;
         }
 
         .divider span {
             padding: 0 15px;
-        }
-    </style>
-        }
-
-        .login-footer a:hover {
-            color: #764ba2;
-        }
-
-        .error-message {
-            background-color: #fee;
-            color: #c33;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid #c33;
-        }
-
-        .success-message {
-            background-color: #efe;
-            color: #3c3;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid #3c3;
         }
 
         .text-center {
@@ -244,7 +206,7 @@
 
         .help {
             font-size: 0.85rem;
-            color: #999;
+            color: #d32f2f;
             margin-top: 8px;
         }
 
