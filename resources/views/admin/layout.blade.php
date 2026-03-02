@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light-mode">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,8 +21,19 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
-    <!-- Vite CSS -->
-    @vite(['resources/css/app.css'])
+    <!-- Vite CSS & Theme JS -->
+    @vite(['resources/css/app.css', 'resources/js/theme.js'])
+    
+    <!-- Theme Initialization (run before other scripts) -->
+    <script>
+        (function() {
+            // Quick theme check before page renders
+            const saved = localStorage.getItem('app-theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = saved || (prefersDark ? 'night-mode' : 'light-mode');
+            document.documentElement.className = theme;
+        })();
+    </script>
     
     <style>
         * {
@@ -31,19 +42,11 @@
         }
         
         body {
-            background: linear-gradient(
-                135deg,
-                #0c0c0c 0%,
-                #1a1a2e 15%,
-                #16213e 35%,
-                #0f3460 50%,
-                #533a7d 70%,
-                #8b5a8c 85%,
-                #a0616a 100%
-            );
+            background: var(--bg-gradient);
             background-attachment: fixed;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: white;
+            color: var(--text-primary);
+            transition: background 0.4s ease, color 0.3s ease;
         }
         
         .admin-navbar {
@@ -616,6 +619,10 @@
         </div>
 
         <div class="navbar-end">
+            <div class="navbar-item">
+                <!-- Theme Toggle -->
+                @include('components.theme-toggle')
+            </div>
             <div class="navbar-item">
                 <div class="user-badge">
                     <i class="fas fa-user-circle fa-lg"></i>

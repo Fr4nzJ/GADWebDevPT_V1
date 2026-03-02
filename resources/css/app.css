@@ -4,26 +4,13 @@
 
 /* ===================================================
    GLOBAL DESIGN SYSTEM - FUTURISTIC GLASSMORPHISM UI
+   WITH NIGHT MODE SUPPORT
    =================================================== */
 
-/* Design Tokens - CSS Variables */
-:root {
-  --glass-bg: rgba(255, 255, 255, 0.15);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  --glass-hover: rgba(255, 255, 255, 0.3);
-  --text-primary: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.9);
-  --radius-large: 20px;
-  --radius-pill: 50px;
-  --radius-small: 10px;
-  --transition-default: all 0.3s ease;
-  --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.1);
-  --shadow-hover: 0 15px 45px rgba(0, 0, 0, 0.2);
-}
-
-/* Global Background */
-html, body {
-  background: linear-gradient(
+/* Light Mode (Default) - Design Tokens */
+:root,
+html.light-mode {
+  --bg-gradient: linear-gradient(
     135deg,
     #0c0c0c 0%,
     #1a1a2e 15%,
@@ -32,11 +19,53 @@ html, body {
     #533a7d 70%,
     #8b5a8c 85%,
     #a0616a 100%
-  ) !important;
+  );
+  --glass-bg: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-hover: rgba(255, 255, 255, 0.3);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.9);
+  --input-bg: rgba(255, 255, 255, 0.1);
+  --table-bg: rgba(255, 255, 255, 0.08);
+  --radius-large: 20px;
+  --radius-pill: 50px;
+  --radius-small: 10px;
+  --transition-default: all 0.3s ease;
+  --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 15px 45px rgba(0, 0, 0, 0.2);
+}
+
+/* Night Mode - Dark Theme Overrides */
+html.night-mode {
+  --bg-gradient: linear-gradient(
+    135deg,
+    #0a0a0a 0%,
+    #12121f 15%,
+    #0f1624 35%,
+    #0a1f2e 50%,
+    #2a1f4a 70%,
+    #4a2a5a 85%,
+    #5a3a4a 100%
+  );
+  --glass-bg: rgba(255, 255, 255, 0.12);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-hover: rgba(255, 255, 255, 0.25);
+  --text-primary: #f5f5f5;
+  --text-secondary: rgba(255, 255, 255, 0.85);
+  --input-bg: rgba(255, 255, 255, 0.08);
+  --table-bg: rgba(255, 255, 255, 0.06);
+  --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-hover: 0 15px 45px rgba(0, 0, 0, 0.6);
+}
+
+/* Global Background */
+html, body {
+  background: var(--bg-gradient) !important;
   background-attachment: fixed !important;
-  color: white !important;
+  color: var(--text-primary) !important;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
   min-height: 100vh !important;
+  transition: background 0.4s ease, color 0.3s ease !important;
 }
 
 body {
@@ -118,11 +147,11 @@ textarea,
 .input,
 .textarea,
 .select {
-  background: rgba(255, 255, 255, 0.1) !important;
+  background: var(--input-bg) !important;
   border: 1px solid var(--glass-border) !important;
   border-radius: var(--radius-small) !important;
   padding: 10px 15px !important;
-  color: white !important;
+  color: var(--text-primary) !important;
   backdrop-filter: blur(10px) !important;
   transition: var(--transition-default) !important;
 }
@@ -193,7 +222,7 @@ table,
 .table {
   width: 100% !important;
   border-collapse: collapse !important;
-  background: rgba(255, 255, 255, 0.08) !important;
+  background: var(--table-bg) !important;
   border-radius: var(--radius-large) !important;
   overflow: hidden !important;
 }
@@ -382,6 +411,11 @@ a:hover {
   border-radius: var(--radius-small) !important;
   box-shadow: var(--shadow-soft) !important;
   backdrop-filter: blur(10px) !important;
+}
+
+html.night-mode .dropdown-menu,
+html.night-mode .dropdown-content {
+  background: rgba(15, 15, 30, 0.95) !important;
 }
 
 .dropdown-item,
