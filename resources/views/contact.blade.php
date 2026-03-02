@@ -155,6 +155,111 @@
         }
 
         /* ===== RESPONSIVE ===== */
+        /* ===== NIGHT MODE STYLES ===== */
+        html.night-mode .contact-channel-card {
+            background: #0f1620 !important;
+            color: #e8e8e8 !important;
+            border-left-color: #667eea !important;
+        }
+
+        html.night-mode .contact-channel-card h4 {
+            color: #f5f5f5 !important;
+        }
+
+        html.night-mode .contact-channel-card p {
+            color: #b8b8b8 !important;
+        }
+
+        html.night-mode .contact-channel-card a {
+            color: #667eea !important;
+        }
+
+        html.night-mode .box {
+            background: #0f1620 !important;
+            color: #e8e8e8 !important;
+        }
+
+        html.night-mode .box h3 {
+            color: #f5f5f5 !important;
+        }
+
+        html.night-mode .box p {
+            color: #b8b8b8 !important;
+        }
+
+        html.night-mode .box .label {
+            color: #e8e8e8 !important;
+        }
+
+        html.night-mode .box .input,
+        html.night-mode .box .select select {
+            background: #1a1a2e !important;
+            color: #e8e8e8 !important;
+            border-color: #2a2a3e !important;
+        }
+
+        html.night-mode .box .input::placeholder {
+            color: #7a7a8e !important;
+        }
+
+        html.night-mode .card {
+            background: #0f1620 !important;
+            color: #e8e8e8 !important;
+            border-color: #1a1a2e !important;
+        }
+
+        html.night-mode .card-header {
+            background: #1a1a2e !important;
+            border-color: #2a2a3e !important;
+        }
+
+        html.night-mode .card-header-title {
+            color: #f5f5f5 !important;
+        }
+
+        html.night-mode .card-content {
+            color: #b8b8b8 !important;
+        }
+
+        html.night-mode .card-content a {
+            color: #667eea !important;
+        }
+
+        html.night-mode .table {
+            background: #0f1620 !important;
+            color: #e8e8e8 !important;
+        }
+
+        html.night-mode .table thead {
+            background: #1a1a2e !important;
+        }
+
+        html.night-mode .table thead th {
+            color: #f5f5f5 !important;
+            border-color: #2a2a3e !important;
+        }
+
+        html.night-mode .table tbody td {
+            border-color: #2a2a3e !important;
+        }
+
+        html.night-mode .table tbody tr:hover {
+            background: #1a1a2e !important;
+        }
+
+        html.night-mode #map {
+            filter: invert(0.93) hue-rotate(180deg) !important;
+        }
+
+        html.night-mode .leaflet-popup-content {
+            background: #0f1620 !important;
+            color: #e8e8e8 !important;
+        }
+
+        html.night-mode .leaflet-popup-content h4 {
+            color: #667eea !important;
+        }
+
         @media screen and (max-width: 768px) {
             .hero-with-image {
                 height: 60vh;
@@ -167,6 +272,11 @@
 
             .hero-content .subtitle {
                 font-size: 1.1rem;
+            }
+
+            html.night-mode .contact-channel-card {
+                background: #0f1620 !important;
+                color: #e8e8e8 !important;
             }
         }
     </style>

@@ -165,6 +165,125 @@
     .resource-box.alt {
         border-left-color: #764ba2;
     }
+
+    /* ===== NIGHT MODE STYLES ===== */
+    html.night-mode .card {
+        background: #0f1620 !important;
+        color: #e8e8e8 !important;
+        border-color: #1a1a2e !important;
+    }
+
+    html.night-mode .card-header {
+        background: #1a1a2e !important;
+        border-color: #2a2a3e !important;
+    }
+
+    html.night-mode .card-header-title {
+        color: #f5f5f5 !important;
+    }
+
+    html.night-mode .card-content {
+        color: #b8b8b8 !important;
+    }
+
+    html.night-mode .resource-box {
+        background: #0f1620 !important;
+        color: #e8e8e8 !important;
+        border-left-color: #667eea !important;
+    }
+
+    html.night-mode .resource-box h4 {
+        color: #f5f5f5 !important;
+    }
+
+    html.night-mode .resource-box p {
+        color: #b8b8b8 !important;
+    }
+
+    html.night-mode .resource-box.alt {
+        border-left-color: #764ba2 !important;
+    }
+
+    html.night-mode .content p {
+        color: #b8b8b8 !important;
+    }
+
+    html.night-mode .section[style*="background: white"] {
+        background: #1a1a2e !important;
+    }
+
+    html.night-mode [style*="background: white"] {
+        background: #0f1620 !important;
+        color: #e8e8e8 !important;
+    }
+
+    html.night-mode [style*="background: linear-gradient(135deg, #f5f7ff"] {
+        background: linear-gradient(135deg, #1a1a2e 0%, #0f1620 100%) !important;
+    }
+
+    html.night-mode .table {
+        background: #0f1620 !important;
+        color: #e8e8e8 !important;
+    }
+
+    html.night-mode .table thead {
+        background: #1a1a2e !important;
+    }
+
+    html.night-mode .table thead th {
+        color: #f5f5f5 !important;
+        border-color: #2a2a3e !important;
+    }
+
+    html.night-mode .table tbody td {
+        border-color: #2a2a3e !important;
+        color: #b8b8b8 !important;
+    }
+
+    html.night-mode .table tbody tr:hover {
+        background: #1a1a2e !important;
+    }
+
+    html.night-mode .select select,
+    html.night-mode .input {
+        background: #1a1a2e !important;
+        color: #e8e8e8 !important;
+        border-color: #2a2a3e !important;
+    }
+
+    html.night-mode .select select::placeholder,
+    html.night-mode .input::placeholder {
+        color: #7a7a8e !important;
+    }
+
+    html.night-mode .label {
+        color: #e8e8e8 !important;
+    }
+
+    html.night-mode .box {
+        background: #0f1620 !important;
+        color: #e8e8e8 !important;
+    }
+
+    html.night-mode .divider {
+        background: linear-gradient(90deg, transparent, #667eea, transparent) !important;
+    }
+
+    html.night-mode .section-title {
+        color: #f5f5f5 !important;
+    }
+
+    html.night-mode [style*="color: #2c3e50"] {
+        color: #f5f5f5 !important;
+    }
+
+    html.night-mode [style*="color: #666"] {
+        color: #b8b8b8 !important;
+    }
+
+    html.night-mode [style*="color: #999"] {
+        color: #7a7a8e !important;
+    }
 </style>
 
 <!-- ===== HERO SECTION WITH BACKGROUND IMAGE ===== -->
