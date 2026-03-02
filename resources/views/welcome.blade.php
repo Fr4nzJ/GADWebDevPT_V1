@@ -360,7 +360,7 @@
 <section class="hero-with-image">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-        <h1>Empowering Communities Through Gender Equality</h1>
+        <h1 style = "color: white;">Empowering Communities Through Gender Equality</h1>
         <p class="subtitle">Building Inclusive Communities for Sustainable Development</p>
         <div class="buttons is-centered mt-6">
             <a class="button is-white is-large" href="{{ route('programs') }}">
