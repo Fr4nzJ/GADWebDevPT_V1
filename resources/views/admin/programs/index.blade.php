@@ -115,11 +115,15 @@
                 </td>
                 <td style="padding: 1.25rem; border: none;">
                     <span style="color: #666; font-size: 0.9rem;">
-                        {{ $program->start_date->format('M d, Y') }}
-                        @if($program->end_date)
-                            - {{ $program->end_date->format('M d, Y') }}
+                        @if($program->start_date)
+                            {{ $program->start_date->format('M d, Y') }}
+                            @if($program->end_date)
+                                - {{ $program->end_date->format('M d, Y') }}
+                            @else
+                                - Ongoing
+                            @endif
                         @else
-                            - Ongoing
+                            No date specified
                         @endif
                     </span>
                 </td>
