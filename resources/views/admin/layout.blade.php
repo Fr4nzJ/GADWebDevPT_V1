@@ -31,46 +31,55 @@
         }
         
         body {
-            background: #f8f9fa;
-            font-family: 'Poppins', sans-serif;
-            color: #2d2d2d;
+            background: linear-gradient(
+                135deg,
+                #0c0c0c 0%,
+                #1a1a2e 15%,
+                #16213e 35%,
+                #0f3460 50%,
+                #533a7d 70%,
+                #8b5a8c 85%,
+                #a0616a 100%
+            );
+            background-attachment: fixed;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
         }
         
         .admin-navbar {
-            background: #ffffff;
-            border-bottom: 1px solid #e0e0e0;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
         
         .navbar-brand .navbar-item {
             font-weight: 700;
             font-size: 1.2rem;
-            color: #ff6b6b;
+            color: white;
         }
         
         .navbar-end .navbar-item {
-            color: #2d2d2d;
+            color: white;
         }
         
         .user-badge {
-            background: #f8f9fa;
+            background: rgba(255, 255, 255, 0.15);
             padding: 0.5rem 1rem;
             border-radius: 25px;
             font-size: 0.9rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            border: 1px solid #e0e0e0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .user-role {
-            background: #ff6b6b;
-            color: white;
+            background: rgba(255, 255, 255, 0.2);
             padding: 0.25rem 0.75rem;
-            border-radius: 6px;
+            border-radius: 10px;
             font-size: 0.75rem;
-            font-weight: 700;
+            font-weight: 600;
             text-transform: uppercase;
         }
         
@@ -80,11 +89,11 @@
         }
         
         .admin-sidebar {
-            background: #ffffff;
-            border-right: 1px solid #e0e0e0;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
             min-width: 250px;
             padding: 2rem 0;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
         }
         
         .admin-sidebar .menu {
@@ -92,7 +101,7 @@
         }
         
         .menu-list a {
-            color: #2d2d2d;
+            color: rgba(255, 255, 255, 0.9);
             display: flex;
             align-items: center;
             gap: 0.75rem;
@@ -100,20 +109,19 @@
             border-radius: 10px;
             transition: all 0.3s ease;
             font-size: 0.95rem;
-            font-weight: 500;
         }
         
         .menu-list a:hover {
-            background-color: #f8f9fa;
-            color: #ff6b6b;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
             padding-left: 1.25rem;
         }
         
         .menu-list a.is-active {
-            background: rgba(255, 107, 107, 0.1);
-            color: #ff6b6b;
-            font-weight: 700;
-            border-left: 4px solid #ff6b6b;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-weight: 600;
+            border-left: 4px solid rgba(255, 200, 100, 0.8);
         }
         
         .menu-list a i {
@@ -137,69 +145,54 @@
         .page-title {
             font-size: 2rem;
             font-weight: 700;
-            color: #2d2d2d;
+            color: white;
             margin: 0;
         }
         
         .stat-card {
-            background: #ffffff;
-            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
             padding: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            border: none;
         }
         
         .stat-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
         }
         
         .stat-card.blue {
-            border-top: 3px solid #4e73df;
+            border-top: 3px solid rgba(255, 200, 100, 0.8);
         }
         
         .stat-card.purple {
-            border-top: 3px solid #764ba2;
+            border-top: 3px solid rgba(255, 150, 150, 0.8);
         }
         
         .stat-card.green {
-            border-top: 3px solid #48c774;
+            border-top: 3px solid rgba(150, 200, 100, 0.8);
         }
         
         .stat-card.orange {
-            border-top: 3px solid #f0ad4e;
+            border-top: 3px solid rgba(255, 180, 100, 0.8);
         }
         
         .stat-card.red {
-            border-top: 3px solid #ff6b6b;
+            border-top: 3px solid rgba(255, 100, 100, 0.8);
         }
         
         .stat-number {
             font-size: 2.5rem;
             font-weight: 800;
-            color: #ff6b6b;
+            color: rgba(255, 200, 100, 0.9);
             margin-bottom: 0.5rem;
         }
         
-        .stat-card.blue .stat-number {
-            color: #4e73df;
-        }
-        
-        .stat-card.purple .stat-number {
-            color: #764ba2;
-        }
-        
-        .stat-card.green .stat-number {
-            color: #48c774;
-        }
-        
-        .stat-card.orange .stat-number {
-            color: #f0ad4e;
-        }
-        
         .stat-label {
-            color: #6c757d;
+            color: rgba(255, 255, 255, 0.8);
             font-size: 0.9rem;
             font-weight: 500;
             text-transform: uppercase;
@@ -207,11 +200,12 @@
         }
         
         .admin-table {
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
         }
         
         .admin-table table {
@@ -219,15 +213,15 @@
         }
         
         .admin-table thead {
-            background-color: #f8f9fa;
+            background-color: rgba(255, 255, 255, 0.1);
         }
         
         .admin-table thead th {
-            color: #2d2d2d;
-            font-weight: 700;
+            color: #333;
+            font-weight: 600;
             border: none;
             padding: 1.25rem;
-            background: #f8f9fa;
+            background: #f5f5f5;
         }
         
         .admin-table tbody td {
@@ -235,11 +229,11 @@
             padding: 1.25rem;
             border-bottom: 1px solid #e0e0e0;
             vertical-align: middle;
-            color: #2d2d2d;
+            color: #333;
         }
         
         .admin-table tbody tr:hover {
-            background-color: #f8f9fa;
+            background-color: rgba(255, 255, 255, 0.1);
         }
         
         .admin-table tbody tr:last-child td {
@@ -254,41 +248,47 @@
         .btn-action {
             padding: 0.5rem 1rem;
             font-size: 0.85rem;
-            border-radius: 6px;
-            border: none;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             cursor: pointer;
             transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
             gap: 0.25rem;
-            font-weight: 600;
+            backdrop-filter: blur(10px);
         }
         
         .btn-edit {
-            background-color: #e8f1ff;
-            color: #4e73df;
+            background-color: rgba(120, 150, 255, 0.2);
+            color: rgba(200, 220, 255, 0.9);
+            border-color: rgba(120, 150, 255, 0.4);
         }
         
         .btn-edit:hover {
-            background-color: #d0e1ff;
+            background-color: rgba(120, 150, 255, 0.3);
+            border-color: rgba(120, 150, 255, 0.6);
         }
         
         .btn-delete {
-            background-color: #ffe8e8;
-            color: #ff6b6b;
+            background-color: rgba(255, 100, 100, 0.2);
+            color: rgba(255, 150, 150, 0.9);
+            border-color: rgba(255, 100, 100, 0.4);
         }
         
         .btn-delete:hover {
-            background-color: #ffd0d0;
+            background-color: rgba(255, 100, 100, 0.3);
+            border-color: rgba(255, 100, 100, 0.6);
         }
         
         .btn-view {
-            background-color: #e8f5e9;
-            color: #48c774;
+            background-color: rgba(100, 200, 100, 0.2);
+            color: rgba(150, 255, 150, 0.9);
+            border-color: rgba(100, 200, 100, 0.4);
         }
         
         .btn-view:hover {
-            background-color: #d0f0d0;
+            background-color: rgba(100, 200, 100, 0.3);
+            border-color: rgba(100, 200, 100, 0.6);
         }
         
         .status-badge {
@@ -296,44 +296,33 @@
             padding: 0.5rem 1rem;
             border-radius: 20px;
             font-size: 0.85rem;
-            font-weight: 700;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
         }
         
         .status-active {
-            background-color: #e8f5e9;
-            color: #48c774;
+            background-color: rgba(100, 200, 100, 0.2);
+            color: rgba(150, 255, 150, 0.9);
+            border-color: rgba(100, 200, 100, 0.4);
         }
         
         .status-inactive {
-            background-color: #f5f5f5;
-            color: #999;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            border-color: rgba(255, 255, 255, 0.2);
         }
         
         .status-pending {
-            background-color: #fff8e1;
-            color: #f0ad4e;
+            background-color: rgba(255, 180, 100, 0.2);
+            color: rgba(255, 220, 150, 0.9);
+            border-color: rgba(255, 180, 100, 0.4);
         }
         
         .status-published {
-            background-color: #e8f1ff;
-            color: #4e73df;
-        }
-        
-        .logout-btn {
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-        
-        .logout-btn:hover {
-            background: #ff5252;
-            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+            background-color: rgba(120, 150, 255, 0.2);
+            color: rgba(200, 220, 255, 0.9);
+            border-color: rgba(120, 150, 255, 0.4);
         }
         
         /* Responsive Design */
@@ -348,7 +337,7 @@
                 width: 100%;
                 min-width: 100%;
                 border-right: none;
-                border-bottom: 1px solid #e0e0e0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
                 padding: 1rem 0;
             }
             
@@ -374,6 +363,242 @@
                 flex-wrap: wrap;
             }
         }
+        
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .logout-btn:hover {
+            background: white;
+            border-color: white;
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+        
+        .stat-card.purple {
+            border-top-color: #764ba2;
+        }
+        
+        .stat-card.green {
+            border-top-color: #48c774;
+        }
+        
+        .stat-card.orange {
+            border-top-color: #f0ad4e;
+        }
+        
+        .stat-card.red {
+            border-top-color: #e74c3c;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: #999;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .stat-card.purple .stat-number {
+            color: #764ba2;
+        }
+        
+        .stat-card.green .stat-number {
+            color: #48c774;
+        }
+        
+        .stat-card.orange .stat-number {
+            color: #f0ad4e;
+        }
+        
+        .stat-card.red .stat-number {
+            color: #e74c3c;
+        }
+        
+        .admin-table {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            color: #333;
+        }
+        
+        .admin-table table {
+            margin-bottom: 0;
+        }
+        
+        .admin-table thead {
+            background-color: #f5f7fa;
+        }
+        
+        .admin-table thead th {
+            color: #333;
+            font-weight: 600;
+            border: none;
+            padding: 1.25rem;
+        }
+        
+        .admin-table tbody td {
+            border: none;
+            padding: 1.25rem;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: middle;
+            color: #333;
+        }
+        
+        .admin-table tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .admin-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn-action {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .btn-edit {
+            background-color: #e8f1ff;
+            color: #667eea;
+        }
+        
+        .btn-edit:hover {
+            background-color: #d0e1ff;
+        }
+        
+        .btn-delete {
+            background-color: #ffe8e8;
+            color: #e74c3c;
+        }
+        
+        .btn-delete:hover {
+            background-color: #ffd0d0;
+        }
+        
+        .btn-view {
+            background-color: #e8f5e9;
+            color: #48c774;
+        }
+        
+        .btn-view:hover {
+            background-color: #d0f0d0;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .status-active {
+            background-color: #e8f5e9;
+            color: #48c774;
+        }
+        
+        .status-inactive {
+            background-color: #f5f5f5;
+            color: #999;
+        }
+        
+        .status-pending {
+            background-color: #fff8e1;
+            color: #f0ad4e;
+        }
+        
+        .status-published {
+            background-color: #e8f1ff;
+            color: #667eea;
+        }
+        
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .admin-wrapper {
+                flex-direction: column;
+                min-height: auto;
+            }
+            
+            .admin-sidebar {
+                display: none;
+                width: 100%;
+                min-width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #ebebeb;
+                padding: 1rem 0;
+            }
+            
+            .admin-sidebar.is-open {
+                display: block;
+            }
+            
+            .admin-content {
+                padding: 1.5rem;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .stat-card {
+                margin-bottom: 1rem;
+            }
+            
+            .action-buttons {
+                flex-wrap: wrap;
+            }
+        }
+        
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .logout-btn:hover {
+            background: white;
+            color: #667eea;
+        }
+    </style>
 </head>
 <body>
     <!-- ===== TOP NAVBAR ===== -->

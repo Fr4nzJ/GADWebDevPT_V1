@@ -8,7 +8,7 @@
 <section class="hero-with-image">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-        <h1>About CatSu GAD</h1>
+        <h1 style="color: white;">About CatSu GAD</h1>
         <p class="subtitle">Our Vision, Mission, Objectives, Mandate, and Goal</p>
     </div>
 </section>
@@ -208,7 +208,7 @@
         <div class="mission-vision-hero">
             <div class="vision-card">
                 <div class="card-icon"><i class="fas fa-eye"></i></div>
-                <h3 class="card-title">Our Vision</h3>
+                <h3 class="card-title" style="color: white;">Our Vision</h3>
                 <p class="card-description">
                    A gender sensitive and responsive university in a safe and peaceful environment free from any form of violence
                 </p>

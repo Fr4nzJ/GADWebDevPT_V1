@@ -8,13 +8,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            background: #f8f9fa;
+            background: linear-gradient(
+                135deg,
+                #0c0c0c 0%,
+                #1a1a2e 15%,
+                #16213e 35%,
+                #0f3460 50%,
+                #533a7d 70%,
+                #8b5a8c 85%,
+                #a0616a 100%
+            );
             background-attachment: fixed;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
             padding: 20px;
         }
 
@@ -24,9 +33,11 @@
         }
 
         .register-card {
-            background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             padding: 40px;
         }
 
@@ -37,19 +48,19 @@
 
         .logo-icon {
             font-size: 3rem;
-            color: #ff6b6b;
+            color: rgba(255, 200, 100, 0.9);
             margin-bottom: 15px;
         }
 
         .register-header h1 {
-            color: #2d2d2d;
+            color: white;
             font-size: 2rem;
             margin-bottom: 10px;
             font-weight: 700;
         }
 
         .register-header p {
-            color: #6c757d;
+            color: rgba(255, 255, 255, 0.8);
             font-size: 0.95rem;
         }
 
@@ -58,37 +69,38 @@
         }
 
         .field label {
-            color: #2d2d2d;
-            font-weight: 700;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 600;
             margin-bottom: 8px;
             display: block;
         }
 
         .input {
-            background: #ffffff !important;
-            border: 1px solid #e0e0e0 !important;
+            background: rgba(255, 255, 255, 0.1) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
             border-radius: 10px;
             padding: 12px 15px;
             transition: all 0.3s;
-            color: #2d2d2d !important;
+            color: white !important;
+            backdrop-filter: blur(10px);
         }
 
         .input::placeholder {
-            color: #b0b0b0;
+            color: rgba(255, 255, 255, 0.6);
         }
 
         .input:focus {
-            border-color: #ff6b6b !important;
-            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1) !important;
-            background: #ffffff !important;
+            border-color: white !important;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.4) !important;
+            background: rgba(255, 255, 255, 0.15) !important;
         }
 
         .input.is-success {
-            border-color: #48c774 !important;
+            border-color: rgba(100, 200, 100, 0.8) !important;
         }
 
         .input.is-danger {
-            border-color: #ff6b6b !important;
+            border-color: rgba(255, 100, 100, 0.8) !important;
         }
 
         .password-field {
@@ -101,14 +113,14 @@
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
-            color: #ff6b6b;
+            color: rgba(255, 200, 100, 0.9);
             z-index: 10;
         }
 
         .strength-meter {
             margin-top: 8px;
             height: 6px;
-            background-color: #e0e0e0;
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 3px;
             overflow: hidden;
         }
@@ -122,29 +134,29 @@
         .strength-text {
             font-size: 0.85rem;
             margin-top: 5px;
-            font-weight: 700;
-            color: #6c757d;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .strength-weak {
-            color: #d32f2f;
+            color: rgba(255, 100, 100, 0.9);
         }
 
         .strength-fair {
-            color: #f0ad4e;
+            color: rgba(255, 180, 100, 0.9);
         }
 
         .strength-good {
-            color: #4e73df;
+            color: rgba(120, 150, 255, 0.9);
         }
 
         .strength-strong {
-            color: #48c774;
+            color: rgba(100, 200, 100, 0.9);
         }
 
         .password-requirements {
-            background: #f8f9fa;
-            border: 1px solid #e0e0e0;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 15px;
             border-radius: 10px;
             margin-top: 15px;
@@ -155,11 +167,11 @@
             display: flex;
             align-items: center;
             margin-bottom: 8px;
-            color: #6c757d;
+            color: rgba(255, 255, 255, 0.6);
         }
 
         .requirement.met {
-            color: #48c774;
+            color: rgba(100, 200, 100, 0.9);
         }
 
         .requirement i {
@@ -169,21 +181,23 @@
         }
 
         .register-button {
-            background: #ff6b6b;
-            border: none;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             color: white;
             padding: 12px 24px;
-            border-radius: 10px;
-            font-weight: 700;
+            border-radius: 50px;
+            font-weight: 600;
             width: 100%;
             cursor: pointer;
             transition: all 0.2s;
+            backdrop-filter: blur(10px);
         }
 
         .register-button:hover {
-            background: #ff5252;
+            background: rgba(255, 255, 255, 0.3);
+            border-color: white;
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
         .register-button:active {
@@ -194,28 +208,28 @@
             text-align: center;
             margin-top: 30px;
             padding-top: 25px;
-            border-top: 1px solid #e0e0e0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .register-footer p {
-            color: #6c757d;
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .register-footer a {
-            color: #ff6b6b;
+            color: rgba(255, 200, 100, 0.9);
             text-decoration: none;
-            font-weight: 700;
+            font-weight: 600;
             transition: color 0.2s;
         }
 
         .register-footer a:hover {
-            color: #ff5252;
+            color: white;
         }
 
         .error-message {
-            background: #ffe8e8;
-            border-left: 4px solid #ff6b6b;
-            color: #d32f2f;
+            background: rgba(255, 100, 100, 0.2);
+            border-left: 4px solid rgba(255, 100, 100, 0.8);
+            color: rgba(255, 200, 200, 0.9);
             padding: 12px;
             border-radius: 8px;
             margin-bottom: 20px;
@@ -223,12 +237,12 @@
 
         .help {
             font-size: 0.85rem;
-            color: #6c757d;
+            color: rgba(255, 255, 255, 0.6);
             margin-top: 8px;
         }
 
         .help.is-danger {
-            color: #d32f2f;
+            color: rgba(255, 150, 150, 0.9);
         }
 
         @media (max-width: 640px) {
