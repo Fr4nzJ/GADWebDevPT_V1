@@ -8,12 +8,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(
+                135deg,
+                #0c0c0c 0%,
+                #1a1a2e 15%,
+                #16213e 35%,
+                #0f3460 50%,
+                #533a7d 70%,
+                #8b5a8c 85%,
+                #a0616a 100%
+            );
+            background-attachment: fixed;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
             padding: 20px;
         }
 
@@ -23,9 +33,11 @@
         }
 
         .register-card {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             padding: 40px;
         }
 
@@ -36,19 +48,19 @@
 
         .logo-icon {
             font-size: 3rem;
-            color: #667eea;
+            color: rgba(255, 200, 100, 0.9);
             margin-bottom: 15px;
         }
 
         .register-header h1 {
-            color: #333;
+            color: white;
             font-size: 2rem;
             margin-bottom: 10px;
             font-weight: 700;
         }
 
         .register-header p {
-            color: #666;
+            color: rgba(255, 255, 255, 0.8);
             font-size: 0.95rem;
         }
 
@@ -57,30 +69,38 @@
         }
 
         .field label {
-            color: #333;
+            color: rgba(255, 255, 255, 0.9);
             font-weight: 600;
             margin-bottom: 8px;
             display: block;
         }
 
         .input {
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            border-radius: 10px;
             padding: 12px 15px;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
+            color: white !important;
+            backdrop-filter: blur(10px);
+        }
+
+        .input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
         }
 
         .input:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: white !important;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.4) !important;
+            background: rgba(255, 255, 255, 0.15) !important;
         }
 
         .input.is-success {
-            border-color: #48c774;
+            border-color: rgba(100, 200, 100, 0.8) !important;
         }
 
         .input.is-danger {
-            border-color: #f14668;
+            border-color: rgba(255, 100, 100, 0.8) !important;
         }
 
         .password-field {
@@ -93,14 +113,14 @@
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
-            color: #667eea;
+            color: rgba(255, 200, 100, 0.9);
             z-index: 10;
         }
 
         .strength-meter {
             margin-top: 8px;
             height: 6px;
-            background-color: #e0e0e0;
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 3px;
             overflow: hidden;
         }
@@ -115,28 +135,30 @@
             font-size: 0.85rem;
             margin-top: 5px;
             font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .strength-weak {
-            color: #f14668;
+            color: rgba(255, 100, 100, 0.9);
         }
 
         .strength-fair {
-            color: #ffdd57;
+            color: rgba(255, 180, 100, 0.9);
         }
 
         .strength-good {
-            color: #3273dc;
+            color: rgba(120, 150, 255, 0.9);
         }
 
         .strength-strong {
-            color: #48c774;
+            color: rgba(100, 200, 100, 0.9);
         }
 
         .password-requirements {
-            background-color: #f5f5f5;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 15px;
-            border-radius: 8px;
+            border-radius: 10px;
             margin-top: 15px;
             font-size: 0.9rem;
         }
@@ -145,11 +167,11 @@
             display: flex;
             align-items: center;
             margin-bottom: 8px;
-            color: #999;
+            color: rgba(255, 255, 255, 0.6);
         }
 
         .requirement.met {
-            color: #48c774;
+            color: rgba(100, 200, 100, 0.9);
         }
 
         .requirement i {
@@ -159,20 +181,23 @@
         }
 
         .register-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             color: white;
-            border: none;
             padding: 12px 24px;
-            border-radius: 8px;
+            border-radius: 50px;
             font-weight: 600;
             width: 100%;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: all 0.2s;
+            backdrop-filter: blur(10px);
         }
 
         .register-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: white;
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
         .register-button:active {
@@ -183,41 +208,41 @@
             text-align: center;
             margin-top: 30px;
             padding-top: 25px;
-            border-top: 1px solid #e0e0e0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .register-footer p {
-            color: #666;
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .register-footer a {
-            color: #667eea;
+            color: rgba(255, 200, 100, 0.9);
             text-decoration: none;
             font-weight: 600;
             transition: color 0.2s;
         }
 
         .register-footer a:hover {
-            color: #764ba2;
+            color: white;
         }
 
         .error-message {
-            background-color: #fee;
-            color: #c33;
+            background: rgba(255, 100, 100, 0.2);
+            border-left: 4px solid rgba(255, 100, 100, 0.8);
+            color: rgba(255, 200, 200, 0.9);
             padding: 12px;
             border-radius: 8px;
             margin-bottom: 20px;
-            border-left: 4px solid #c33;
         }
 
         .help {
             font-size: 0.85rem;
-            color: #999;
+            color: rgba(255, 255, 255, 0.6);
             margin-top: 8px;
         }
 
         .help.is-danger {
-            color: #f14668;
+            color: rgba(255, 150, 150, 0.9);
         }
 
         @media (max-width: 640px) {

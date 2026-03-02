@@ -14,6 +14,9 @@
     <!-- Alpine.js for Interactivity -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
+    <!-- Vite CSS -->
+    @vite(['resources/css/app.css'])
+    
     <style>
         /* ===== GLOBAL STYLES ===== */
         html {
@@ -24,7 +27,18 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            background-color: #fafafa;
+            background: linear-gradient(
+                135deg,
+                #0c0c0c 0%,
+                #1a1a2e 15%,
+                #16213e 35%,
+                #0f3460 50%,
+                #533a7d 70%,
+                #8b5a8c 85%,
+                #a0616a 100%
+            );
+            background-attachment: fixed;
+            color: white;
         }
 
         main {
@@ -33,7 +47,9 @@
 
         /* ===== HERO GRADIENT ===== */
         .hero-gradient {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
         }
 
@@ -44,24 +60,28 @@
         /* ===== CARDS & BOXES ===== */
         .box, .card {
             transition: all 0.3s ease;
-            background-color: white;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
         .box:hover, .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
         }
 
         .card-header {
-            background-color: #f5f5f5;
-            border-bottom: 2px solid #667eea;
+            background: rgba(255, 255, 255, 0.1);
+            border-bottom: 2px solid rgba(255, 200, 100, 0.6);
         }
 
         /* ===== IMAGE CONTAINERS ===== */
         .image-container {
             height: 250px;
             overflow: hidden;
-            border-radius: 4px;
+            border-radius: 15px;
         }
 
         .image-container img {
@@ -74,151 +94,195 @@
         .icon-large {
             font-size: 3rem;
             margin-bottom: 1rem;
-            color: #667eea;
+            color: rgba(255, 200, 100, 0.9);
         }
 
         /* ===== NAVBAR ===== */
         .navbar {
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            background-color: white;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .navbar-brand {
             font-weight: bold;
             font-size: 1.5rem;
-            color: #667eea;
+            color: rgba(255, 200, 100, 0.9);
+        }
+
+        .navbar-item {
+            color: rgba(255, 255, 255, 0.9) !important;
         }
 
         .navbar-item.is-active {
-            color: #667eea;
-            border-bottom: 3px solid #667eea;
+            color: white !important;
+            border-bottom: 3px solid rgba(255, 200, 100, 0.8);
         }
 
         /* ===== FOOTER ===== */
         .footer {
-            background-color: #2c3e50;
-            color: #ecf0f1;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.9);
             margin-top: auto;
         }
 
         .footer a {
-            color: #ecf0f1;
+            color: rgba(255, 200, 100, 0.9);
             transition: color 0.3s ease;
         }
 
         .footer a:hover {
-            color: #667eea;
+            color: white;
         }
 
         .footer-title {
-            color: #667eea;
+            color: rgba(255, 200, 100, 0.9);
             font-weight: bold;
             margin-bottom: 1rem;
         }
 
         /* ===== FORM STYLES ===== */
         .label {
-            color: #363636;
+            color: rgba(255, 255, 255, 0.9);
             font-weight: 600;
         }
 
+        .input, .textarea, .select {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            backdrop-filter: blur(10px) !important;
+            color: white !important;
+        }
+
         .input:focus, .textarea:focus, .select:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.125em rgba(102, 126, 234, 0.25);
+            border-color: white !important;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.4) !important;
+            background: rgba(255, 255, 255, 0.15) !important;
         }
 
         .button.is-primary {
-            background-color: #667eea;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            backdrop-filter: blur(10px);
         }
 
         .button.is-primary:hover {
-            background-color: #5568d3;
+            background: rgba(255, 255, 255, 0.3);
+            border-color: white;
         }
 
         /* ===== SECTIONS ===== */
         .section {
-            background-color: white;
+            background: transparent;
             margin-bottom: 2rem;
         }
 
         .section-title {
             font-size: 2.5rem;
             margin-bottom: 2rem;
-            color: #2c3e50;
+            color: white;
             font-weight: bold;
-            border-bottom: 3px solid #667eea;
+            border-bottom: 3px solid rgba(255, 200, 100, 0.6);
             padding-bottom: 1rem;
         }
 
         /* ===== NEWS ITEM ===== */
         .news-item {
-            border-left: 4px solid #667eea;
+            border-left: 4px solid rgba(255, 200, 100, 0.8);
             padding-left: 1.5rem;
             margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
         }
 
         .news-date {
-            color: #7a7a7a;
+            color: rgba(255, 255, 255, 0.7);
             font-size: 0.9rem;
             margin-bottom: 0.5rem;
         }
 
         .news-category {
             display: inline-block;
-            background-color: #667eea;
-            color: white;
+            background: rgba(255, 200, 100, 0.2);
+            color: rgba(255, 200, 100, 0.9);
             padding: 0.25rem 0.75rem;
             border-radius: 20px;
             font-size: 0.85rem;
             margin-bottom: 0.5rem;
+            border: 1px solid rgba(255, 200, 100, 0.4);
         }
 
         /* ===== EVENT/PROGRAM STATUS ===== */
         .status-badge {
             display: inline-block;
             padding: 0.5rem 1rem;
-            border-radius: 4px;
+            border-radius: 20px;
             font-weight: bold;
             font-size: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .status-ongoing {
-            background-color: #48c774;
-            color: white;
+            background: rgba(100, 200, 100, 0.2);
+            color: rgba(150, 255, 150, 0.9);
+            border-color: rgba(100, 200, 100, 0.4);
         }
 
         .status-completed {
-            background-color: #3273dc;
-            color: white;
+            background: rgba(120, 150, 255, 0.2);
+            color: rgba(200, 220, 255, 0.9);
+            border-color: rgba(120, 150, 255, 0.4);
         }
 
         .status-upcoming {
-            background-color: #ffdd57;
-            color: #363636;
+            background: rgba(255, 180, 100, 0.2);
+            color: rgba(255, 220, 150, 0.9);
+            border-color: rgba(255, 180, 100, 0.4);
         }
 
         /* ===== TABLE STYLES ===== */
         .table {
-            background-color: white;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            overflow: hidden;
+            border-collapse: collapse;
         }
 
         .table thead td, .table thead th {
-            background-color: #667eea;
+            background: rgba(255, 255, 255, 0.1);
             color: white;
             font-weight: bold;
+            border: none;
+            padding: 1rem;
         }
 
-        .table tbody tr:nth-child(even) {
-            background-color: #f9f9f9;
+        .table tbody tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .table tbody td {
+            color: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+        }
+
+        .table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
 
         /* ===== BREADCRUMB ===== */
         .breadcrumb {
             margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
         }
 
         .breadcrumb a {
-            color: #667eea;
+            color: rgba(255, 200, 100, 0.9);
         }
 
         /* ===== HERO WITH BACKGROUND IMAGE ===== */
@@ -242,8 +306,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(59, 10, 99, 0.65);
-            backdrop-filter: blur(2px);
+            background: rgba(12, 12, 28, 0.75);
+            backdrop-filter: blur(5px);
             z-index: 1;
         }
 
@@ -294,16 +358,17 @@
 
         /* ===== PURPLE GRADIENT SECTIONS ===== */
         .section-purple-gradient {
-            background: linear-gradient(135deg, #3b0a63 0%, #7b2cbf 50%, #5a189a 100%);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
             color: white;
+            padding: 2rem;
         }
 
         .section-purple-gradient .section-title {
             color: white;
-        }
-
-        .section-purple-gradient .section-title::after {
-            background: linear-gradient(90deg, #c77dff, #e0aaff);
+            border-bottom-color: rgba(255, 200, 100, 0.6);
         }
 
         /* ===== RESPONSIVE ===== */

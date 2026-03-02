@@ -1,3 +1,478 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ===================================================
+   GLOBAL DESIGN SYSTEM - FUTURISTIC GLASSMORPHISM UI
+   =================================================== */
+
+/* Design Tokens - CSS Variables */
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-hover: rgba(255, 255, 255, 0.3);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.9);
+  --radius-large: 20px;
+  --radius-pill: 50px;
+  --radius-small: 10px;
+  --transition-default: all 0.3s ease;
+  --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 15px 45px rgba(0, 0, 0, 0.2);
+}
+
+/* Global Background */
+html, body {
+  background: linear-gradient(
+    135deg,
+    #0c0c0c 0%,
+    #1a1a2e 15%,
+    #16213e 35%,
+    #0f3460 50%,
+    #533a7d 70%,
+    #8b5a8c 85%,
+    #a0616a 100%
+  ) !important;
+  background-attachment: fixed !important;
+  color: white !important;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+  min-height: 100vh !important;
+}
+
+body {
+  background-color: transparent !important;
+  color: var(--text-primary) !important;
+}
+
+/* Glass Card System */
+.glass-card,
+.card,
+.panel,
+.modal-content,
+.alert,
+.widget,
+.container-glass {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--radius-large) !important;
+  box-shadow: var(--shadow-soft) !important;
+  transition: var(--transition-default) !important;
+}
+
+.glass-card:hover,
+.card:hover,
+.panel:hover,
+.widget:hover,
+.container-glass:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: var(--shadow-hover) !important;
+}
+
+/* Button System */
+.btn,
+.btn-primary,
+.btn-secondary,
+.btn-success,
+.btn-danger,
+.btn-warning,
+.btn-info,
+.btn-glass,
+button,
+input[type="button"],
+input[type="submit"],
+.button {
+  padding: 12px 30px !important;
+  background: var(--glass-bg) !important;
+  color: white !important;
+  border-radius: var(--radius-pill) !important;
+  border: 2px solid var(--glass-border) !important;
+  font-weight: 600 !important;
+  transition: var(--transition-default) !important;
+  backdrop-filter: blur(10px) !important;
+  cursor: pointer !important;
+}
+
+.btn:hover,
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-success:hover,
+.btn-danger:hover,
+.btn-warning:hover,
+.btn-info:hover,
+.btn-glass:hover,
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+.button:hover {
+  background: var(--glass-hover) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: var(--shadow-hover) !important;
+  border-color: white !important;
+}
+
+/* Form Elements */
+input,
+select,
+textarea,
+.input,
+.textarea,
+.select {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--radius-small) !important;
+  padding: 10px 15px !important;
+  color: white !important;
+  backdrop-filter: blur(10px) !important;
+  transition: var(--transition-default) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+.input:focus,
+.textarea:focus,
+.select:focus {
+  outline: none !important;
+  border-color: white !important;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4) !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+select,
+.select {
+  color: white !important;
+}
+
+select option {
+  background: #1a1a2e !important;
+  color: white !important;
+}
+
+/* Navbar & Sidebar */
+.navbar-glass,
+.sidebar-glass,
+.admin-navbar,
+.admin-sidebar,
+.navbar,
+.sidebar {
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(15px) !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+}
+
+.navbar-glass a,
+.sidebar-glass a,
+.admin-navbar a,
+.admin-sidebar a,
+.navbar a,
+.sidebar a {
+  color: var(--text-secondary) !important;
+  padding: 10px 20px !important;
+  border-radius: var(--radius-small) !important;
+  transition: var(--transition-default) !important;
+}
+
+.navbar-glass a:hover,
+.sidebar-glass a:hover,
+.admin-navbar a:hover,
+.admin-sidebar a:hover,
+.navbar a:hover,
+.sidebar a:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+}
+
+/* Table Styling */
+table,
+.table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-radius: var(--radius-large) !important;
+  overflow: hidden !important;
+}
+
+th,
+td {
+  padding: 12px 15px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: var(--text-secondary) !important;
+}
+
+th {
+  background: rgba(255, 255, 255, 0.1) !important;
+  font-weight: 600 !important;
+}
+
+tr:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Modal & Alerts */
+.modal-content,
+.alert,
+.notification {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  border-radius: var(--radius-large) !important;
+  border: 1px solid var(--glass-border) !important;
+  color: var(--text-primary) !important;
+}
+
+.modal-background {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Typography Scale */
+h1 {
+  font-size: 2.8rem !important;
+  font-weight: 700 !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
+  color: white !important;
+}
+
+h2 {
+  font-size: 2.3rem !important;
+  font-weight: 600 !important;
+  color: white !important;
+}
+
+h3 {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  color: white !important;
+}
+
+h4 {
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+  color: var(--text-secondary) !important;
+}
+
+h5 {
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  color: var(--text-secondary) !important;
+}
+
+h6 {
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  color: var(--text-secondary) !important;
+}
+
+p {
+  font-size: 1.1rem !important;
+  color: var(--text-secondary) !important;
+}
+
+label {
+  color: var(--text-secondary) !important;
+  font-weight: 500 !important;
+}
+
+a {
+  color: rgba(255, 200, 100, 0.9) !important;
+  transition: var(--transition-default) !important;
+}
+
+a:hover {
+  color: white !important;
+  text-decoration: underline !important;
+}
+
+/* Admin Dashboard Widgets */
+.dashboard-widget,
+.card-widget,
+.stat-card {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--radius-large) !important;
+  box-shadow: var(--shadow-soft) !important;
+  padding: 1.5rem !important;
+  transition: var(--transition-default) !important;
+}
+
+.dashboard-widget:hover,
+.card-widget:hover,
+.stat-card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: var(--shadow-hover) !important;
+}
+
+/* Form Groups & Containers */
+.form-group,
+.field {
+  margin-bottom: 1.5rem !important;
+}
+
+.form-group label,
+.field label {
+  display: block !important;
+  margin-bottom: 0.5rem !important;
+  color: var(--text-secondary) !important;
+  font-weight: 500 !important;
+}
+
+/* Navigation Links */
+.nav-link {
+  color: var(--text-secondary) !important;
+  padding: 10px 20px !important;
+  border-radius: var(--radius-small) !important;
+  transition: var(--transition-default) !important;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+}
+
+/* Breadcrumbs */
+.breadcrumb {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--radius-small) !important;
+  padding: 0.75rem 1rem !important;
+}
+
+.breadcrumb a {
+  color: rgba(255, 200, 100, 0.9) !important;
+}
+
+.breadcrumb a:hover {
+  color: white !important;
+}
+
+/* Badges & Tags */
+.badge,
+.tag {
+  background: var(--glass-bg) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--radius-pill) !important;
+  padding: 0.5rem 1rem !important;
+  color: white !important;
+  font-weight: 500 !important;
+}
+
+/* Loading & Progress */
+.progress {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-radius: var(--radius-pill) !important;
+  border: 1px solid var(--glass-border) !important;
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, rgba(255, 200, 100, 0.8), rgba(255, 100, 150, 0.8)) !important;
+  border-radius: var(--radius-pill) !important;
+}
+
+/* Dropdowns */
+.dropdown-menu,
+.dropdown-content {
+  background: rgba(26, 26, 46, 0.95) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--radius-small) !important;
+  box-shadow: var(--shadow-soft) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.dropdown-item,
+.dropdown-content a {
+  color: var(--text-secondary) !important;
+  padding: 0.75rem 1rem !important;
+  transition: var(--transition-default) !important;
+}
+
+.dropdown-item:hover,
+.dropdown-content a:hover {
+  background: var(--glass-hover) !important;
+  color: white !important;
+}
+
+/* Links */
+.link {
+  color: rgba(255, 200, 100, 0.9) !important;
+  text-decoration: none !important;
+  transition: var(--transition-default) !important;
+}
+
+.link:hover {
+  color: white !important;
+  text-decoration: underline !important;
+}
+
+/* Main Content Area */
+main {
+  padding: 2rem !important;
+}
+
+header {
+  background: transparent !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+  padding: 1.5rem 2rem !important;
+}
+
+/* Utility Classes */
+.rounded-lg {
+  border-radius: var(--radius-large) !important;
+}
+
+.rounded-pill {
+  border-radius: var(--radius-pill) !important;
+}
+
+.rounded-sm {
+  border-radius: var(--radius-small) !important;
+}
+
+.glassmorphism {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--glass-border) !important;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem !important;
+  }
+  
+  h2 {
+    font-size: 1.7rem !important;
+  }
+  
+  h3 {
+    font-size: 1.3rem !important;
+  }
+  
+  main {
+    padding: 1rem !important;
+  }
+}

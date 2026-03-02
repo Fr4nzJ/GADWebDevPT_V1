@@ -21,6 +21,9 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
+    <!-- Vite CSS -->
+    @vite(['resources/css/app.css'])
+    
     <style>
         * {
             -webkit-font-smoothing: antialiased;
@@ -28,13 +31,26 @@
         }
         
         body {
-            background-color: #f5f7fa;
+            background: linear-gradient(
+                135deg,
+                #0c0c0c 0%,
+                #1a1a2e 15%,
+                #16213e 35%,
+                #0f3460 50%,
+                #533a7d 70%,
+                #8b5a8c 85%,
+                #a0616a 100%
+            );
+            background-attachment: fixed;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
         }
         
         .admin-navbar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
         
         .navbar-brand .navbar-item {
@@ -48,17 +64,18 @@
         }
         
         .user-badge {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
             padding: 0.5rem 1rem;
             border-radius: 25px;
             font-size: 0.9rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .user-role {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.2);
             padding: 0.25rem 0.75rem;
             border-radius: 10px;
             font-size: 0.75rem;
@@ -72,11 +89,11 @@
         }
         
         .admin-sidebar {
-            background: white;
-            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
             min-width: 250px;
             padding: 2rem 0;
-            border-right: 1px solid #ebebeb;
         }
         
         .admin-sidebar .menu {
@@ -84,26 +101,27 @@
         }
         
         .menu-list a {
-            color: #666;
+            color: rgba(255, 255, 255, 0.9);
             display: flex;
             align-items: center;
             gap: 0.75rem;
             padding: 0.75rem 1rem;
-            border-radius: 8px;
+            border-radius: 10px;
             transition: all 0.3s ease;
             font-size: 0.95rem;
         }
         
         .menu-list a:hover {
-            background-color: #f5f7fa;
-            color: #667eea;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
             padding-left: 1.25rem;
         }
         
         .menu-list a.is-active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: rgba(255, 255, 255, 0.2);
             color: white;
             font-weight: 600;
+            border-left: 4px solid rgba(255, 200, 100, 0.8);
         }
         
         .menu-list a i {
@@ -127,27 +145,243 @@
         .page-title {
             font-size: 2rem;
             font-weight: 700;
-            color: #2c3e50;
+            color: white;
             margin: 0;
         }
         
         .stat-card {
-            background: white;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
             padding: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            border-top: 4px solid #667eea;
         }
         
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
         }
         
         .stat-card.blue {
-            border-top-color: #667eea;
+            border-top: 3px solid rgba(255, 200, 100, 0.8);
         }
+        
+        .stat-card.purple {
+            border-top: 3px solid rgba(255, 150, 150, 0.8);
+        }
+        
+        .stat-card.green {
+            border-top: 3px solid rgba(150, 200, 100, 0.8);
+        }
+        
+        .stat-card.orange {
+            border-top: 3px solid rgba(255, 180, 100, 0.8);
+        }
+        
+        .stat-card.red {
+            border-top: 3px solid rgba(255, 100, 100, 0.8);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: rgba(255, 200, 100, 0.9);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .admin-table {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+        }
+        
+        .admin-table table {
+            margin-bottom: 0;
+        }
+        
+        .admin-table thead {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .admin-table thead th {
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 1.25rem;
+        }
+        
+        .admin-table tbody td {
+            border: none;
+            padding: 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            vertical-align: middle;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .admin-table tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .admin-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn-action {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-edit {
+            background-color: rgba(120, 150, 255, 0.2);
+            color: rgba(200, 220, 255, 0.9);
+            border-color: rgba(120, 150, 255, 0.4);
+        }
+        
+        .btn-edit:hover {
+            background-color: rgba(120, 150, 255, 0.3);
+            border-color: rgba(120, 150, 255, 0.6);
+        }
+        
+        .btn-delete {
+            background-color: rgba(255, 100, 100, 0.2);
+            color: rgba(255, 150, 150, 0.9);
+            border-color: rgba(255, 100, 100, 0.4);
+        }
+        
+        .btn-delete:hover {
+            background-color: rgba(255, 100, 100, 0.3);
+            border-color: rgba(255, 100, 100, 0.6);
+        }
+        
+        .btn-view {
+            background-color: rgba(100, 200, 100, 0.2);
+            color: rgba(150, 255, 150, 0.9);
+            border-color: rgba(100, 200, 100, 0.4);
+        }
+        
+        .btn-view:hover {
+            background-color: rgba(100, 200, 100, 0.3);
+            border-color: rgba(100, 200, 100, 0.6);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .status-active {
+            background-color: rgba(100, 200, 100, 0.2);
+            color: rgba(150, 255, 150, 0.9);
+            border-color: rgba(100, 200, 100, 0.4);
+        }
+        
+        .status-inactive {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .status-pending {
+            background-color: rgba(255, 180, 100, 0.2);
+            color: rgba(255, 220, 150, 0.9);
+            border-color: rgba(255, 180, 100, 0.4);
+        }
+        
+        .status-published {
+            background-color: rgba(120, 150, 255, 0.2);
+            color: rgba(200, 220, 255, 0.9);
+            border-color: rgba(120, 150, 255, 0.4);
+        }
+        
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .admin-wrapper {
+                flex-direction: column;
+                min-height: auto;
+            }
+            
+            .admin-sidebar {
+                display: none;
+                width: 100%;
+                min-width: 100%;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+                padding: 1rem 0;
+            }
+            
+            .admin-sidebar.is-open {
+                display: block;
+            }
+            
+            .admin-content {
+                padding: 1.5rem;
+            }
+            
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .stat-card {
+                margin-bottom: 1rem;
+            }
+            
+            .action-buttons {
+                flex-wrap: wrap;
+            }
+        }
+        
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: white;
+        }
+    </style>
+</head>
+<body>
         
         .stat-card.purple {
             border-top-color: #764ba2;
