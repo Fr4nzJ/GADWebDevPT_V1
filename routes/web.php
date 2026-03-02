@@ -64,7 +64,7 @@ Route::get('/reports', function () {
     $statistics = ReportStatistic::where('page', 'reports')->where('is_active', true)->orderBy('order')->get();
     $hasPublishedReports = Report::where('status', 'published')->exists();
     $yearbooks = StatisticalYearbook::where('is_active', true)->latest('publication_date')->get();
-    $reports = Report::where('status', 'published')->orderBy('publication_date', 'desc')->get();
+    $reports = Report::where('status', 'published')->orderBy('created_at', 'desc')->get();
     return view('reports', compact('policyBriefs', 'resources', 'statistics', 'hasPublishedReports', 'yearbooks', 'reports'));
 })->name('reports');
 
