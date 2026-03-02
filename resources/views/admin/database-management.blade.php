@@ -358,8 +358,13 @@
 </div>
 
 <script>
-    // CSRF Token
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    // CSRF Token - with proper error handling
+    const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
+    const csrfToken = csrfTokenMeta ? csrfTokenMeta.getAttribute('content') : null;
+    
+    if (!csrfToken) {
+        console.error('CSRF token not found! This may cause POST requests to fail.');
+    }
 
     // Elements
     const runSeederBtn = document.getElementById('runSeederBtn');
@@ -379,12 +384,19 @@
     runSeederBtn.addEventListener('click', async function () {
         if (confirm('Are you sure you want to run the seeder?' +
             (clearDataCheckbox.checked ? ' All existing data will be cleared first.' : ''))) {
+            
+            if (!csrfToken) {
+                showError('Security token is missing. Please refresh the page and try again.');
+                return;
+            }
+            
             seederSpinner.style.display = 'block';
             runSeederBtn.disabled = true;
 
             try {
                 const response = await fetch('{{ route("admin.database-management.run-seeder") }}', {
                     method: 'POST',
+                    credentials: 'same-origin',
                     headers: {
                         'X-CSRF-TOKEN': csrfToken,
                         'Content-Type': 'application/json',
@@ -393,6 +405,12 @@
                         clear_data: clearDataCheckbox.checked,
                     }),
                 });
+
+                // Check for CSRF validation error
+                if (response.status === 419) {
+                    showError('Security token expired. Please refresh the page and try again.');
+                    return;
+                }
 
                 const data = await response.json();
 
@@ -418,12 +436,18 @@
 
     // Confirm Delete Handler
     confirmDeleteBtn.addEventListener('click', async function () {
+        if (!csrfToken) {
+            showError('Security token is missing. Please refresh the page and try again.');
+            return;
+        }
+        
         deleteSpinner.style.display = 'block';
         confirmDeleteBtn.disabled = true;
 
         try {
             const response = await fetch('{{ route("admin.database-management.delete-data") }}', {
                 method: 'POST',
+                credentials: 'same-origin',
                 headers: {
                     'X-CSRF-TOKEN': csrfToken,
                     'Content-Type': 'application/json',
@@ -432,6 +456,12 @@
                     confirmed: true,
                 }),
             });
+
+            // Check for CSRF validation error
+            if (response.status === 419) {
+                showError('Security token expired. Please refresh the page and try again.');
+                return;
+            }
 
             const data = await response.json();
 
