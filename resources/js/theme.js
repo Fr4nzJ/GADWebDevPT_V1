@@ -106,7 +106,7 @@ class ThemeManager {
 }
 
 // Initialize on DOM ready
-if (document.readyState = 'loading') {
+if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     window.themeManager = new ThemeManager();
   });
