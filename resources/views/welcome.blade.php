@@ -269,6 +269,99 @@
         z-index: 1;
     }
     
+    /* ===== NIGHT MODE TRANSFORMATIONS ===== */
+    html.night-mode .infographic-section {
+        background: #1a1a2e !important;
+        color: #e8e8e8 !important;
+    }
+    
+    html.night-mode .infographic-section.white-bg {
+        background: #1a1a2e !important;
+        color: #e8e8e8 !important;
+    }
+    
+    html.night-mode .section-header h2 {
+        color: #f5f5f5 !important;
+    }
+    
+    html.night-mode .section-header p {
+        color: #b8b8b8 !important;
+    }
+    
+    html.night-mode .kpi-card {
+        background: #0f1620 !important;
+        color: #e8e8e8 !important;
+    }
+    
+    html.night-mode .kpi-number {
+        color: #f5f5f5 !important;
+    }
+    
+    html.night-mode .kpi-label,
+    html.night-mode .kpi-card p {
+        color: #b8b8b8 !important;
+    }
+    
+    html.night-mode .timeline-item {
+        background: #0f1620 !important;
+        color: #e8e8e8 !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    }
+    
+    html.night-mode .timeline-year {
+        color: #a0d4ff !important;
+    }
+    
+    html.night-mode .timeline-text {
+        color: #b8b8b8 !important;
+    }
+    
+    html.night-mode .timeline::before {
+        background: linear-gradient(180deg, #667eea, #764ba2) !important;
+    }
+    
+    html.night-mode .chart-container {
+        background: #0f1620 !important;
+        color: #e8e8e8 !important;
+    }
+    
+    html.night-mode .chart-container h3 {
+        color: #f5f5f5 !important;
+    }
+    
+    html.night-mode .distribution-card {
+        background: #0f1620 !important;
+        color: #e8e8e8 !important;
+    }
+    
+    html.night-mode [style*="color: #2c3e50"] {
+        color: #f5f5f5 !important;
+    }
+    
+    html.night-mode [style*="color: #666"] {
+        color: #b8b8b8 !important;
+    }
+    
+    html.night-mode [style*="color: #999"] {
+        color: #7a7a8e !important;
+    }
+    
+    html.night-mode .step-title {
+        color: #f5f5f5 !important;
+    }
+    
+    html.night-mode .step-desc {
+        color: #b8b8b8 !important;
+    }
+    
+    html.night-mode [style*="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1)"] {
+        background: rgba(102, 126, 234, 0.15) !important;
+    }
+    
+    html.night-mode .box[style*="background: linear-gradient"] {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3)) !important;
+    }
+    
     @media (max-width: 768px) {
         /* Hide desktop timeline elements */
         .timeline::before {
@@ -352,6 +445,12 @@
         
         .step-title {
             font-size: 0.9rem;
+        }
+        
+        /* Night mode mobile adjustments */
+        html.night-mode .timeline-item {
+            background: #0f1620 !important;
+            color: #e8e8e8 !important;
         }
     }
 </style>
