@@ -56,6 +56,43 @@ html.night-mode {
   --table-bg: rgba(255, 255, 255, 0.06);
   --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.4);
   --shadow-hover: 0 15px 45px rgba(0, 0, 0, 0.6);
+  --dark-bg: #1a1a2e;
+  --dark-card-bg: #0f1620;
+  --light-text: #e8e8e8;
+}
+
+/* Night Mode - Transform white backgrounds to dark */
+html.night-mode [style*="background: white"],
+html.night-mode div[style*="background:white"],
+html.night-mode section[style*="background: white"] {
+  background: var(--dark-bg) !important;
+  color: var(--light-text) !important;
+}
+
+html.night-mode .white-bg {
+  background: var(--dark-bg) !important;
+  color: var(--light-text) !important;
+}
+
+/* Night mode - Dark text to light text transformation */
+html.night-mode [style*="color: #333"],
+html.night-mode [style*="color:#333"] {
+  color: var(--light-text) !important;
+}
+
+/* Night mode - Transform boxes with light backgrounds */
+html.night-mode .box {
+  background: var(--dark-card-bg) !important;
+  color: var(--light-text) !important;
+}
+
+/* Night mode - Cards and panels */
+html.night-mode .card,
+html.night-mode .panel,
+html.night-mode [class*="white"],
+html.night-mode [style*="background: linear-gradient"],
+html.night-mode .stat-box {
+  color: var(--light-text) !important;
 }
 
 /* Global Background */
@@ -471,6 +508,66 @@ header {
   background: var(--glass-bg) !important;
   backdrop-filter: blur(20px) !important;
   border: 1px solid var(--glass-border) !important;
+}
+
+/* ===================================================
+   NIGHT MODE - COMPREHENSIVE LIGHT-TO-DARK TRANSFORMATION
+   =================================================== */
+
+/* Transform all divs with inline white background styles - multiple formats */
+html.night-mode [style*="background: white"],
+html.night-mode [style*="background:white"],
+html.night-mode [style*="background-color: white"],
+html.night-mode [style*="background-color:white"],
+html.night-mode .white-bg,
+html.night-mode section.white-bg,
+html.night-mode .infographic-section.white-bg {
+  background: #1a1a2e !important;
+  color: #e8e8e8 !important;
+}
+
+/* Transform text colors in night mode - multiple formats */
+html.night-mode [style*="color: #333"],
+html.night-mode [style*="color:#333"],
+html.night-mode [style*="color: rgb(51, 51, 51)"],
+html.night-mode [style*="color:rgb(51"],
+html.night-mode [style*="color: #666"],
+html.night-mode [style*="color:#666"] {
+  color: #e8e8e8 !important;
+}
+
+/* Dark theme for cards with white backgrounds */
+html.night-mode .card,
+html.night-mode .panel,
+html.night-mode .box {
+  background: #0f1620 !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Transform borders for better contrast in night mode */
+html.night-mode [style*="#e8e8e8"] {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+html.night-mode [style*="border: 1px solid"] {
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Night mode enhanced shadows for depth */
+html.night-mode [style*="box-shadow: 0 2px"] {
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5) !important;
+}
+
+html.night-mode [style*="box-shadow: 0 6px"] {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Ensure critical white text (buttons, CTAs) stays readable */
+html.night-mode .button[style*="color: white"],
+html.night-mode button[style*="color: white"],
+html.night-mode [style*="color: white"][style*="background:"],
+html.night-mode a[style*="color: white"] {
+  color: #ffffff !important;
 }
 
 /* Scrollbar Styling */
