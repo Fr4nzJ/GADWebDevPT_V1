@@ -7,7 +7,7 @@
     <h1 class="page-title">Create New Event</h1>
 </div>
 
-<div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+<div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); color: #333;">
     @if ($errors->any())
         <div class="notification is-danger" style="margin-bottom: 1.5rem;">
             <ul>

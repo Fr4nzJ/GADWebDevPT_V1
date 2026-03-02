@@ -21,7 +21,7 @@
 @endif
 
 <!-- ===== CHART DATA TABLE ===== -->
-<div class="admin-table" style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+<div class="admin-table" style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); color: #333;">
     @if($chartData->count() > 0)
         <table class="table is-striped is-hoverable is-fullwidth">
             <thead style="background-color: #f5f7fa;">

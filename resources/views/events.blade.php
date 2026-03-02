@@ -53,6 +53,7 @@
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         border-left: 4px solid #667eea;
         transition: all 0.3s ease;
+        color: #333;
     }
     
     .timeline-content:hover {
@@ -96,7 +97,7 @@
         <div class="columns is-multiline">
             @forelse($statistics as $statistic)
             <div class="column is-6-tablet is-3-desktop">
-                <div style="background: white; border-radius: 12px; padding: 1.5rem; text-align: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+                <div style="background: white; border-radius: 12px; padding: 1.5rem; text-align: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); color: #333;">
                     @if($statistic->icon)
                     <div style="font-size: 2.5rem; color: {{ $statistic->color ?? '#667eea' }}; margin-bottom: 1rem;">
                         <i class="{{ $statistic->icon }}"></i>
@@ -128,7 +129,7 @@
         
         <div class="columns is-multiline">
             <div class="column is-6-tablet is-4-desktop">
-                <div style="background: white; border-radius: 12px; padding: 2rem; text-align: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); border-top: 4px solid #667eea;">
+                <div style="background: white; border-radius: 12px; padding: 2rem; text-align: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); border-top: 4px solid #667eea; color: #333;">
                     <div style="font-size: 2.5rem; color: #667eea; margin-bottom: 1rem;"><i class="fas fa-microphone"></i></div>
                     <h4 class="title is-5" style="color: #667eea; margin-bottom: 0.5rem;">Seminars & Conferences</h4>
                     <p style="color: #666; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1rem;">Large-scale events with keynote speakers and policy forums</p>
@@ -137,7 +138,7 @@
             </div>
             
             <div class="column is-6-tablet is-4-desktop">
-                <div style="background: white; border-radius: 12px; padding: 2rem; text-align: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); border-top: 4px solid #764ba2;">
+                <div style="background: white; border-radius: 12px; padding: 2rem; text-align: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); border-top: 4px solid #764ba2; color: #333;">
                     <div style="font-size: 2.5rem; color: #764ba2; margin-bottom: 1rem;"><i class="fas fa-graduation-cap"></i></div>
                     <h4 class="title is-5" style="color: #764ba2; margin-bottom: 0.5rem;">Training Workshops</h4>
                     <p style="color: #666; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1rem;">Capacity building and skills development programs</p>
@@ -146,7 +147,7 @@
             </div>
             
             <div class="column is-6-tablet is-4-desktop">
-                <div style="background: white; border-radius: 12px; padding: 2rem; text-align: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); border-top: 4px solid #48c774;">
+                <div style="background: white; border-radius: 12px; padding: 2rem; text-align: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); border-top: 4px solid #48c774; color: #333;">
                     <div style="font-size: 2.5rem; color: #48c774; margin-bottom: 1rem;"><i class="fas fa-users"></i></div>
                     <h4 class="title is-5" style="color: #48c774; margin-bottom: 0.5rem;">Community Engagement</h4>
                     <p style="color: #666; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1rem;">Local and grassroots advocacy campaigns</p>
@@ -164,7 +165,7 @@
 
         @forelse(auth()->check() ? \App\Models\Event::where('status', 'upcoming')->latest()->get() : \App\Models\Event::where('status', 'upcoming')->latest()->limit(6)->get() as $event)
         <!-- ===== SOCIAL MEDIA STYLE EVENT POST ===== -->
-        <div style="background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1); margin-bottom: 2rem; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease;" onmouseenter="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 6px 20px rgba(0, 0, 0, 0.15)';" onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 12px rgba(0, 0, 0, 0.1)';">
+        <div style="background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1); margin-bottom: 2rem; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; color: #333;" onmouseenter="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 6px 20px rgba(0, 0, 0, 0.15)';" onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 12px rgba(0, 0, 0, 0.1)';" >
             
             <!-- ===== EVENT POST HEADER ===== -->
             <div style="padding: 1.25rem; border-bottom: 1px solid #f0f0f0; display: flex; align-items: center; justify-content: space-between;">
@@ -269,7 +270,7 @@
             </div>
         </div>
         @empty
-        <div style="background: white; border-radius: 12px; padding: 3rem; text-align: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+        <div style="background: white; border-radius: 12px; padding: 3rem; text-align: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); color: #333;">
             <i class="fas fa-calendar-times" style="font-size: 3rem; color: #ddd; margin-bottom: 1rem;"></i>
             <h4 style="color: #999; font-size: 1.2rem; margin-bottom: 0.5rem;">No Upcoming Events</h4>
             <p style="color: #bbb;">Check back soon for new events!</p>
@@ -284,7 +285,7 @@
         <h2 class="section-title">Past Events Highlights</h2>
         
         @forelse(\App\Models\Event::where('status', 'completed')->latest()->limit(4)->get() as $event)
-        <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); border-left: 4px solid #667eea; margin-bottom: 1.5rem;">
+        <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); border-left: 4px solid #667eea; margin-bottom: 1.5rem; color: #333;">
             <div style="display: flex; gap: 1.5rem; align-items: flex-start;">
                 @if($event->images && count($event->images) > 0)
                 <div style="flex-shrink: 0; width: 150px; height: 150px; border-radius: 12px; overflow: hidden;">
@@ -314,7 +315,7 @@
             </div>
         </div>
         @empty
-        <div style="background: white; border-radius: 12px; padding: 2rem; text-align: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+        <div style="background: white; border-radius: 12px; padding: 2rem; text-align: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); color: #333;">
             <p style="color: #999;">No past events to display yet.</p>
         </div>
         @endforelse

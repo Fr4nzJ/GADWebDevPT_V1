@@ -15,7 +15,7 @@
 </div>
 
 <!-- ===== FILTER BAR ===== -->
-<div style="background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+<div style="background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); color: #333;">
     <div class="columns">
         <div class="column is-6-tablet is-4-desktop">
             <div class="field">

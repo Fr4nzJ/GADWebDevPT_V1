@@ -123,6 +123,7 @@
             border-left: 4px solid #667eea;
             transition: all 0.3s ease;
             height: 100%;
+            color: #333;
         }
 
         .contact-channel-card:hover {

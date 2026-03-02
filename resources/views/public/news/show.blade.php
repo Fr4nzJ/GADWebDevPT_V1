@@ -116,7 +116,7 @@
         <!-- Sidebar -->
         <div class="column is-4">
             <!-- Article Info Card -->
-            <div style="background: white; border-radius: 12px; padding: 1.5rem; border: 1px solid #e8e8e8; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <div style="background: white; border-radius: 12px; padding: 1.5rem; border: 1px solid #e8e8e8; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.1); color: #333;">
                 <h4 style="color: #667eea; font-weight: bold; margin-bottom: 1rem;">Article Details</h4>
                 <div style="font-size: 0.95rem;">
                     <p style="margin-bottom: 0.75rem;">
@@ -146,7 +146,7 @@
 
             <!-- Related Articles -->
             @if($relatedNews && count($relatedNews) > 0)
-                <div style="background: white; border-radius: 12px; padding: 1.5rem; border: 1px solid #e8e8e8; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <div style="background: white; border-radius: 12px; padding: 1.5rem; border: 1px solid #e8e8e8; box-shadow: 0 2px 8px rgba(0,0,0,0.1); color: #333;">
                     <h4 style="color: #667eea; font-weight: bold; margin-bottom: 1rem;">Related Articles</h4>
                     <div style="display: flex; flex-direction: column; gap: 1rem;">
                         @foreach($relatedNews as $article)

@@ -33,7 +33,7 @@
             @endif
         </div>
 
-    <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+    <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); color: #333;">
         <div class="field">
             <label class="label" style="color: #666; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;">Event Title</label>
             <p style="font-size: 1.5rem; font-weight: 700; color: #2c3e50; margin-bottom: 1.5rem;">{{ $event->title }}</p>

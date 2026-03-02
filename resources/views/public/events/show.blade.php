@@ -43,7 +43,7 @@
             <div class="column is-8-tablet is-8-desktop">
                 <!-- Event Images Gallery -->
                 @if($event->images && count($event->images) > 0)
-                <div style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); margin-bottom: 2rem;">
+                <div style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); margin-bottom: 2rem; color: #333;">
                     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
                         @foreach($event->images as $image)
                         <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);">
@@ -55,7 +55,7 @@
                 @endif
 
                 <!-- Event Description -->
-                <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); margin-bottom: 2rem;">
+                <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); margin-bottom: 2rem; color: #333;">
                     <h2 class="title is-4" style="color: #2c3e50; border-bottom: 3px solid #667eea; padding-bottom: 1rem; margin-bottom: 1.5rem;">Event Description</h2>
                     <div style="color: #666; line-height: 1.8; font-size: 1rem;">
                         {!! nl2br(e($event->description)) !!}
@@ -70,7 +70,7 @@
                     
                     <div class="columns is-multiline">
                         <div class="column is-6-tablet is-6-desktop">
-                            <div style="background: white; border-radius: 8px; padding: 1.5rem;">
+                            <div style="background: white; border-radius: 8px; padding: 1.5rem; color: #333;">
                                 <p style="color: #999; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">
                                     <i class="fas fa-calendar-alt" style="color: #667eea; margin-right: 0.5rem;"></i>Date & Time
                                 </p>
@@ -88,7 +88,7 @@
                         </div>
 
                         <div class="column is-6-tablet is-6-desktop">
-                            <div style="background: white; border-radius: 8px; padding: 1.5rem;">
+                            <div style="background: white; border-radius: 8px; padding: 1.5rem; color: #333;">
                                 <p style="color: #999; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">
                                     <i class="fas fa-map-marker-alt" style="color: #667eea; margin-right: 0.5rem;"></i>Location
                                 </p>
@@ -99,7 +99,7 @@
                         </div>
 
                         <div class="column is-6-tablet is-6-desktop">
-                            <div style="background: white; border-radius: 8px; padding: 1.5rem;">
+                            <div style="background: white; border-radius: 8px; padding: 1.5rem; color: #333;">
                                 <p style="color: #999; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">
                                     <i class="fas fa-flag" style="color: #667eea; margin-right: 0.5rem;"></i>Status
                                 </p>
@@ -124,7 +124,7 @@
                         </div>
 
                         <div class="column is-6-tablet is-6-desktop">
-                            <div style="background: white; border-radius: 8px; padding: 1.5rem;">
+                            <div style="background: white; border-radius: 8px; padding: 1.5rem; color: #333;">
                                 <p style="color: #999; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem;">
                                     <i class="fas fa-clock" style="color: #667eea; margin-right: 0.5rem;"></i>Posted
                                 </p>
@@ -153,7 +153,7 @@
                     <p style="font-size: 1.1rem; margin-bottom: 1.5rem; opacity: 0.95;">
                         Join us for this exciting event. Register now to secure your spot!
                     </p>
-                    <a href="{{ route('contact') }}" class="button is-large" style="background: white; color: #667eea; font-weight: 600;">
+                    <a href="{{ route('contact') }}" class="button is-large" style="background: white; color: #333; font-weight: 600;">
                         <span class="icon"><i class="fas fa-user-plus"></i></span>
                         <span>Register Now</span>
                     </a>
@@ -164,7 +164,7 @@
             <!-- ===== SIDEBAR ===== -->
             <div class="column is-4-tablet is-4-desktop">
                 <!-- Event Card -->
-                <div style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1); position: sticky; top: 2rem;">
+                <div style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1); position: sticky; top: 2rem; color: #333;">
                     <div style="text-align: center; margin-bottom: 1.5rem;">
                         <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; margin: 0 auto;">
                             <i class="fas fa-calendar-alt"></i>
@@ -233,7 +233,7 @@
         <div class="columns is-multiline">
             @foreach($otherEvents as $otherEvent)
             <div class="column is-6-tablet is-4-desktop">
-                <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); transition: all 0.3s ease;" onmouseenter="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 6px 16px rgba(0, 0, 0, 0.12)';" onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0, 0, 0, 0.08)';">
+                <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); transition: all 0.3s ease; color: #333;" onmouseenter="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 6px 16px rgba(0, 0, 0, 0.12)';" onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0, 0, 0, 0.08)';" >
                     @if($otherEvent->images && count($otherEvent->images) > 0)
                     <div style="height: 180px; overflow: hidden;">
                         <img src="{{ asset('storage/' . $otherEvent->images[0]) }}" style="width: 100%; height: 100%; object-fit: cover;" alt="{{ $otherEvent->title }}">

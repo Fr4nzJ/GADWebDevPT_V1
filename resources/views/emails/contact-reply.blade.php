@@ -8,7 +8,7 @@
         .header { background-color: #28a745; color: white; padding: 20px; border-radius: 5px; margin-bottom: 20px; }
         .section { background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
         .section h3 { margin-top: 0; color: #28a745; }
-        .message-box { background-color: white; border-left: 4px solid #28a745; padding: 15px; margin: 20px 0; }
+        .message-box { background-color: white; border-left: 4px solid #28a745; padding: 15px; margin: 20px 0; color: #333; }
         .original-message { background-color: #f8f9fa; border-left: 4px solid #ccc; padding: 15px; margin-top: 20px; font-style: italic; color: #666; }
         .footer { color: #666; border-top: 1px solid #ddd; padding-top: 20px; margin-top: 20px; font-size: 12px; }
     </style>

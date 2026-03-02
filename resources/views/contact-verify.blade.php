@@ -100,6 +100,7 @@
             padding: 3rem 2rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border-top: 4px solid #7b2cbf;
+            color: #333;
         }
 
         .verification-icon {

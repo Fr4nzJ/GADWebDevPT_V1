@@ -13,7 +13,7 @@
 </div>
 
 <!-- ===== FORM ===== -->
-<div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+<div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); color: #333;">
     <form action="{{ route('admin.reports.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 

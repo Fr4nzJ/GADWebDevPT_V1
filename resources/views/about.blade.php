@@ -48,6 +48,7 @@
         padding: 2.5rem;
         box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
         border-top: 5px solid #667eea;
+        color: #333;
     }
     
     .card-icon {
@@ -81,6 +82,7 @@
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         border-top: 4px solid #667eea;
         transition: all 0.3s ease;
+        color: #333;
     }
     
     .value-box:hover {
@@ -103,6 +105,7 @@
         text-align: center;
         border-radius: 10px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        color: #333;
     }
     
     .achievement-number {
@@ -131,6 +134,7 @@
         border-radius: 10px;
         border-left: 4px solid #667eea;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        color: #333;
     }
     
     @media (max-width: 768px) {
@@ -298,21 +302,21 @@
 
         <div class="columns">
             <div class="column is-4-desktop is-6-tablet">
-                <div style="background: white; border: 2px solid #667eea; border-radius: 10px; padding: 1.5rem; text-align: center;">
+                <div style="background: white; border: 2px solid #667eea; border-radius: 10px; padding: 1.5rem; text-align: center; color: #333;">
                     <div style="font-size: 2.5rem; margin-bottom: 1rem;"><i class="fas fa-sitemap" style="color: #667eea;"></i></div>
                     <h5 style="color: #2c3e50; font-weight: 600; margin-bottom: 0.5rem;">National Coordinating Committee</h5>
                     <p style="color: #666; font-size: 0.9rem; margin: 0;">Inter-agency committee with representatives from 18 departments</p>
                 </div>
             </div>
             <div class="column is-4-desktop is-6-tablet">
-                <div style="background: white; border: 2px solid #667eea; border-radius: 10px; padding: 1.5rem; text-align: center;">
+                <div style="background: white; border: 2px solid #667eea; border-radius: 10px; padding: 1.5rem; text-align: center; color: #333;">
                     <div style="font-size: 2.5rem; margin-bottom: 1rem;"><i class="fas fa-building" style="color: #667eea;"></i></div>
                     <h5 style="color: #2c3e50; font-weight: 600; margin-bottom: 0.5rem;">Agency Focal Persons</h5>
                     <p style="color: #666; font-size: 0.9rem; margin: 0;">250+ designated officials in government agencies nationwide</p>
                 </div>
             </div>
             <div class="column is-4-desktop is-6-tablet">
-                <div style="background: white; border: 2px solid #667eea; border-radius: 10px; padding: 1.5rem; text-align: center;">
+                <div style="background: white; border: 2px solid #667eea; border-radius: 10px; padding: 1.5rem; text-align: center; color: #333;">
                     <div style="font-size: 2.5rem; margin-bottom: 1rem;"><i class="fas fa-city" style="color: #667eea;"></i></div>
                     <h5 style="color: #2c3e50; font-weight: 600; margin-bottom: 0.5rem;">Local Focal Persons</h5>
                     <p style="color: #666; font-size: 0.9rem; margin: 0;">LGU representatives spanning provincial, municipal, and barangay levels</p>

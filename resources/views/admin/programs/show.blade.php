@@ -22,13 +22,13 @@
 <div class="columns is-multiline">
     <!-- Main Content -->
     <div class="column is-8">
-        <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); margin-bottom: 2rem;">
+        <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); margin-bottom: 2rem; color: #333;">
             <h3 class="title is-5" style="color: #667eea; border-bottom: 2px solid #f0f0f0; padding-bottom: 1rem; margin-bottom: 1.5rem;">Program Overview</h3>
             <p style="color: #666; line-height: 1.8;">{{ $program->description }}</p>
         </div>
 
         @if($program->objectives && count($program->objectives) > 0)
-        <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); margin-bottom: 2rem;">
+        <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); margin-bottom: 2rem; color: #333;">
             <h3 class="title is-5" style="color: #667eea; border-bottom: 2px solid #f0f0f0; padding-bottom: 1rem; margin-bottom: 1.5rem;">Objectives</h3>
             <ul style="margin-left: 1.5rem; color: #666; line-height: 1.8;">
                 @foreach($program->objectives as $objective)
@@ -39,7 +39,7 @@
         @endif
 
         @if($program->target_group)
-        <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); margin-bottom: 2rem;">
+        <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); margin-bottom: 2rem; color: #333;">
             <h3 class="title is-5" style="color: #667eea; border-bottom: 2px solid #f0f0f0; padding-bottom: 1rem; margin-bottom: 1.5rem;">Target Beneficiaries</h3>
             <p style="color: #666; line-height: 1.8;">{{ $program->target_group }}</p>
         </div>
@@ -49,7 +49,7 @@
     <!-- Sidebar -->
     <div class="column is-4">
         <!-- Program Info Card -->
-        <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); margin-bottom: 2rem;">
+        <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); margin-bottom: 2rem; color: #333;">
             <h3 class="title is-6" style="color: #667eea; margin-bottom: 1.5rem;">Program Information</h3>
 
             <div style="margin-bottom: 1.5rem;">
@@ -101,7 +101,7 @@
 
         <!-- Location Card -->
         @if($program->location)
-        <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); margin-bottom: 2rem;">
+        <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); margin-bottom: 2rem; color: #333;">
             <h3 class="title is-6" style="color: #667eea; margin-bottom: 1rem;">
                 <i class="fas fa-map-marker-alt"></i> Location
             </h3>
@@ -110,7 +110,7 @@
         @endif
 
         <!-- Metadata Card -->
-        <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+        <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); color: #333;">
             <h3 class="title is-6" style="color: #999; margin-bottom: 1.5rem; font-size: 0.85rem;">Metadata</h3>
 
             <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #f0f0f0;">

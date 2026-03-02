@@ -20,7 +20,7 @@
 <div class="columns">
     <!-- Main Info -->
     <div class="column is-8">
-        <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); margin-bottom: 2rem;">
+        <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); margin-bottom: 2rem; color: #333;">
             <h2 style="color: #2c3e50; font-size: 1.8rem; margin-bottom: 1.5rem; display: flex; align-items: center;">
                 @php
                     $initials = strtoupper(substr($user->name, 0, 1)) . strtoupper(substr(strrchr($user->name, ' '), 1, 1));
@@ -51,7 +51,7 @@
         </div>
 
         <!-- Account Timeline -->
-        <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+        <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); color: #333;">
             <h3 style="color: #2c3e50; font-weight: bold; margin-bottom: 1.5rem;">Account Timeline</h3>
             
             <div style="border-left: 2px solid #667eea; padding-left: 2rem; position: relative;">
@@ -77,7 +77,7 @@
     <!-- Sidebar -->
     <div class="column is-4">
         <!-- Quick Actions -->
-        <div style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); margin-bottom: 2rem;">
+        <div style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); margin-bottom: 2rem; color: #333;">
             <h4 style="color: #667eea; font-weight: bold; margin-bottom: 1rem;">Quick Actions</h4>
             <div style="display: flex; flex-direction: column; gap: 0.75rem;">
                 <a href="{{ route('admin.users.edit', $user) }}" class="button" style="background: #667eea; color: white; border: none; justify-content: center;">
@@ -92,7 +92,7 @@
         </div>
 
         <!-- User ID -->
-        <div style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+        <div style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); color: #333;">
             <h4 style="color: #667eea; font-weight: bold; margin-bottom: 1rem;">System Information</h4>
             <div>
                 <p style="color: #999; font-size: 0.9rem; margin-bottom: 0.5rem;"><strong>User ID</strong></p>

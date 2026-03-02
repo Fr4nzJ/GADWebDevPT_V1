@@ -13,6 +13,7 @@
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
+        color: #333;
     }
     
     .program-category-card::before {
@@ -167,7 +168,7 @@
         <div class="columns is-multiline">
             @forelse($statistics as $stat)
                 <div class="column is-6-tablet is-3-desktop">
-                    <div class="box has-text-centered {{ $stat->background_class }}" style="background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+                    <div class="box has-text-centered {{ $stat->background_class }}" style="background: white; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); color: #333;">
                         <h3 class="title is-2" style="color: {{ $stat->color ?? '#667eea' }}; margin-bottom: 0.5rem;">{{ $stat->value }}</h3>
                         <p style="color: #2c3e50; font-weight: 600;">{{ $stat->label }}</p>
                         @if($stat->description)

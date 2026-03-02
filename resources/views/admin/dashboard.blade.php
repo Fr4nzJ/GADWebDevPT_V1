@@ -85,7 +85,7 @@
 <!-- ===== CHARTS ROW ===== -->
 <div class="columns is-multiline" style="margin-top: 2rem;">
     <div class="column is-6-tablet is-6-desktop">
-        <div style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+        <div style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); color: #333;">
             <h4 style="font-weight: 600; color: #2c3e50; margin-bottom: 1.5rem; font-size: 1rem;">
                 <i class="fas fa-chart-line" style="color: #667eea; margin-right: 0.5rem;"></i>
                 Monthly Events Overview
@@ -95,7 +95,7 @@
     </div>
 
     <div class="column is-6-tablet is-6-desktop">
-        <div style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+        <div style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); color: #333;">
             <h4 style="font-weight: 600; color: #2c3e50; margin-bottom: 1.5rem; font-size: 1rem;">
                 <i class="fas fa-chart-pie" style="color: #764ba2; margin-right: 0.5rem;"></i>
                 Program Distribution Breakdown
@@ -107,7 +107,7 @@
 
 <!-- ===== RECENT ACTIVITY TABLE ===== -->
 <div style="margin-top: 2rem;">
-    <div style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+    <div style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); color: #333;">
         <h4 style="font-weight: 600; color: #2c3e50; margin-bottom: 1.5rem; font-size: 1rem;">
             <i class="fas fa-history" style="color: #667eea; margin-right: 0.5rem;"></i>
             Recent Activity

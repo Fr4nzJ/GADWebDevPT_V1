@@ -105,7 +105,7 @@
         <!-- News Articles -->
         <div id="newsContainer">
             @forelse(\App\Models\News::where('status', 'published')->latest()->paginate(6) as $article)
-            <article class="news-card" data-category="{{ $article->category }}" style="background: white; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1); overflow: hidden; transition: all 0.3s ease;" onmouseenter="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 6px 20px rgba(0, 0, 0, 0.15)';" onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 12px rgba(0, 0, 0, 0.1)';">
+            <article class="news-card" data-category="{{ $article->category }}" style="background: white; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1); overflow: hidden; transition: all 0.3s ease; color: #333;" onmouseenter="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 6px 20px rgba(0, 0, 0, 0.15)';" onmouseleave="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 12px rgba(0, 0, 0, 0.1)';" >
                 <!-- Featured Image -->
                 @if($article->images && count($article->images) > 0)
                 <div class="news-card-image">
@@ -154,7 +154,7 @@
                 </div>
             </article>
             @empty
-            <div style="background: white; border-radius: 12px; padding: 3rem; text-align: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+            <div style="background: white; border-radius: 12px; padding: 3rem; text-align: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); color: #333;">
                 <i class="fas fa-newspaper" style="font-size: 3rem; color: #ddd; margin-bottom: 1rem;"></i>
                 <h4 style="color: #999; font-size: 1.2rem; margin-bottom: 0.5rem;">No News Available</h4>
                 <p style="color: #bbb;">Check back soon for the latest updates!</p>

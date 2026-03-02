@@ -12,6 +12,7 @@
     
     .infographic-section.white-bg {
         background: white;
+        color: #333;
     }
     
     .section-header {
@@ -47,6 +48,7 @@
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         transition: all 0.3s ease;
         border-left: 5px solid #667eea;
+        color: #333;
     }
     
     .kpi-card:hover {
@@ -111,6 +113,7 @@
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         text-align: right;
         position: relative;
+        color: #333;
     }
     
     .timeline-item:nth-child(odd) {
@@ -156,6 +159,7 @@
         border-radius: 12px;
         padding: 1.5rem;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        color: #333;
     }
     
     /* Process Flow */
@@ -223,6 +227,7 @@
         padding: 1.5rem;
         text-align: center;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        color: #333;
     }
     
     .distribution-chart {
@@ -285,6 +290,7 @@
             display: flex;
             flex-direction: column;
             position: relative;
+            color: #333;
         }
         
         /* Remove desktop ::before pseudo-element */

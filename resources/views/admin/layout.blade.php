@@ -217,18 +217,19 @@
         }
         
         .admin-table thead th {
-            color: white;
+            color: #333;
             font-weight: 600;
             border: none;
             padding: 1.25rem;
+            background: #f5f5f5;
         }
         
         .admin-table tbody td {
             border: none;
             padding: 1.25rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid #e0e0e0;
             vertical-align: middle;
-            color: rgba(255, 255, 255, 0.9);
+            color: #333;
         }
         
         .admin-table tbody tr:hover {
@@ -376,8 +377,9 @@
         }
         
         .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+            background: white;
             border-color: white;
+            color: #667eea;
         }
     </style>
 </head>
@@ -435,6 +437,7 @@
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             overflow: hidden;
+            color: #333;
         }
         
         .admin-table table {
@@ -446,7 +449,7 @@
         }
         
         .admin-table thead th {
-            color: #667eea;
+            color: #333;
             font-weight: 600;
             border: none;
             padding: 1.25rem;
@@ -455,12 +458,13 @@
         .admin-table tbody td {
             border: none;
             padding: 1.25rem;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid #e0e0e0;
             vertical-align: middle;
+            color: #333;
         }
         
         .admin-table tbody tr:hover {
-            background-color: #f9faff;
+            background-color: #f5f5f5;
         }
         
         .admin-table tbody tr:last-child td {

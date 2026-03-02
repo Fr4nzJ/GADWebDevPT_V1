@@ -154,6 +154,7 @@
         border-left: 4px solid #667eea;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         transition: all 0.3s ease;
+        color: #333;
     }
     
     .resource-box:hover {
@@ -201,7 +202,7 @@
         <!-- ===== FILTER BAR ===== -->
         @if($hasPublishedReports)
         <form method="GET" action="{{ route('reports') }}" id="filterForm">
-            <div style="background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+            <div style="background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); color: #333;">
                 <div class="columns">
                     <div class="column is-6-tablet is-3-desktop">
                         <div class="field">
@@ -459,7 +460,7 @@
         <h2 class="section-title">GAD Statistical Yearbook</h2>
 
         @forelse ($yearbooks as $yearbook)
-        <div style="background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08); overflow: hidden; margin-bottom: 2rem;">
+        <div style="background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08); overflow: hidden; margin-bottom: 2rem; color: #333;">
             <div class="columns is-gapless">
                 <div class="column is-7" style="padding: 2.5rem;">
                     <h4 class="title is-5" style="color: #667eea; margin-bottom: 1rem;">{{ $yearbook->title }}</h4>
@@ -491,7 +492,7 @@
                         <i class="fas fa-chart-bar" style="font-size: 4rem; opacity: 0.3;"></i>
                         <div style="margin-top: 2.5rem;">
                             @if ($yearbook->file_path)
-                                <a href="{{ $yearbook->file_path }}" class="button" style="background: white; color: #667eea; border: none; font-weight: 600; width: 90%;">
+                                <a href="{{ $yearbook->file_path }}" class="button" style="background: white; color: #333; border: none; font-weight: 600; width: 90%;">
                                     <span class="icon"><i class="fas fa-download"></i></span>
                                     <span>Download @if ($yearbook->download_size)({{ $yearbook->download_size }})@endif</span>
                                 </a>

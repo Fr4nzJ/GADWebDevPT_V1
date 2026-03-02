@@ -7,7 +7,7 @@
     <h1 class="page-title">Edit News Article</h1>
 </div>
 
-<div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+<div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); color: #333;">
     @if ($errors->any())
         <div class="notification is-danger" style="margin-bottom: 1.5rem;">
             <ul>
@@ -124,7 +124,7 @@
                         </div>
                     </div>
 
-                    <div style="background: white; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; border-left: 4px solid #667eea;">
+                    <div style="background: white; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; border-left: 4px solid #667eea; color: #333;">
                         <p style="color: #999; font-size: 0.85rem; margin: 0;">Views: <strong style="color: #667eea;">{{ $news->views }}</strong></p>
                         <p style="color: #999; font-size: 0.85rem; margin: 0; margin-top: 0.5rem;">Updated: {{ $news->updated_at->format('M d, Y H:i') }}</p>
                     </div>
