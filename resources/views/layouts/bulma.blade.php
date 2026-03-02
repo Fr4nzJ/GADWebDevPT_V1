@@ -15,7 +15,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     
     <!-- Vite CSS & Theme JS -->
-    @vite(['resources/css/app.css', 'resources/js/theme.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     
     <!-- Theme Initialization (run before other scripts) -->
     <script>
