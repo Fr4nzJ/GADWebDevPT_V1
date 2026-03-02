@@ -21,8 +21,8 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
-    <!-- Vite CSS & Theme JS -->
-    @vite(['resources/css/app.css', 'resources/js/theme.js'])
+    <!-- Vite CSS & JS -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     
     <!-- Theme Initialization (run before other scripts) -->
     <script>
