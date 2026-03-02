@@ -198,6 +198,71 @@
         background: linear-gradient(90deg, #667eea, #764ba2);
         border-radius: 2px;
     }
+
+    /* ===== NIGHT MODE STYLES ===== */
+    html.night-mode .value-box {
+        background: #0f1620 !important;
+        color: #e8e8e8 !important;
+    }
+
+    html.night-mode .value-box p {
+        color: #b8b8b8 !important;
+    }
+
+    html.night-mode .achievement-stat {
+        background: #0f1620 !important;
+        color: #e8e8e8 !important;
+    }
+
+    html.night-mode .achievement-number {
+        color: #667eea !important;
+    }
+
+    html.night-mode .achievement-label {
+        color: #b8b8b8 !important;
+    }
+
+    html.night-mode .mandate-card {
+        background: #0f1620 !important;
+        color: #e8e8e8 !important;
+        border-left-color: #667eea !important;
+    }
+
+    html.night-mode .mandate-card p {
+        color: #b8b8b8 !important;
+    }
+
+    html.night-mode .vision-card {
+        background: transparent !important;
+    }
+
+    html.night-mode .vision-card p {
+        color: #e8e8e8 !important;
+    }
+
+    html.night-mode .mission-card {
+        background: white !important;
+    }
+
+    html.night-mode .mission-card .card-title {
+        color: #2c3e50 !important;
+    }
+
+    html.night-mode [style*="background: linear-gradient(135deg,  #ff00b3"] {
+        background: linear-gradient(135deg, #1a1a2e 0%, #0f1620 100%) !important;
+    }
+
+    html.night-mode [style*="color: #ffffff"] {
+        color: #e8e8e8 !important;
+    }
+
+    html.night-mode [style*="color: #2c3e50"] {
+        color: #f5f5f5 !important;
+    }
+
+    html.night-mode [style*="color: #666"] {
+        color: #b8b8b8 !important;
+    }
 </style>
 
 <!-- ===== VISION & MISSION - INFOGRAPHIC DESIGN ===== -->

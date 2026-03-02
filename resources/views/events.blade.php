@@ -66,6 +66,54 @@
         font-weight: 600;
         margin-bottom: 0.5rem;
     }
+
+    /* ===== NIGHT MODE STYLES ===== */
+    html.night-mode .timeline-marker {
+        background: linear-gradient(135deg, #667eea, #764ba2) !important;
+    }
+
+    html.night-mode .timeline-content {
+        background: #0f1620 !important;
+        color: #e8e8e8 !important;
+        border-left-color: #667eea !important;
+    }
+
+    html.night-mode .timeline-content h4 {
+        color: #f5f5f5 !important;
+    }
+
+    html.night-mode .timeline-content p {
+        color: #b8b8b8 !important;
+    }
+
+    html.night-mode [style*="background: white"] {
+        background: #0f1620 !important;
+        color: #e8e8e8 !important;
+    }
+
+    html.night-mode [style*="background: linear-gradient(135deg, #f5f7ff"] {
+        background: linear-gradient(135deg, #1a1a2e 0%, #0f1620 100%) !important;
+    }
+
+    html.night-mode [style*="color: #333"] {
+        color: #e8e8e8 !important;
+    }
+
+    html.night-mode [style*="color: #666"] {
+        color: #b8b8b8 !important;
+    }
+
+    html.night-mode [style*="color: #2c3e50"] {
+        color: #f5f5f5 !important;
+    }
+
+    html.night-mode [style*="color: #999"] {
+        color: #7a7a8e !important;
+    }
+
+    html.night-mode [style*="border-left: 4px solid #667eea"] {
+        border-left-color: #667eea !important;
+    }
 </style>
 
 <!-- ===== HERO SECTION WITH BACKGROUND IMAGE ===== -->

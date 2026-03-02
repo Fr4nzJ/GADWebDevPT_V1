@@ -57,6 +57,80 @@
             gap: 1rem;
         }
     }
+
+    /* ===== NIGHT MODE STYLES ===== */
+    html.night-mode .news-card {
+        background: #0f1620 !important;
+    }
+
+    html.night-mode .news-card-content {
+        background: #0f1620 !important;
+        color: #e8e8e8 !important;
+    }
+
+    html.night-mode .news-card h2 {
+        color: #f5f5f5 !important;
+    }
+
+    html.night-mode .news-card p {
+        color: #b8b8b8 !important;
+    }
+
+    html.night-mode .news-card-footer {
+        border-top-color: #2a2a3e !important;
+    }
+
+    html.night-mode .news-card-footer span {
+        color: #7a7a8e !important;
+    }
+
+    html.night-mode [style*="background: white"] {
+        background: #0f1620 !important;
+        color: #e8e8e8 !important;
+    }
+
+    html.night-mode [style*="color: #333"] {
+        color: #e8e8e8 !important;
+    }
+
+    html.night-mode [style*="color: #666"] {
+        color: #b8b8b8 !important;
+    }
+
+    html.night-mode [style*="color: #999"] {
+        color: #7a7a8e !important;
+    }
+
+    html.night-mode [style*="color: #bbb"] {
+        color: #7a7a8e !important;
+    }
+
+    html.night-mode [style*="color: #ddd"] {
+        color: #4a4a5a !important;
+    }
+
+    html.night-mode [style*="background: #f5f7ff"] {
+        background: #1a1a2e !important;
+    }
+
+    html.night-mode .box {
+        background: #0f1620 !important;
+        color: #e8e8e8 !important;
+    }
+
+    html.night-mode .input {
+        background: #1a1a2e !important;
+        color: #e8e8e8 !important;
+        border-color: #2a2a3e !important;
+    }
+
+    html.night-mode .input::placeholder {
+        color: #7a7a8e !important;
+    }
+
+    html.night-mode .button.is-primary {
+        background: linear-gradient(135deg, #667eea, #764ba2) !important;
+    }
 </style>
 <!-- ===== HERO SECTION WITH BACKGROUND IMAGE ===== -->
 <section class="hero-with-image">

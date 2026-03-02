@@ -64,6 +64,57 @@
         background: linear-gradient(90deg, #667eea, #764ba2);
         border-radius: 2px;
     }
+
+    /* ===== NIGHT MODE STYLES ===== */
+    html.night-mode .program-category-card {
+        background: #0f1620 !important;
+        color: #e8e8e8 !important;
+    }
+
+    html.night-mode .program-category-card h3 {
+        color: #f5f5f5 !important;
+    }
+
+    html.night-mode .program-category-card p {
+        color: #b8b8b8 !important;
+    }
+
+    html.night-mode .card {
+        background: #0f1620 !important;
+        color: #e8e8e8 !important;
+    }
+
+    html.night-mode .card-header {
+        background: #1a1a2e !important;
+    }
+
+    html.night-mode .card h3 {
+        color: #f5f5f5 !important;
+    }
+
+    html.night-mode [style*="background: linear-gradient(135deg, #f5f7ff"] {
+        background: linear-gradient(135deg, #1a1a2e 0%, #0f1620 100%) !important;
+    }
+
+    html.night-mode [style*="background: #f5f7ff"] {
+        background: #1a1a2e !important;
+    }
+
+    html.night-mode [style*="color: #667eea"] {
+        color: #667eea !important;
+    }
+
+    html.night-mode [style*="color: #666"] {
+        color: #b8b8b8 !important;
+    }
+
+    html.night-mode [style*="color: #2c3e50"] {
+        color: #f5f5f5 !important;
+    }
+
+    html.night-mode [style*="color: #999"] {
+        color: #7a7a8e !important;
+    }
 </style>
 
 <!-- ===== HERO SECTION WITH BACKGROUND IMAGE ===== -->
